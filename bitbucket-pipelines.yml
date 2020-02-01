@@ -4,7 +4,20 @@ image: gcc:6.5
 pipelines:
   default:
     - step:
+        name: Build on GCC 6.5
+        image: gcc:6.5
         script:
+          - apt-get -qq update && apt-get -y -qq install cmake
+          - git submodule update --init
+          - mkdir build; cd build
+          - cmake ..
+          - make
+
+    - step:
+        name: Build on GCC latest
+        image: gcc:latest
+        script:
+          - gcc --version
           - apt-get -qq update && apt-get -y -qq install cmake
           - git submodule update --init
           - mkdir build; cd build
