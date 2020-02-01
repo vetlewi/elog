@@ -1,4 +1,4 @@
-# Build ELOG with GCC 6.5
+# Build ELOG with GCC 6.5 and latest
 image: gcc:6.5
 
 pipelines:
