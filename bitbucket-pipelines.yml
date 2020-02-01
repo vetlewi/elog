@@ -6,6 +6,7 @@ pipelines:
     - step:
         script:
           - apt-get -qq update && apt-get -y -qq install cmake
+          - git submodule update --init
           - mkdir build; cd build
           - cmake ..
           - make
