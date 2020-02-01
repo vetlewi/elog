@@ -1,0 +1,10 @@
+# Build ELOG with GCC 6.5
+image: gcc:6.5
+
+pipelines:
+  default:
+    - step:
+        script:
+          - mkdir build; cd build
+          - cmake ..
+          - make
