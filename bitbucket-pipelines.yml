@@ -5,6 +5,7 @@ pipelines:
   default:
     - step:
         script:
+          - apt-get -qq update && apt-get -y -qq install cmake
           - mkdir build; cd build
           - cmake ..
           - make
