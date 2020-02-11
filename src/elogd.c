@@ -5949,7 +5949,7 @@ void convert_elog_link(LOGBOOK *lbs, char *link, char *link_text, char *result, 
 /*------------------------------------------------------------------*/
 
 void rsputs(const char *str) {
-   if (strlen_retbuf + (int) strlen(str) + 1 >= return_buffer_size) {
+   while (strlen_retbuf + (int) strlen(str) + 1 >= return_buffer_size) {
       return_buffer = xrealloc(return_buffer, return_buffer_size + (int) strlen(str) + 100000);
       memset(return_buffer + return_buffer_size, 0, (int) strlen(str) + 100000);
       return_buffer_size += (int) strlen(str) + 100000;
@@ -5967,7 +5967,7 @@ void rsputs2(LOGBOOK *lbs, int absolute_link, const char *str) {
    int i, j, k, l, n;
    char *p, *pd, link[1000], link_text[1000];
 
-   if (strlen_retbuf + (int) (2 * strlen(str) + 1000) >= return_buffer_size) {
+   while (strlen_retbuf + (int) (2 * strlen(str) + 1000) >= return_buffer_size) {
       return_buffer = xrealloc(return_buffer, return_buffer_size + 100000);
       memset(return_buffer + return_buffer_size, 0, 100000);
       return_buffer_size += 100000;
@@ -6270,7 +6270,7 @@ void rsputs_elcode(LOGBOOK *lbs, BOOL email_notify, const char *str) {
    char *p, *pd, link[1000], link_text[1000], tmp[1000], attrib[1000], hattrib[1000], value[1000],
            subst[1000], base_url[256], param[256], *lstr, domain[256];
 
-   if (strlen_retbuf + (int) (2 * strlen(str) + 1000) >= return_buffer_size) {
+   while (strlen_retbuf + (int) (2 * strlen(str) + 1000) >= return_buffer_size) {
       return_buffer = xrealloc(return_buffer, return_buffer_size + 100000);
       memset(return_buffer + return_buffer_size, 0, 100000);
       return_buffer_size += 100000;
@@ -6736,7 +6736,7 @@ void rsprintf(const char *format, ...) {
    vsprintf(str, (char *) format, argptr);
    va_end(argptr);
 
-   if (strlen_retbuf + (int) strlen(str) + 1 >= return_buffer_size) {
+   while (strlen_retbuf + (int) strlen(str) + 1 >= return_buffer_size) {
       return_buffer = xrealloc(return_buffer, return_buffer_size + 100000);
       memset(return_buffer + return_buffer_size, 0, 100000);
       return_buffer_size += 100000;
@@ -8467,7 +8467,7 @@ void send_file_direct(char *file_name) {
       rsprintf("Content-Length: %d\r\n\r\n", length);
 
       /* increase return buffer size if file too big */
-      if (length > return_buffer_size - (int) strlen(return_buffer)) {
+      while (length > return_buffer_size - (int) strlen(return_buffer)) {
          delta = length - (return_buffer_size - strlen(return_buffer)) + 1000;
 
          return_buffer = xrealloc(return_buffer, return_buffer_size + delta);
@@ -14757,7 +14757,7 @@ int show_download_page(LOGBOOK *lbs, char *path) {
    show_plain_header(size, "export.txt");
 
    /* increase return buffer size if file too big */
-   if (size + 1 >= return_buffer_size - (int) strlen(return_buffer)) {
+   while (size + 1 >= return_buffer_size - (int) strlen(return_buffer)) {
       delta = size - (return_buffer_size - strlen(return_buffer)) + 1000;
 
       return_buffer = (char *) xrealloc(return_buffer, return_buffer_size + delta);
@@ -14792,7 +14792,7 @@ int download_config() {
    show_plain_header(size, "export.txt");
 
    /* increase return buffer size if file too big */
-   if (size + 1 >= return_buffer_size - (int) strlen(return_buffer)) {
+   while (size + 1 >= return_buffer_size - (int) strlen(return_buffer)) {
       delta = size - (return_buffer_size - strlen(return_buffer)) + 1000;
 
       return_buffer = (char *) xrealloc(return_buffer, return_buffer_size + delta);
@@ -28632,7 +28632,7 @@ void decode_post(char *logbook, LOGBOOK *lbs, const char *string, const char *bo
                string = strstr(p, boundary) + strlen(boundary);
 
                if (stricmp(item, "text") == 0) {
-                  if (string - p > TEXT_SIZE) {
+                  if (string - p >= TEXT_SIZE-100) {
                      sprintf(str,
                              "Error: Entry text too big. Please increase TEXT_SIZE and recompile elogd\n");
                      show_error(str);
