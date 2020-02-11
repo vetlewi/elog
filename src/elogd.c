@@ -9351,6 +9351,10 @@ void attrib_from_param(int n_attr, char attrib[MAX_N_ATTR][NAME_LENGTH]) {
             strlcpy(attrib[i], getparam(ua), NAME_LENGTH);
          else
             attrib[i][0] = 0;
+         if (attrib[i][0] == '^' && attrib[i][strlen(attrib[i])-1] == '$') {
+            memmove(&attrib[i][0], &attrib[i][1], strlen(attrib[i]));
+            attrib[i][strlen(attrib[i])-1] = 0;
+         }
       }
    }
 }
@@ -12468,7 +12472,7 @@ void show_find_form(LOGBOOK *lbs) {
             }
          }
 
-            /* display check boxes (or'ed) */
+         /* display check boxes (or'ed) */
          else if (attr_flags[i] & AF_MULTI) {
             for (j = 0; j < MAX_N_LIST && attr_options[i][j][0]; j++) {
                sprintf(str, "%s_%d", attr_list[i], j);
