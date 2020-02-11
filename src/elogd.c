@@ -27088,6 +27088,8 @@ void show_uploader_json(LOGBOOK *lbs) {
 
    for (i = 0; i < attch_count; i++) {
       sprintf(attchname, "attachment%d", i);
+      if (!isparam(attchname))
+         continue;
 
       rsprintf("    {\r\n");
       rsprintf("      \"fullName\": \"%s\",\r\n", getparam(attchname));
@@ -27107,7 +27109,6 @@ void show_uploader_json(LOGBOOK *lbs) {
       }
 
       rsprintf("      \"contentType\": ");
-
 
       for (j = 0; filetype[j].ext[0]; j++)
          if (chkext(filename, filetype[j].ext))
