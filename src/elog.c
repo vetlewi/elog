@@ -304,8 +304,12 @@ int ssl_connect(int sock, SSL ** ssl_con)
    
    SSL_library_init();
    SSL_load_error_strings();
-   
+
+#if OPENSSL_VERSION_NUMBER > 0x1010000fL
    meth = (SSL_METHOD *) TLS_method();
+#else
+   meth = (SSL_METHOD *) TLSv1_2_method();
+#endif
    ctx = SSL_CTX_new(meth);
    
    *ssl_con = SSL_new(ctx);
