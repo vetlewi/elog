@@ -40,7 +40,7 @@ cp -p src/*.h $dir/src
 cp -p mxml/*.c $dir/mxml
 cp -p mxml/*.h $dir/mxml
 cp -p Makefile $dir
-cp -p elogd.cfg $dir/elogd.cfg
+cp -p elogd.cfg.example $dir/elogd.cfg.example
 cp -p COPYING $dir
 cp -p README $dir
 cp -p elogd.init_template $dir
@@ -61,12 +61,13 @@ cp -p logbooks/demo/2001/011108a.log $dir/logbooks/demo/2001/
 # create elog-x.xx.tar.gz file
 echo Creating archive...
 cd /tmp
-tar -cvzf $archive elog-$version/
+tar -czf $archive elog-$version/
 
 # remove temporary files
 rm -Rf $dir
 
 # transfer archive
+echo Transfer archive...
 cp /tmp/$archive ~ritt/html/elog/download/tar/
 cp /tmp/$archive ~ritt/html/elog/download/tar/elog-latest.tar.gz
 cp /tmp/$archive ~/rpmbuild/SOURCES/elog-$version.tar.gz
@@ -75,13 +76,11 @@ cp -f doc/ChangeLog ~ritt/html/elog/download/ChangeLog
 rm -f /tmp/$archive
 
 # building RPMs
-rm -f ~rpmbuild/RPMS/x86_64/*
-rm -f ~rpmbuild/SRPMS/*
+echo Build RPMs...
+rm -f ~/rpmbuild/RPMS/x86_64/*
+rm -f ~/rpmbuild/SRPMS/*
 rpmbuild -ba elog.spec || exit $?
 cp ~/rpmbuild/RPMS/x86_64/elog*rpm ~ritt/html/elog/download/RPMS/
 cp ~/rpmbuild/RPMS/x86_64/elog-$version-$release.x86_64.rpm ~ritt/html/elog/download/RPMS/elog-latest.x86_64.rpm
 cp ~/rpmbuild/SRPMS/elog*rpm ~ritt/html/elog/download/SRPMS/
 cp ~/rpmbuild/SRPMS/elog-$version-$release.src.rpm ~ritt/html/elog/download/SRPMS/elog-latest.src.rpm
-
-
-
