@@ -20,14 +20,17 @@ On VMPC1865 (VmWare):
 - git pull
 - build xxx-1 in c:\elog
 
-On llc.psi.ch:
+On ritt@llc.psi.ch:
 
-- git pull in elog and mxml
+- [~/elog]$ git pull
+- [~/elog]$ git submodule update
 
-On elog.psi.ch:
+On ritt@elog.psi.ch:
 
 - cd ~ritt/elog
-- ./build x.x.x 1
+- ./buildrpm x.x.x 1
+
+Check files at https://elog.psi.ch/elog/download/RPMS/
 
 Declare new version at forum.
 
@@ -40,11 +43,15 @@ On VPC6562-1:
 - c:\elog> svn ci -m "Version x.x.x-y" 
 - open VS 2010 command window, build xxx-y
 
-On llc.psi.ch:
+On ritt@llc.psi.ch:
 
-- log in as ritt
-- git pull in elog and mxml
+- [~/elog]$ git pull
+- [~/elog]$ git submodule update
 
-On elog.psi.ch:
+On ritt@elog.psi.ch:
 
-- build x.x.x y
+- cd ~ritt/elog
+- ./buildrpm x.x.x 1
+
+Check files at https://elog.psi.ch/elog/download/RPMS/
+
