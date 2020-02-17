@@ -29721,7 +29721,6 @@ void server_loop(void) {
          if (stat(pidfile, &finfo) >= 0) {
             /* never overwrite a file */
             eprintf("Refuse to overwrite existing file \"%s\".\n", pidfile);
-            _exit(EXIT_FAILURE);        /* don't call atexit() hook */
          }
       }
 
@@ -29729,14 +29728,12 @@ void server_loop(void) {
       if (fd < 0) {
          sprintf(str, "Error creating pid file \"%s\"", pidfile);
          eprintf("%s; %s\n", str, strerror(errno));
-         exit(EXIT_FAILURE);
       }
 
       sprintf(buf, "%d\n", (int) getpid());
       if (write(fd, buf, strlen(buf)) == -1) {
          sprintf(str, "Error writing to pid file \"%s\"", pidfile);
          eprintf("%s; %s\n", str, strerror(errno));
-         exit(EXIT_FAILURE);
       }
       close(fd);
    }
