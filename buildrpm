@@ -70,7 +70,7 @@ mkdir -p ~/rpmbuild/SOURCES && cp /tmp/$archive ~/rpmbuild/SOURCES/elog-$version
 if (`hostname` == 'elog01.psi.ch') then
   if ( -d ~ritt/html/elog/download/tar ) then
     echo "Copy tar file to download area..."
-    cp -v /tmp/$archive ~ritt/html/elog/download/tar/
+    cp -v /tmp/$archive ~ritt/html/elog/download/tar/elog-$version-$release.tar.gz
     cp -v /tmp/$archive ~ritt/html/elog/download/tar/elog-latest.tar.gz
     cp -vf doc/ChangeLog ~ritt/html/elog/download/ChangeLog
   endif
