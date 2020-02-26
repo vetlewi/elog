@@ -9,6 +9,7 @@ endif
  
 set version = $argv[1]
 set release = $argv[2]
+set dist = `rpm --eval %{\?dist}`
 set dir = /tmp/elog-$version
 set archive = elog-$version.tar.gz
 
@@ -90,8 +91,8 @@ if (`hostname` == 'elog01.psi.ch') then
   if ( -d ~ritt/html/elog/download/tar ) then
     echo "Copy rpm file to download area..."
     cp -v ~/rpmbuild/RPMS/x86_64/elog*rpm ~ritt/html/elog/download/RPMS/
-    cp -v ~/rpmbuild/RPMS/x86_64/elog-$version-$release.el7.x86_64.rpm ~ritt/html/elog/download/RPMS/elog-latest.el7.x86_64.rpm
+    cp -v ~/rpmbuild/RPMS/x86_64/elog-$version-$release${dist}.x86_64.rpm ~ritt/html/elog/download/RPMS/elog-latest${dist}.x86_64.rpm
     cp -v ~/rpmbuild/SRPMS/elog*rpm ~ritt/html/elog/download/SRPMS/
-    cp -v ~/rpmbuild/SRPMS/elog-$version-$release.el7.src.rpm ~ritt/html/elog/download/SRPMS/elog-latest.el7.src.rpm
+    cp -v ~/rpmbuild/SRPMS/elog-$version-$release${dist}.src.rpm ~ritt/html/elog/download/SRPMS/elog-latest${dist}.src.rpm
   endif
 endif
