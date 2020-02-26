@@ -1,6 +1,6 @@
 #!/bin/csh
-#Usage: build [-n] <version> <release>
-#Build ELOG distribution
+# Usage: build [-n] <version> <release>
+# Build ELOG distribution
 
 if ($#argv < 2) then
   echo "Usage: build <version> <release>"
@@ -11,8 +11,6 @@ set version = $argv[1]
 set release = $argv[2]
 set dir = /tmp/elog-$version
 set archive = elog-$version-$release.tar.gz
-
-perl -wapi.bak -e 's&^(Version:\s+).*$&${1}'"${version}"'&;s&^(Release:\s+).*$&${1}'"${release}"'&;' elog.spec
 
 # create temporary directory
 rm -Rf $dir
@@ -68,19 +66,35 @@ rm -Rf $dir
 
 # transfer archive
 echo Transfer archive...
-cp /tmp/$archive ~ritt/html/elog/download/tar/
-cp /tmp/$archive ~ritt/html/elog/download/tar/elog-latest.tar.gz
 cp /tmp/$archive ~/rpmbuild/SOURCES/elog-$version.tar.gz
-cd ~ritt/elog
-cp -f doc/ChangeLog ~ritt/html/elog/download/ChangeLog
+
+# if running on at PSI copy to download area
+if ( -d /home/ritt ) then
+  echo "Copy to download area"
+  if ( -d ~ritt/html/elog/download/tar ) then
+    cp /tmp/$archive ~ritt/html/elog/download/tar/
+    cp /tmp/$archive ~ritt/html/elog/download/tar/elog-latest.tar.gz
+    cd ~ritt/elog
+    cp -f doc/ChangeLog ~ritt/html/elog/download/ChangeLog
+  endif
+endif
+cd -
 rm -f /tmp/$archive
 
+echo Cleanup $version-$release rpms
+rm -f ~/rpmbuild/RPMS/*/elog*${version}-${release}*.rpm
+rm -f ~/rpmbuild/SRPMS/elog*${version}-${release}*.rpm
+
 # building RPMs
-echo Build RPMs...
-rm -f ~/rpmbuild/RPMS/x86_64/*
-rm -f ~/rpmbuild/SRPMS/*
-rpmbuild -ba elog.spec || exit $?
-cp ~/rpmbuild/RPMS/x86_64/elog*rpm ~ritt/html/elog/download/RPMS/
-cp ~/rpmbuild/RPMS/x86_64/elog-$version-$release.x86_64.rpm ~ritt/html/elog/download/RPMS/elog-latest.x86_64.rpm
-cp ~/rpmbuild/SRPMS/elog*rpm ~ritt/html/elog/download/SRPMS/
-cp ~/rpmbuild/SRPMS/elog-$version-$release.src.rpm ~ritt/html/elog/download/SRPMS/elog-latest.src.rpm
+echo Build RPMs..
+rpmbuild -ba --define "version ${version}" --define "release ${release}" elog.spec || exit $?
+
+# if running on at PSI copy to download area
+if ( -d /home/ritt ) then
+  if ( -d ~ritt/html/elog/download/tar ) then
+    cp ~/rpmbuild/RPMS/x86_64/elog*rpm ~ritt/html/elog/download/RPMS/
+    cp ~/rpmbuild/RPMS/x86_64/elog-$version-$release.x86_64.rpm ~ritt/html/elog/download/RPMS/elog-latest.x86_64.rpm
+    cp ~/rpmbuild/SRPMS/elog*rpm ~ritt/html/elog/download/SRPMS/
+    cp ~/rpmbuild/SRPMS/elog-$version-$release.src.rpm ~ritt/html/elog/download/SRPMS/elog-latest.src.rpm
+  endif
+endif

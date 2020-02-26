@@ -6,6 +6,9 @@
 # config: /usr/local/elog/elogd.cfg
 # pidfile: /var/run/elogd.pid
 
+# RHEL
+[ -f /etc/init.d/functions ] && . /etc/init.d/functions
+
 # Check for the config file
 if [ ! -f /usr/local/elog/elogd.cfg ]; then
     exit 0

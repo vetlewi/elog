@@ -1,9 +1,13 @@
-# OpenSSH privilege separation requires a user & group ID
+# ELOG weblog application
+# rpmbuild -ba --define 'version 3.1.4' --define 'release 2' --define "date $(LC_TIME=En date '+%a %b %d %Y')" elog.spec
+ 
+#define	date	$(LC_TIME=En date '+%a %b %d %Y')      
+%define build_timestamp %(LC_TIME=En date '+%a %b %d %Y')
 
 Name:       elog
 Summary:    elog is a standalone electronic web logbook
-Version:    3.1.4
-Release:    2
+Version:    %version
+Release:    %release%{?dist}
 License:    GPL
 Group:      Applications/Networking
 Source:     http://elog.psi.ch/elog/download/elog-%{version}.tar.gz
@@ -41,6 +45,8 @@ access control, etc. Moreover, a single server can host several weblogs, and
 each weblog can be totally different from the rest. 
 
 %changelog
+* %{build_timestamp} Stefan Ritt <stefan.ritt@psi.ch> %version-%release
+- Updated from git 
 * Wed Sep 26 2018 Stefan Ritt <stefan.ritt@psi.ch>
 - Made adjustments for new elog server and RH7
 * Fri Aug 29 2014 Stefan Ritt <stefan.ritt@psi.ch>
@@ -72,7 +78,7 @@ each weblog can be totally different from the rest.
    -g elog -M -r elog 2>/dev/null || :
 
 %build
-make
+make CFLAGS='-O3 -funroll-loops -fomit-frame-pointer -W -Wall -Wno-deprecated-declarations -Imxml -g'
 sed "s#\@PREFIX\@#%{prefix}#g" elogd.init_template > elogd.init
 
 %install
