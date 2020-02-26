@@ -10,7 +10,7 @@ endif
 set version = $argv[1]
 set release = $argv[2]
 set dir = /tmp/elog-$version
-set archive = elog-$version-$release.tar.gz
+set archive = elog-$version.tar.gz
 
 # create temporary directory
 rm -Rf $dir
@@ -52,33 +52,29 @@ cp -p -r scripts/* $dir/scripts
 cp -p resources/* $dir/resources
 cp -p ssl/* $dir/ssl
 
-cp -p themes/default/* $dir/themes/default
-cp -p themes/default/icons/* $dir/themes/default/icons
+cp -rp themes/default/* $dir/themes/default
 cp -p logbooks/demo/2001/011108a.log $dir/logbooks/demo/2001/
 
 # create elog-x.xx.tar.gz file
 echo Creating archive...
-cd /tmp
-tar -czf $archive elog-$version/
+tar -czf /tmp/$archive -C /tmp/ elog-$version/
 
 # remove temporary files
 rm -Rf $dir
 
 # transfer archive
 echo Transfer archive...
-cp /tmp/$archive ~/rpmbuild/SOURCES/elog-$version.tar.gz
+mkdir -p ~/rpmbuild/SOURCES && cp /tmp/$archive ~/rpmbuild/SOURCES/elog-$version.tar.gz
 
 # if running on at PSI copy to download area
-if ( -d /home/ritt ) then
-  echo "Copy to download area"
+if (`hostname` == 'elog01.psi.ch') then
   if ( -d ~ritt/html/elog/download/tar ) then
-    cp /tmp/$archive ~ritt/html/elog/download/tar/
-    cp /tmp/$archive ~ritt/html/elog/download/tar/elog-latest.tar.gz
-    cd ~ritt/elog
-    cp -f doc/ChangeLog ~ritt/html/elog/download/ChangeLog
+    echo "Copy tar file to download area..."
+    cp -v /tmp/$archive ~ritt/html/elog/download/tar/
+    cp -v /tmp/$archive ~ritt/html/elog/download/tar/elog-latest.tar.gz
+    cp -vf doc/ChangeLog ~ritt/html/elog/download/ChangeLog
   endif
 endif
-cd -
 rm -f /tmp/$archive
 
 echo Cleanup $version-$release rpms
@@ -86,15 +82,16 @@ rm -f ~/rpmbuild/RPMS/*/elog*${version}-${release}*.rpm
 rm -f ~/rpmbuild/SRPMS/elog*${version}-${release}*.rpm
 
 # building RPMs
-echo Build RPMs..
+echo Build RPMs...
 rpmbuild -ba --define "version ${version}" --define "release ${release}" elog.spec || exit $?
 
 # if running on at PSI copy to download area
-if ( -d /home/ritt ) then
+if (`hostname` == 'elog01.psi.ch') then
   if ( -d ~ritt/html/elog/download/tar ) then
-    cp ~/rpmbuild/RPMS/x86_64/elog*rpm ~ritt/html/elog/download/RPMS/
-    cp ~/rpmbuild/RPMS/x86_64/elog-$version-$release.x86_64.rpm ~ritt/html/elog/download/RPMS/elog-latest.x86_64.rpm
-    cp ~/rpmbuild/SRPMS/elog*rpm ~ritt/html/elog/download/SRPMS/
-    cp ~/rpmbuild/SRPMS/elog-$version-$release.src.rpm ~ritt/html/elog/download/SRPMS/elog-latest.src.rpm
+    echo "Copy rpm file to download area..."
+    cp -v ~/rpmbuild/RPMS/x86_64/elog*rpm ~ritt/html/elog/download/RPMS/
+    cp -v ~/rpmbuild/RPMS/x86_64/elog-$version-$release.el7.x86_64.rpm ~ritt/html/elog/download/RPMS/elog-latest.el7.x86_64.rpm
+    cp -v ~/rpmbuild/SRPMS/elog*rpm ~ritt/html/elog/download/SRPMS/
+    cp -v ~/rpmbuild/SRPMS/elog-$version-$release.el7.src.rpm ~ritt/html/elog/download/SRPMS/elog-latest.el7.src.rpm
   endif
 endif
