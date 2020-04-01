@@ -29714,14 +29714,9 @@ void server_loop(void) {
 
       /* check if file exists */
       if (stat(pidfile, &finfo) >= 0) {
-         eprintf("File \"%s\" exists, using \"%s.%d\" instead.\n", pidfile, pidfile, elog_tcp_port);
-         sprintf(pidfile + strlen(pidfile), ".%d", elog_tcp_port);
-
-         /* check again for the new name */
-         if (stat(pidfile, &finfo) >= 0) {
-            /* never overwrite a file */
-            eprintf("Refuse to overwrite existing file \"%s\".\n", pidfile);
-         }
+         /* if it exists remove it */
+         eprintf("File \"%s\" exists, overwriting it.\n", pidfile);
+         remove(pidfile);
       }
 
       fd = open(pidfile, O_CREAT | O_RDWR, 0644);
