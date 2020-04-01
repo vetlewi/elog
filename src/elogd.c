@@ -23394,19 +23394,6 @@ void submit_elog(LOGBOOK *lbs) {
          strcpy(in_reply_to, isparam("reply_to") ? getparam("reply_to") : "");
    }
 
-   if (_logging_level > 1) {
-      if (bmultiedit)
-         sprintf(str, "EDIT multiple entries");
-      else if (bdraft)
-         sprintf(str, "DRAFT entry #%d", message_id);
-      else if (bedit && !resubmit_orig)
-         sprintf(str, "EDIT entry #%d", message_id);
-      else
-         sprintf(str, "NEW entry #%d", message_id);
-
-      write_logfile(lbs, str);
-   }
-
    if (bmultiedit) {
       for (i = n = 0; i < atoi(getparam("nsel")); i++) {
          sprintf(str, "s%d", i);
@@ -23447,6 +23434,19 @@ void submit_elog(LOGBOOK *lbs) {
       }
    }
 
+   if (_logging_level > 1) {
+      if (bmultiedit)
+         sprintf(str, "EDIT multiple entries");
+      else if (bdraft)
+         sprintf(str, "DRAFT entry #%d", message_id);
+      else if (bedit && !resubmit_orig)
+         sprintf(str, "EDIT entry #%d", message_id);
+      else
+         sprintf(str, "NEW entry #%d", message_id);
+
+      write_logfile(lbs, str);
+   }
+   
    /* evaluate propagation of attributes */
    if (getcfg(lbs->name, "Propagate attributes", str, sizeof(str)))
       propagate_attrib(lbs, find_thread_head(lbs, message_id), attrib);
