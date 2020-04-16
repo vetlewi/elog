@@ -17643,9 +17643,9 @@ void display_line(LOGBOOK *lbs, int message_id, int number, char *mode, int expa
    /* check attributes for row style */
    for (i = 0; i < n_attr; i++) {
       if (attrib[i][0] == 0)
-         sprintf(str, "Style %s \"\"", attr_list[i]);
+         snprintf(str, sizeof(str), "Style %s \"\"", attr_list[i]);
       else
-         sprintf(str, "Style %s %s", attr_list[i], attrib[i]);
+         snprintf(str, sizeof(str), "Style %s %s", attr_list[i], attrib[i]);
       if (getcfg(lbs->name, str, display, sizeof(display))) {
          sprintf(str, "%s\" style=\"%s", rowstyle, display);
          strlcpy(rowstyle, str, sizeof(rowstyle));
@@ -17879,7 +17879,7 @@ void display_line(LOGBOOK *lbs, int message_id, int number, char *mode, int expa
 
                /* check attributes for cell style */
                strlcpy(tdstyle, rowstyle, sizeof(tdstyle));
-               sprintf(str, "Cell Style %s %s", attr_list[i], attrib[i]);
+               snprintf(str, sizeof(str), "Cell Style %s %s", attr_list[i], attrib[i]);
                if (getcfg(lbs->name, str, display, sizeof(display))) {
                   sprintf(str, "%s\" style=\"%s", rowstyle, display);
                   strlcpy(tdstyle, str, sizeof(rowstyle));
@@ -23446,7 +23446,7 @@ void submit_elog(LOGBOOK *lbs) {
 
       write_logfile(lbs, str);
    }
-   
+
    /* evaluate propagation of attributes */
    if (getcfg(lbs->name, "Propagate attributes", str, sizeof(str)))
       propagate_attrib(lbs, find_thread_head(lbs, message_id), attrib);
