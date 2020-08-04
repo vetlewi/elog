@@ -30068,9 +30068,8 @@ void server_loop(void) {
                               break;
                            }
 
-                           if (net_buffer_size >= 100000000) {
-                              sprintf(str,
-                                      "Error: Request extends 100 MB, dropped");
+                           if (net_buffer_size >= 1024*1024*1024) {
+                              sprintf(str, "Error: Request extends 1 GB, dropped");
                               show_error(str);
                               break;
                            }
