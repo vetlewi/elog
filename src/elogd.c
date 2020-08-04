@@ -8491,7 +8491,6 @@ void send_file_direct(char *file_name) {
       else
          rsprintf("%s%c%s", dir, DIR_SEPARATOR, encodedname);
       rsprintf("</b> was not found on this server<p>\r\n");
-      rsprintf("<hr><address>ELOG version %s</address></body></html>\r\n\r\n", VERSION);
       return_length = strlen_retbuf;
       keep_alive = FALSE;
    }
