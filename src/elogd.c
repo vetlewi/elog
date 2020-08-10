@@ -30031,9 +30031,15 @@ void server_loop(void) {
                         status = select(FD_SETSIZE, (void *) &readfds, NULL, NULL, (void *) &timeout);
                         if (FD_ISSET(_sock, &readfds)) {
 #ifdef HAVE_SSL
-                           if (_ssl_flag)
+                           if (_ssl_flag) {
                               i = SSL_read(_ssl_con, net_buffer + len, net_buffer_size - len);
-                           else
+                              if (i <= 0) {
+                                 int ssl_error = SSL_get_error(_ssl_con, i);
+                                 if (ssl_error == SSL_ERROR_WANT_READ ||
+                                     ssl_error == SSL_ERROR_WANT_WRITE)
+                                    continue; // continue reading if SSL layer wants more data
+                              }
+                           } else
 #endif
                               i = recv(_sock, net_buffer + len, net_buffer_size - len, 0);
 
