@@ -1,21 +1,52 @@
 # ELOG weblog application
-# rpmbuild -ba --define 'version 3.1.4' --define 'release 2' --define "date $(LC_TIME=En date '+%a %b %d %Y')" elog.spec
+# rpmbuild -ba --define 'elogver 3.1.4' --define 'elogrel 2' --with ssl --with pam --with ldap --with krb5 --define 'factorydate date'
  
-#define	date	$(LC_TIME=En date '+%a %b %d %Y')      
-%define build_timestamp %(LC_TIME=En date '+%a %b %d %Y')
+# define date of build for changelog and default release
+%define build_timestamp %(LC_TIME=C date '+%a %b %d %Y')
+%{!?factorydate: %define factorydate %build_timestamp}
+
+# default version and release
+%{!?elogver: %define elogver 3.1.4 }
+%{!?elogrel: %define elogrel 2 }
+# default release is build date
+%{!?elogrel: %define elogrel %{build_timestamp} }
+
+# Build options :
+# Read: If neither macro exists, then add the default definition.
+%{?_with_krb5: %define _with_krb5 USEKRB5=1}
+%{?_with_ldap: %define _with_ldap USELDAP=1}
+%{?_with_pam: %define _with_pam USEPAM=1}
+%{?_with_ssl: %define _with_ssl USESSL=1}
+# Default build options are with SSL 
+%{!?_with_ssl: %{!?_without_ssl: %define _with_ssl USESSL=1}}
+# builder info
+%define whoami %(eval who am i | awk '{print $1}')
+%define HOSTNAME %(hostname)
+%{!?packager: %define packager %{whoami} %{whoami}@%{HOSTNAME}}
 
 Name:       elog
 Summary:    elog is a standalone electronic web logbook
-Version:    %version
-Release:    %release%{?dist}
+Version:    %elogver
+Release:    %elogrel%{?customrel}%{?dist}
 License:    GPL
 Group:      Applications/Networking
-Source:     http://elog.psi.ch/elog/download/elog-%{version}.tar.gz
+Source:     http://elog.psi.ch/elog/download/elog-%{elogver}-%{elogrel}.tar.gz
 Vendor:     Stefan Ritt <stefan.ritt@psi.ch>
 URL:        http://elog.psi.ch/elog
 BuildRoot:  /tmp/%{name}-root
 Prefix:     /usr/local
-BuildRequires: openssl-devel >= 0.9.8e
+# Add build dependencies for pam, ssl and ldap features if enabled.
+# Note: Tag tokens must start at beginning-of-line.
+#
+# Read: If feature is enabled, then add the build dependency.
+%{?_with_krb5:BuildRequires: krb5-devel}
+%{?_with_krb5:Requires: krb5-libs}
+%{?_with_ldap:BuildRequires: openldap-devel >= 2.4.1}
+%{?_with_ldap:Requires: openldap >= 2.4.1}
+%{?_with_pam:BuildRequires: pam-devel >= 1.1.1}
+%{?_with_ssl:BuildRequires: openssl-devel >= 0.9.8e}
+# GAIAOPS: set max N limit to 500
+# Patch1:     elog_set_max_list_500.patch
 
 %description
 ELOG is part of a family of applications known as weblogs. 
@@ -45,7 +76,10 @@ access control, etc. Moreover, a single server can host several weblogs, and
 each weblog can be totally different from the rest. 
 
 %changelog
-* %{build_timestamp} Stefan Ritt <stefan.ritt@psi.ch> %version-%release
+* %{build_timestamp} %{packager} %{version}-%{release}
+- rebuild with option(s): %{?_with_krb5:KRB5 }%{?_with_ldap:LDAP }%{?_with_pam:PAM }%{?_with_ssl:SSL}
+- set MAX_N_LIST to 500 (patch1)
+* %{factorydate} Stefan Ritt <stefan.ritt@psi.ch> %{version}-%{release}
 - Updated from git 
 * Wed Sep 26 2018 Stefan Ritt <stefan.ritt@psi.ch>
 - Made adjustments for new elog server and RH7
@@ -71,6 +105,7 @@ each weblog can be totally different from the rest.
 
 %prep
 %setup -q
+# %patch1 -p0
 
 %pre
 %{_sbindir}/groupadd -r elog 2>/dev/null || :
@@ -78,7 +113,7 @@ each weblog can be totally different from the rest.
    -g elog -M -r elog 2>/dev/null || :
 
 %build
-make CFLAGS='-O3 -funroll-loops -fomit-frame-pointer -W -Wall -Wno-deprecated-declarations -Imxml -g'
+make %{?_with_ssl} %{?_with_pam} %{?_with_ldap} %{?_with_krb5} CFLAGS='-O3 -funroll-loops -fomit-frame-pointer -W -Wall -Wno-deprecated-declarations -Imxml -g'
 sed "s#\@PREFIX\@#%{prefix}#g" elogd.init_template > elogd.init
 
 %install

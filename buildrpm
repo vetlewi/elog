@@ -1,4 +1,4 @@
-#!/bin/csh
+#!/bin/csh -x
 # Usage: build [-n] <version> <release>
 # Build ELOG distribution
 
@@ -10,8 +10,11 @@ endif
 set version = $argv[1]
 set release = $argv[2]
 set dist = `rpm --eval %{\?dist}`
-set dir = /tmp/elog-$version
-set archive = elog-$version.tar.gz
+set dir = /tmp/elog-$version-$release
+set archive = elog-$version-$release.tar.gz
+set fdate = `date +"%a %b %d %Y"`
+
+echo ${fdate}
 
 # create temporary directory
 rm -Rf $dir
@@ -56,16 +59,16 @@ cp -p ssl/* $dir/ssl
 cp -rp themes/default/* $dir/themes/default
 cp -p logbooks/demo/2001/011108a.log $dir/logbooks/demo/2001/
 
-# create elog-x.xx.tar.gz file
+# create elog-x.xx-y.tar.gz file
 echo Creating archive...
-tar -czf /tmp/$archive -C /tmp/ elog-$version/
+tar -czf /tmp/$archive -C /tmp/ elog-$version-$release/
 
 # remove temporary files
 rm -Rf $dir
 
 # transfer archive
 echo Transfer archive...
-mkdir -p ~/rpmbuild/SOURCES && cp /tmp/$archive ~/rpmbuild/SOURCES/elog-$version.tar.gz
+mkdir -p ~/rpmbuild/SOURCES && cp /tmp/$archive ~/rpmbuild/SOURCES/elog-$version-$release.tar.gz
 
 # if running on at PSI copy to download area
 if (`hostname` == 'elog01.psi.ch') then
@@ -84,7 +87,7 @@ rm -f ~/rpmbuild/SRPMS/elog*${version}-${release}*.rpm
 
 # building RPMs
 echo Build RPMs...
-rpmbuild -ba --define "version ${version}" --define "release ${release}" elog.spec || exit $?
+rpmbuild -ba --define "elogver ${version}" --define "elogrel ${release}" --with ssl --with pam --with ldap --with krb5 --define "factorydate ${fdate}" elog.spec || exit $?
 
 # if running on at PSI copy to download area
 if (`hostname` == 'elog01.psi.ch') then
