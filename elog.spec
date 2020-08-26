@@ -45,8 +45,6 @@ Prefix:     /usr/local
 %{?_with_ldap:Requires: openldap >= 2.4.1}
 %{?_with_pam:BuildRequires: pam-devel >= 1.1.1}
 %{?_with_ssl:BuildRequires: openssl-devel >= 0.9.8e}
-# GAIAOPS: set max N limit to 500
-# Patch1:     elog_set_max_list_500.patch
 
 %description
 ELOG is part of a family of applications known as weblogs. 
@@ -78,9 +76,9 @@ each weblog can be totally different from the rest.
 %changelog
 * %{build_timestamp} %{packager} %{version}-%{release}
 - rebuild with option(s): %{?_with_krb5:KRB5 }%{?_with_ldap:LDAP }%{?_with_pam:PAM }%{?_with_ssl:SSL}
-- set MAX_N_LIST to 500 (patch1)
+
 * %{factorydate} Stefan Ritt <stefan.ritt@psi.ch> %{version}-%{release}
-- Updated from git 
+- Updated from git Tue Aug 25 13:38:41 2020 +0200 - 13c50f1
 * Wed Sep 26 2018 Stefan Ritt <stefan.ritt@psi.ch>
 - Made adjustments for new elog server and RH7
 * Fri Aug 29 2014 Stefan Ritt <stefan.ritt@psi.ch>
@@ -104,8 +102,7 @@ each weblog can be totally different from the rest.
 
 
 %prep
-%setup -q
-# %patch1 -p0
+%setup -q -n elog-%{elogver}-%{elogrel}
 
 %pre
 %{_sbindir}/groupadd -r elog 2>/dev/null || :
@@ -113,7 +110,7 @@ each weblog can be totally different from the rest.
    -g elog -M -r elog 2>/dev/null || :
 
 %build
-make %{?_with_ssl} %{?_with_pam} %{?_with_ldap} %{?_with_krb5} CFLAGS='-O3 -funroll-loops -fomit-frame-pointer -W -Wall -Wno-deprecated-declarations -Imxml -g'
+make %{?_with_ssl} %{?_with_pam} %{?_with_ldap} %{?_with_krb5} CFLAGS="$RPM_OPT_FLAGS -O3 -funroll-loops -fomit-frame-pointer -W -Wall -Wno-deprecated-declarations -Wno-unused-result -Imxml"
 sed "s#\@PREFIX\@#%{prefix}#g" elogd.init_template > elogd.init
 
 %install

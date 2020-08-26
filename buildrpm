@@ -1,18 +1,43 @@
-#!/bin/csh -x
-# Usage: build [-n] <version> <release>
+#!/bin/csh -v
 # Build ELOG distribution
 
 if ($#argv < 2) then
-  echo "Usage: build <version> <release>"
+  echo "Usage: build <version> <release> [-krb5] [-ldap] [-pam] [-ssl]"
   exit
 endif
  
 set version = $argv[1]
 set release = $argv[2]
+set REV = "unknown"
+set i = 0
+set BUILDOPTS=""
+foreach argument ($argv)
+  set i=`expr $i + 1`
+  if ($i <= 2) continue
+  switch ($argument)
+    case "-ldap":
+       set BUILDOPTS="$BUILDOPTS --with ldap"
+       breaksw
+    case "-pam":
+       set BUILDOPTS="$BUILDOPTS --with pam"
+       breaksw
+    case "-ssl":
+       set BUILDOPTS="$BUILDOPTS --with ssl"
+       breaksw
+    case "-krb5":
+       set BUILDOPTS="$BUILDOPTS --with krb5"
+       breaksw
+  endsw
+end
+
+if (`hostname` == 'elog01.psi.ch') then
+   set BUILDOPTS="$BUILDOPTS --with ldap --with pam --with ssl --with krb5"
+endif
+
 set dist = `rpm --eval %{\?dist}`
 set dir = /tmp/elog-$version-$release
 set archive = elog-$version-$release.tar.gz
-set fdate = `date +"%a %b %d %Y"`
+set fdate = `env LC_TIME=C date +"%a %b %d %Y"`
 
 echo ${fdate}
 
@@ -59,6 +84,18 @@ cp -p ssl/* $dir/ssl
 cp -rp themes/default/* $dir/themes/default
 cp -p logbooks/demo/2001/011108a.log $dir/logbooks/demo/2001/
 
+# add git version for RPM
+which git >& /dev/null
+if ( $status != 1 ) then 
+  set REV=`git log -n 1 --pretty=format:"%ad - %h"`
+endif
+echo \#define GIT_REVISION \"$REV\" > $dir/src/git-revision.h
+
+# generate correct specfile for current ver-rel  
+sed "s/__ELOGVER__/${version}/;s/__ELOGREL__/${release}/;s/__GIT__/$REV/" elog.spec.template > elog.spec
+# add elog.spec in archive
+cp -p elog.spec $dir/
+
 # create elog-x.xx-y.tar.gz file
 echo Creating archive...
 tar -czf /tmp/$archive -C /tmp/ elog-$version-$release/
@@ -68,7 +105,8 @@ rm -Rf $dir
 
 # transfer archive
 echo Transfer archive...
-mkdir -p ~/rpmbuild/SOURCES && cp /tmp/$archive ~/rpmbuild/SOURCES/elog-$version-$release.tar.gz
+[ ! -d ~/rpmbuild/SOURCES ] && mkdir -p ~/rpmbuild/SOURCES 
+cp /tmp/$archive ~/rpmbuild/SOURCES/$archive
 
 # if running on at PSI copy to download area
 if (`hostname` == 'elog01.psi.ch') then
@@ -78,6 +116,8 @@ if (`hostname` == 'elog01.psi.ch') then
     cp -v /tmp/$archive ~ritt/html/elog/download/tar/elog-latest.tar.gz
     cp -vf doc/ChangeLog ~ritt/html/elog/download/ChangeLog
   endif
+  # define Factory Packager
+  #set BUILDOPTS="${BUILDOPTS} --define \"packager Stefan Ritt <stefan.ritt@psi.ch>\""
 endif
 rm -f /tmp/$archive
 
@@ -87,7 +127,8 @@ rm -f ~/rpmbuild/SRPMS/elog*${version}-${release}*.rpm
 
 # building RPMs
 echo Build RPMs...
-rpmbuild -ba --define "elogver ${version}" --define "elogrel ${release}" --with ssl --with pam --with ldap --with krb5 --define "factorydate ${fdate}" elog.spec || exit $?
+rpmbuild -ba ${BUILDOPTS} --define "factorydate ${fdate}" \
+	--define "elogver ${version}" --define "elogrel ${release}" elog.spec || exit $?
 
 # if running on at PSI copy to download area
 if (`hostname` == 'elog01.psi.ch') then

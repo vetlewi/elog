@@ -25,22 +25,21 @@ SRVDIR     = $(ROOT)/usr/lib/systemd/system
 # flag for SSL support
 USE_SSL    = 1
 
-# flag for Kerberos support, please turn on if you need Kerberos
-USE_KRB5   = 0
+# flag for Kerberos support, please turn off if you don't need Kerberos
+USE_KRB5   = 1
 
-# flag for LDAP support, please turn on if you need LDAP
-USE_LDAP   = 0
+# flag for LDAP support, please turn off if you don't need LDAP
+USE_LDAP   = 1
 
-# flag for PAM support, please turn on if you need PAM
-USE_PAM    = 0
+# flag for PAM support, please turn of if you don't need PAM
+USE_PAM    = 1
 
 #############################################################
 
 # Default compilation flags unless stated otherwise.
-CFLAGS += -O3 -funroll-loops -fomit-frame-pointer -W -Wall -Wno-deprecated-declarations -Imxml
+CFLAGS += -O3 -funroll-loops -fomit-frame-pointer -W -Wall -Wno-deprecated-declarations -Wno-unused-results -Imxml
 
 CC = gcc
-IFLAGS = -kr -nut -i3 -l110
 EXECS = elog elogd elconv
 OBJS = mxml.o crypt.o regex.o
 GIT_REVISION = src/git-revision.h
@@ -92,29 +91,29 @@ endif
 
 ifdef USE_SSL
 ifneq ($(USE_SSL),0)
-CFLAGS += -DHAVE_SSL
+override CFLAGS += -DHAVE_SSL
 LIBS += -lssl
 endif
 endif
 
 ifdef USE_KRB5
 ifneq ($(USE_KRB5),0)
-CFLAGS += -DHAVE_KRB5
+override CFLAGS += -DHAVE_KRB5
 LIBS += -lkrb5
 endif
 endif
 
 ifdef USE_LDAP
 ifneq ($(USE_LDAP),0)
-CFLAGS += -DHAVE_LDAP
+override CFLAGS += -DHAVE_LDAP
 LIBS += -lldap
 endif
 endif
 
 ifdef USE_PAM
 ifneq ($(USE_PAM),0)
-CFLAGS += -DHAVE_PAM
-LIBS += -lpam
+override CFLAGS += -DHAVE_PAM
+LIBS += -lpam -llber
 endif
 endif
 
@@ -159,13 +158,6 @@ debug: src/elogd.c auth.o $(OBJS)
 
 %: src/%.c
 	$(CC) $(CFLAGS) -o $@ $< $(LIBS)
-
-indent:
-	for src in src/*.c; do \
-		d2u $$src; \
-		indent $(IFLAGS) $$src; \
-		u2d $$src; \
-	done
 
 ifeq ($(OSTYPE),CYGWIN_NT-5.1)
 loc: locext.exe
