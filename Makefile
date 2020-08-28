@@ -26,13 +26,13 @@ SRVDIR     = $(ROOT)/usr/lib/systemd/system
 USE_SSL    = 1
 
 # flag for Kerberos support, please turn off if you don't need Kerberos
-USE_KRB5   = 1
+USE_KRB5   = 0
 
 # flag for LDAP support, please turn off if you don't need LDAP
-USE_LDAP   = 1
+USE_LDAP   = 0
 
 # flag for PAM support, please turn of if you don't need PAM
-USE_PAM    = 1
+USE_PAM    = 0
 
 #############################################################
 
@@ -90,28 +90,28 @@ CC = gcc
 endif
 
 ifdef USE_SSL
-ifneq ($(USE_SSL),0)
+ifeq ($(USE_SSL),1)
 override CFLAGS += -DHAVE_SSL
 LIBS += -lssl
 endif
 endif
 
 ifdef USE_KRB5
-ifneq ($(USE_KRB5),0)
+ifeq ($(USE_KRB5),1)
 override CFLAGS += -DHAVE_KRB5
 LIBS += -lkrb5
 endif
 endif
 
 ifdef USE_LDAP
-ifneq ($(USE_LDAP),0)
+ifeq ($(USE_LDAP),1)
 override CFLAGS += -DHAVE_LDAP
 LIBS += -lldap
 endif
 endif
 
 ifdef USE_PAM
-ifneq ($(USE_PAM),0)
+ifeq ($(USE_PAM),1)
 override CFLAGS += -DHAVE_PAM
 LIBS += -lpam -llber
 endif

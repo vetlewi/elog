@@ -1,4 +1,4 @@
-#!/bin/csh -v
+#!/bin/csh -x
 # Build ELOG distribution
 
 if ($#argv < 2) then
@@ -30,9 +30,9 @@ foreach argument ($argv)
   endsw
 end
 
-if (`hostname` == 'elog01.psi.ch') then
+#if (`hostname` == 'elog01.psi.ch') then
    set BUILDOPTS="$BUILDOPTS --with ldap --with pam --with ssl --with krb5"
-endif
+#endif
 
 set dist = `rpm --eval %{\?dist}`
 set dir = /tmp/elog-$version-$release
@@ -117,7 +117,7 @@ if (`hostname` == 'elog01.psi.ch') then
     cp -vf doc/ChangeLog ~ritt/html/elog/download/ChangeLog
   endif
   # define Factory Packager
-  #set BUILDOPTS="${BUILDOPTS} --define \"packager Stefan Ritt <stefan.ritt@psi.ch>\""
+  # set BUILDOPTS="${BUILDOPTS} --define "\""packager Stefan Ritt <stefan.ritt@psi.ch>"\"""
 endif
 rm -f /tmp/$archive
 
@@ -127,8 +127,14 @@ rm -f ~/rpmbuild/SRPMS/elog*${version}-${release}*.rpm
 
 # building RPMs
 echo Build RPMs...
-rpmbuild -ba ${BUILDOPTS} --define "factorydate ${fdate}" \
+if (`hostname` == 'elog01.psi.ch') then
+  rpmbuild -ba ${BUILDOPTS} --define "factorydate ${fdate}" \
+	--define "elogver ${version}" --define "elogrel ${release}" \
+        --define "packager Stefan Ritt <stefan.ritt@psi.ch>" elog.spec || exit $?
+else
+  rpmbuild -ba ${BUILDOPTS} --define "factorydate ${fdate}" \
 	--define "elogver ${version}" --define "elogrel ${release}" elog.spec || exit $?
+endif
 
 # if running on at PSI copy to download area
 if (`hostname` == 'elog01.psi.ch') then
