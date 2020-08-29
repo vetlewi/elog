@@ -77,7 +77,7 @@ each weblog can be totally different from the rest.
 * %{build_timestamp} %{packager} %{version}-%{release}
 - rebuild with option(s): %{?_with_krb5:KRB5 }%{?_with_ldap:LDAP }%{?_with_pam:PAM }%{?_with_ssl:SSL}
 
-* %{factorydate} Stefan Ritt <stefan.ritt@psi.ch> %{version}-%{release}
+* %{factorydate} Stefan Ritt <stefan.ritt@psi.ch> %{elogver}-%{elogrel}
 - Updated from git __GIT__
 * Wed Sep 26 2018 Stefan Ritt <stefan.ritt@psi.ch>
 - Made adjustments for new elog server and RH7
