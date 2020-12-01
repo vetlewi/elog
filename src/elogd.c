@@ -2273,7 +2273,12 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
       strncpy(str, list[i], strsize);
       *(strchr(str, ':')) = 0;
 
-      if 
+      if ( strstr(str, "Date") != NULL )
+        continue;
+      if ( strstr(str, "To") != NULL )
+        continue;
+      if ( strstr(str, "From") != NULL)
+        continue;
 
       if ( get_verbose() >= VERBOSE_INFO ){
         eprintf("Adding header: '%s: %s'", str, strchr(list[i], ':')+1);
