@@ -2149,7 +2149,7 @@ void compose_email_header(LOGBOOK *lbs, char *subject, char *from, char *to, cha
 
 int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, char *error, int error_size) {
   struct smtp *smtp;
-  int rc, strsize, n, i;
+  int rc, strsize, n, i, flag;
   char *str;
   char list[MAX_N_EMAIL][NAME_LENGTH];
   strsize = MAX_CONTENT_LENGTH + 1000;
@@ -2162,6 +2162,11 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
       smtp_port = atoi(str);
 
   snprintf(str, strsize, "%d", smtp_port);
+
+  flag = 0;
+  if ( get_verbose() >= VERBOSE_DEBUG ){
+    flag = SMTP_DEBUG;
+  }
 
   rc = smtp_open(smtp_host, str, SMTP_SECURITY_STARTTLS, 0, NULL, &smtp);
 
