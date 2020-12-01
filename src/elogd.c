@@ -2194,7 +2194,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
     }
 
     if ( get_verbose() >= VERBOSE_INFO ){
-      eprintf("Authenticating with username '%s' and password '%s'\n", uame, pwd);
+      eprintf("Authenticating with username '%s' and password '%s'\n", uname, pwd);
     }
 
     rc = smtp_auth(smtp, SMTP_AUTH_PLAIN, uname, pwd);
