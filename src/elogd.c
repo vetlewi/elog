@@ -13924,7 +13924,7 @@ int save_user_config(LOGBOOK *lbs, char *user, BOOL new_user) {
          mail_text[0] = 0;
          mail_header[0] = 0;
          compose_email_header2(lbs, subject, mail_from_name, email_addr,
-                              NULL, mail_header, sizeof(mail_text), 1, 0, NULL, 0, 0);
+                              NULL, mail_header, sizeof(mail_header), 1, 0, NULL, 0, 0);
          sprintf(mail_text + strlen(mail_text), "\r\n%s:\r\n\r\n",
                  loc("Please click the URL below to activate following ELOG account"));
 
@@ -14004,7 +14004,7 @@ int save_user_config(LOGBOOK *lbs, char *user, BOOL new_user) {
                   mail_text[0] = 0;
                   mail_header[0] = 0;
                   compose_email_header2(lbs, subject, mail_from_name, email_addr,
-                                       NULL, mail_header, sizeof(mail_text), 1, 0, NULL, 0, 0);
+                                       NULL, mail_header, sizeof(mail_header), 1, 0, NULL, 0, 0);
                   sprintf(mail_text + strlen(mail_text), "\r\n%s:\r\n\r\n", str);
 
                   if (lbs)
