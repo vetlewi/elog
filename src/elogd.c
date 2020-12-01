@@ -2271,8 +2271,8 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   // The subject header
   char *subj_start = strchr(strstr(text, "Subject"), ':')+1;
   char *subj_end = strchr(subj_start, '\n');
-  strncpy(str, subj_start, subj_end-subj_start);
-  str[subj_end-subj_start] = 0;
+  memset(str,0,strsize);
+  memcpy(str, subj_start, subj_end-subj_start);
 
   if ( get_verbose() >= VERBOSE_INFO ){
     eprintf("Adding header: 'Subject: %s'", str);
