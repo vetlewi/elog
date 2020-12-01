@@ -13682,7 +13682,7 @@ int save_config(char *buffer, char *error) {
 int save_user_config(LOGBOOK *lbs, char *user, BOOL new_user) {
    char file_name[256], str[1000], *pl, user_enc[256], new_pwd[80], new_pwd2[80], smtp_host[256],
            email_addr[256], mail_from[256], mail_from_name[256], subject[256], mail_text[2000], str2[256],
-           admin_user[80], url[256], error[2000], sid[32], mail_header[2000];
+           admin_user[80], url[256], error[2000], sid[32];
    int i, self_register, code, first_user;
    PMXML_NODE node, subnode, npwd;
 
@@ -13806,7 +13806,7 @@ int save_user_config(LOGBOOK *lbs, char *user, BOOL new_user) {
          mxml_add_node(node, "name", str);
       }
 #ifdef HAVE_PAM
-                                                                                                                              getcfg(lbs->name, "Authentication", str, sizeof(str));
+      getcfg(lbs->name, "Authentication", str, sizeof(str));
       if (!stristr(str, "PAM")) {
 #endif /* HAVE_PAM */
       do_crypt(new_pwd, str, sizeof(str));
@@ -13922,9 +13922,8 @@ int save_user_config(LOGBOOK *lbs, char *user, BOOL new_user) {
          strlcpy(email_addr, getparam("new_user_email"), sizeof(email_addr));
 
          mail_text[0] = 0;
-         mail_header[0] = 0;
-         compose_email_header2(lbs, subject, mail_from_name, email_addr,
-                              NULL, mail_header, sizeof(mail_header), 1, 0, NULL, 0, 0);
+         compose_email_header(lbs, subject, mail_from_name, email_addr,
+                              NULL, mail_text, sizeof(mail_text), 1, 0, NULL, 0, 0);
          sprintf(mail_text + strlen(mail_text), "\r\n%s:\r\n\r\n",
                  loc("Please click the URL below to activate following ELOG account"));
 
@@ -13952,7 +13951,7 @@ int save_user_config(LOGBOOK *lbs, char *user, BOOL new_user) {
 
          sprintf(mail_text + strlen(mail_text), "&code=%d&unm=%s\r\n", code, getparam("new_user_name"));
 
-         if (sendmail3(lbs, smtp_host, mail_from, email_addr, mail_header, mail_text, error, sizeof(error)) == -1) {
+         if (sendmail(lbs, smtp_host, mail_from, email_addr, mail_text, error, sizeof(error)) == -1) {
             sprintf(str, loc("Cannot send email notification to \"%s\""), getparam("new_user_email"));
             strlcat(str, " : ", sizeof(str));
             strlcat(str, error, sizeof(str));
@@ -14002,9 +14001,8 @@ int save_user_config(LOGBOOK *lbs, char *user, BOOL new_user) {
                   }
 
                   mail_text[0] = 0;
-                  mail_header[0] = 0;
-                  compose_email_header2(lbs, subject, mail_from_name, email_addr,
-                                       NULL, mail_header, sizeof(mail_header), 1, 0, NULL, 0, 0);
+                  compose_email_header(lbs, subject, mail_from_name, email_addr,
+                                       NULL, mail_text, sizeof(mail_text), 1, 0, NULL, 0, 0);
                   sprintf(mail_text + strlen(mail_text), "\r\n%s:\r\n\r\n", str);
 
                   if (lbs)
@@ -14042,7 +14040,7 @@ int save_user_config(LOGBOOK *lbs, char *user, BOOL new_user) {
                                 url, getparam("new_user_name"), pl);
                   }
 
-                  if (sendmail3(lbs, smtp_host, mail_from, email_addr, mail_header, mail_text, error, sizeof(error)) == -1) {
+                  if (sendmail(lbs, smtp_host, mail_from, email_addr, mail_text, error, sizeof(error)) == -1) {
                      sprintf(str, loc("Cannot send email notification to \"%s\""),
                              getparam("new_user_email"));
                      strlcat(str, " : ", sizeof(str));
