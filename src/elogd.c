@@ -2143,6 +2143,7 @@ void compose_email_header(LOGBOOK *lbs, char *subject, char *from, char *to, cha
             multipart_boundary[0] = 0;
       }
    }
+   strlcat(mail_text, "\n<EOH>", size);
 }
 
 /*-------------------------------------------------------------------*/
@@ -2258,14 +2259,14 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
 
   // Next we will find the end of the header
   char *body;
-  if ( strchr(text, '|') != NULL ){
-    body = strchr(text, '|')+1;
+  if ( strstr(text, "<EOH>") != NULL ){
+    body = strstr(text, "<EOH>")+1;
   } else {
     body = text;
   }
 
   // The subject header
-  /*char *subj_start = strchr(strstr(text, "Subject"), ':')+1;
+  char *subj_start = strchr(strstr(text, "Subject"), ':')+1;
   char *subj_end = strchr(subj_start, '\n');
   strncpy(str, subj_start, subj_end-subj_start);
   str[subj_end-subj_start] = 0;
@@ -2280,13 +2281,14 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
     eprintf(error);
     xfree(str);
     return -1;
-  }*/
+  }
 
 
   if ( get_verbose() == VERBOSE_INFO ){
     eprintf("Sending mail\n");
   } else if ( get_verbose() >= VERBOSE_DEBUG ){
-    eprintf("Sending mail with text:\n%s\n", body);
+    eprintf("Sending mail with text:\n%s\n", text);
+    eprintf("Sending mail with body:\n%s\n", body);
   }
 
   rc = smtp_mail(smtp, body);
@@ -13682,7 +13684,7 @@ int save_user_config(LOGBOOK *lbs, char *user, BOOL new_user) {
          mail_text[0] = 0;
          compose_email_header(lbs, subject, mail_from_name, email_addr,
                               NULL, mail_text, sizeof(mail_text), 1, 0, NULL, 0, 0);
-         sprintf(mail_text + strlen(mail_text), "\r\n|%s:\r\n\r\n",
+         sprintf(mail_text + strlen(mail_text), "\r\n%s:\r\n\r\n",
                  loc("Please click the URL below to activate following ELOG account"));
 
          if (lbs)
@@ -13761,7 +13763,7 @@ int save_user_config(LOGBOOK *lbs, char *user, BOOL new_user) {
                   mail_text[0] = 0;
                   compose_email_header(lbs, subject, mail_from_name, email_addr,
                                        NULL, mail_text, sizeof(mail_text), 1, 0, NULL, 0, 0);
-                  sprintf(mail_text + strlen(mail_text), "\r\n|%s:\r\n\r\n", str);
+                  sprintf(mail_text + strlen(mail_text), "\r\n%s:\r\n\r\n", str);
 
                   if (lbs)
                      sprintf(mail_text + strlen(mail_text), "%s             : %s\r\n", loc("Logbook"),
