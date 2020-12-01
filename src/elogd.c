@@ -2246,7 +2246,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
       }
 
       rc = smtp_address_add(smtp, SMTP_ADDRESS_BCC, list[i], NULL);
-
+      printf("rc=%d\n", rc);
       if ( rc != SMTP_STATUS_OK ){
         snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
         eprintf(error);
@@ -2272,6 +2272,8 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
 
       strncpy(str, list[i], strsize);
       *(strchr(str, ':')) = 0;
+
+      if 
 
       if ( get_verbose() >= VERBOSE_INFO ){
         eprintf("Adding header: '%s: %s'", str, strchr(list[i], ':')+1);
