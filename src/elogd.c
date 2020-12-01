@@ -2161,14 +2161,16 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   if (getcfg(lbs->name, "SMTP port", str, strsize))
       smtp_port = atoi(str);
 
-  snprintf(str, strsize, "%d", smtp_port);
+  
 
   flag = 0;
-  if ( get_verbose() >= VERBOSE_DEBUG ){
+  if ( get_verbose() >= VERBOSE_INFO ){
     flag = SMTP_DEBUG;
+    eprintf("Connecting to %s on port %d" smtp_host, smtp_port);
   }
 
-  rc = smtp_open(smtp_host, str, SMTP_SECURITY_STARTTLS, 0, NULL, &smtp);
+  snprintf(str, strsize, "%d", smtp_port);
+  rc = smtp_open(smtp_host, str, SMTP_SECURITY_STARTTLS, flag, NULL, &smtp);
 
   if ( rc != SMTP_STATUS_OK ){
     snprintf(error, error_size, "SMTP failed: %s", smtp_status_code_errstr(rc));
