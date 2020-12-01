@@ -2019,124 +2019,6 @@ int sid_remove(char *sid) {
 
 /*-------------------------------------------------------------------*/
 
-void compose_email_header2(LOGBOOK *lbs, char *subject, char *from, char *to, char *url, char *mail_text,
-                          int size, int mail_encoding, int n_attachments, char *multipart_boundary,
-                          int message_id, int reply_id) {
-   char buffer[256], charset[256], subject_enc[5000];
-   char buf[80], str[256];
-   int i, offset, multipart;
-   time_t now;
-   struct tm *ts;
-
-   i = 0;
-   if (mail_encoding & 1)
-      i++;
-   if (mail_encoding & 2)
-      i++;
-   if (mail_encoding & 4)
-      i++;
-   multipart = i > 1;
-
-   if (!getcfg("global", "charset", charset, sizeof(charset)))
-      strcpy(charset, DEFAULT_HTTP_CHARSET);
-
-   /* switch locale temporarily back to english to comply with RFC2822 date format */
-   setlocale(LC_ALL, "C");
-
-   time(&now);
-   ts = localtime(&now);
-   assert(ts);
-   strftime(buf, sizeof(buf), "%a, %d %b %Y %H:%M:%S", ts);
-   offset = (-(int) my_timezone());
-   if (ts->tm_isdst)
-      offset += 3600;
-   if (get_verbose() >= VERBOSE_INFO) {
-      sprintf(str, "timezone: %d, offset: %d\n", (int) my_timezone(), (int) offset);
-      efputs(str);
-   }
-   snprintf(mail_text + strlen(mail_text), size - strlen(mail_text) - 1, "Date: %s %+03d%02d\r\n", buf,
-            (int) (offset / 3600), (int) ((abs((int) offset) / 60) % 60));
-
-   getcfg("global", "Language", str, sizeof(str));
-   if (str[0])
-      setlocale(LC_ALL, str);
-
-   snprintf(mail_text + strlen(mail_text), size - strlen(mail_text) - 1, "User-Agent: Elog Version %s\r\n",
-            VERSION);
-
-   strlcat(mail_text, "MIME-Version: 1.0\r\n", size);
-
-   memset(subject_enc, 0, sizeof(subject_enc));
-
-   for (i = 0; i < (int) strlen(subject); i++)
-      if (subject[i] < 0)
-         break;
-
-   if (i < (int) strlen(subject)) {
-      /* subject contains local characters, so encode it using charset */
-      for (i = 0; i < (int) strlen(subject); i += 40) {
-         strlcpy(buffer, subject + i, sizeof(buffer));
-         buffer[40] = 0;
-         strlcat(subject_enc, "=?", sizeof(subject_enc));
-         strlcat(subject_enc, charset, sizeof(subject_enc));
-         strlcat(subject_enc, "?B?", sizeof(subject_enc));
-         base64_encode((unsigned char *) buffer, (unsigned char *) (subject_enc + strlen(subject_enc)),
-                       sizeof(subject_enc) - strlen(subject_enc));
-         strlcat(subject_enc, "?=", sizeof(subject_enc));
-         if (strlen(subject + i) < 40)
-            break;
-
-         strlcat(subject_enc, "\r\n ", sizeof(subject_enc));    // another encoded-word
-      }
-   } else
-      strlcpy(subject_enc, subject, sizeof(subject_enc));
-
-   snprintf(mail_text + strlen(mail_text), size - strlen(mail_text) - 1, "Subject: %s\r\n", subject_enc);
-
-   if (strchr(from, '@')) {
-      strlcpy(str, strchr(from, '@') + 1, sizeof(str));
-      if (strchr(str, '>'))
-         *strchr(str, '>') = 0;
-   } else
-      strlcpy(str, "elog.org", sizeof(str));
-
-   if (message_id)
-      snprintf(mail_text + strlen(mail_text), size - strlen(mail_text) - 1, "Message-ID: <%s-%d@%s>\r\n",
-               lbs->name_enc, message_id, str);
-   if (reply_id)
-      snprintf(mail_text + strlen(mail_text), size - strlen(mail_text) - 1, "In-Reply-To: <%s-%d@%s>\r\n",
-               lbs->name_enc, reply_id, str);
-
-   if (url)
-      snprintf(mail_text + strlen(mail_text), size - strlen(mail_text) - 1, "X-Elog-URL: %s\r\n", url);
-
-   strlcat(mail_text, "X-Elog-submit-type: web|elog\r\n", size);
-
-   if (multipart) {
-
-      sprintf(multipart_boundary, "------------%04X%04X%04X", rand(), rand(), rand());
-      snprintf(mail_text + strlen(mail_text), size - strlen(mail_text) - 1,
-               "MIME-Version: 1.0\r\nContent-Type: multipart/alternative;\r\n boundary=\"%s\"\r\n\r\n",
-               multipart_boundary);
-
-      strlcat(mail_text, "This is a multi-part message in MIME format.\r\n", size);
-   } else {
-      if (n_attachments) {
-         sprintf(multipart_boundary, "------------%04X%04X%04X", rand(), rand(), rand());
-         snprintf(mail_text + strlen(mail_text), size - strlen(mail_text) - 1,
-                  "MIME-Version: 1.0\r\nContent-Type: multipart/mixed;\r\n boundary=\"%s\"\r\n\r\n",
-                  multipart_boundary);
-
-         strlcat(mail_text, "This is a multi-part message in MIME format.\r\n", size);
-      } else {
-         if (multipart_boundary)
-            multipart_boundary[0] = 0;
-      }
-   }
-}
-
-/*-------------------------------------------------------------------*/
-
 void compose_email_header(LOGBOOK *lbs, char *subject, char *from, char *to, char *url, char *mail_text,
                           int size, int mail_encoding, int n_attachments, char *multipart_boundary,
                           int message_id, int reply_id) {
@@ -2373,158 +2255,38 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
       }
   }
 
-  if ( get_verbose() == VERBOSE_INFO ){
-    eprintf("Sending mail\n");
-  } else if ( get_verbose() >= VERBOSE_DEBUG ){
-    eprintf("Sending mail with text:\n%s\n", text);
-  }
-
-  rc = smtp_mail(smtp, text);
-
-  if ( rc != SMTP_STATUS_OK ){
-    snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
-    eprintf(error);
-    xfree(str);
-    return -1;
-  }
-
-  rc = smtp_close(smtp);
-
-  if ( rc != SMTP_STATUS_OK ){
-    snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
-    eprintf(error);
-    xfree(str);
-    return -1;
-  }
-
-  xfree(str);
-  return 1;
-}
-
-/*-------------------------------------------------------------------*/
-
-int sendmail3(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *header, char *text, char *error, int error_size)
-{
-  struct smtp *smtp;
-  int rc, strsize, n, m, i, flag;
-  char *str;
-  char list[MAX_N_EMAIL][NAME_LENGTH];
-  char header_list[MAX_N_EMAIL][NAME_LENGTH];
-  strsize = MAX_CONTENT_LENGTH + 1000;
-  str = xmalloc(strsize);
-
-  memset(error, 0, error_size);
-
-  int smtp_port = 25;
-  if (getcfg(lbs->name, "SMTP port", str, strsize))
-      smtp_port = atoi(str);
-
-  
-
-  flag = 0;
-  if ( get_verbose() >= VERBOSE_INFO ){
-    flag = SMTP_DEBUG;
-    eprintf("Connecting to %s on port %d\n", smtp_host, smtp_port);
-  }
-
-  snprintf(str, strsize, "%d", smtp_port);
-  rc = smtp_open(smtp_host, str, SMTP_SECURITY_STARTTLS, flag, NULL, &smtp);
-
-  if ( rc != SMTP_STATUS_OK ){
-    snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
-    eprintf(error);
-    return -1;
-  }
-
-  if ( getcfg(lbs->name, "SMTP username", str, strsize) ){
-    int max_auth_len = 1024;
-    char *uname;
-    char *pwd;
-    uname = xmalloc(max_auth_len);
-    pwd = xmalloc(max_auth_len);
-
-    snprintf(uname, max_auth_len, "%s", str);
-
-    if ( getcfg(lbs->name, "SMTP password", str, strsize) ){
-      snprintf(pwd, max_auth_len, "%s", str);
-    } else {
-      snprintf(pwd, max_auth_len, "");
-    }
-
-    if ( get_verbose() >= VERBOSE_INFO ){
-      eprintf("Authenticating with username '%s' and password '%s'\n", uname, pwd);
-    }
-
-    rc = smtp_auth(smtp, SMTP_AUTH_PLAIN, uname, pwd);
-
-    xfree(uname);
-    xfree(pwd);
-
-    if ( rc != SMTP_STATUS_OK ){
-      snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
-      eprintf(error);
-      xfree(str);
-      return -1;
-    }
-  }
-
-  remove_all_chars(from, '<');
-  remove_all_chars(from, '>');
-
-  if ( get_verbose() >= VERBOSE_INFO ){
-    eprintf("Setting sender address '%s'\n", from);
-  }
-
-  rc = smtp_address_add(smtp, SMTP_ADDRESS_FROM, from, NULL);
-  printf("rc=%d", rc);
-  if ( rc != SMTP_STATUS_OK ){
-    snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
-    eprintf(error);
-    xfree(str);
-    return -1;
-  }
-
-  n = strbreak(header, list, MAX_N_EMAIL, "\n", FALSE);
-  for (i = 0 ; i < n ; i++) {
-    if (list[i] == 0)
+  // Next we will split header and body. Unfortunatly this will be nasty...
+  n = strbreak(text, list, MAX_N_EMAIL, "|", FALSE);
+  // First block of text should be the headers!
+  for (i = 0 ; i < n ; ++i){
+    if (list[i] == 0 || strchr(list[i], ':') == NULL)
       continue;
-
-    m = strbreak(list[i], header_list, MAX_N_EMAIL, ":", FALSE);
-    if ( m != 2 )
-      continue;
-
-    if ( get_verbose() >= VERBOSE_INFO ){
-      eprintf("Adding header '%s: %s'", header_list[0], header_list[1]);
-    }
-
-    rc = smtp_header_add(smtp, header_list[0], header_list[1]);
-    if ( rc != SMTP_STATUS_OK ){
-      snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
-      eprintf(error);
-      xfree(str);
-      return -1;
-    }
+    break;
   }
+  if (i < n){
+    strncpy(str, list[i], strsize);
+    n = strbreak(str, list, MAX_N_EMAIL, "\n", FALSE);
+    for ( i = 0 ; i < n ; ++i){
+      if (list[i] == 0 || strchr(list[i], ':') == NULL )
+        continue;
 
-
-  n = strbreak(to, list, MAX_N_EMAIL, ",", FALSE);
-  for (i = 0; i < n; i++) {
-      if (list[i] == 0 || strchr(list[i], '@') == NULL)
-         continue;
+      strncpy(str, list[i], strsize);
+      *(strchr(str, ':')) = 0;
 
       if ( get_verbose() >= VERBOSE_INFO ){
-        eprintf("Adding to address '%s'\n", list[i]);
+        eprintf("Adding header: '%s: %s'", str, strchr(list[i], ':')+1);
       }
 
-      rc = smtp_address_add(smtp, SMTP_ADDRESS_BCC, list[i], NULL);
-
+      rc = smtp_header_add(smtp, str, strchr(list[i], ':')+1);
       if ( rc != SMTP_STATUS_OK ){
         snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
         eprintf(error);
         xfree(str);
         return -1;
       }
+    }
   }
+
 
   if ( get_verbose() == VERBOSE_INFO ){
     eprintf("Sending mail\n");
@@ -2553,6 +2315,7 @@ int sendmail3(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *header,
   xfree(str);
   return 1;
 }
+
 
 /*-------------------------------------------------------------------*/
 
@@ -13924,7 +13687,7 @@ int save_user_config(LOGBOOK *lbs, char *user, BOOL new_user) {
          mail_text[0] = 0;
          compose_email_header(lbs, subject, mail_from_name, email_addr,
                               NULL, mail_text, sizeof(mail_text), 1, 0, NULL, 0, 0);
-         sprintf(mail_text + strlen(mail_text), "\r\n%s:\r\n\r\n",
+         sprintf(mail_text + strlen(mail_text), "\r\n|%s:\r\n\r\n",
                  loc("Please click the URL below to activate following ELOG account"));
 
          if (lbs)
@@ -14003,7 +13766,7 @@ int save_user_config(LOGBOOK *lbs, char *user, BOOL new_user) {
                   mail_text[0] = 0;
                   compose_email_header(lbs, subject, mail_from_name, email_addr,
                                        NULL, mail_text, sizeof(mail_text), 1, 0, NULL, 0, 0);
-                  sprintf(mail_text + strlen(mail_text), "\r\n%s:\r\n\r\n", str);
+                  sprintf(mail_text + strlen(mail_text), "\r\n|%s:\r\n\r\n", str);
 
                   if (lbs)
                      sprintf(mail_text + strlen(mail_text), "%s             : %s\r\n", loc("Logbook"),
