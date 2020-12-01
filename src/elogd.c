@@ -2256,7 +2256,12 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
 
 
   // Next we will find the end of the header
-  char *body = strchr(text, '|')+1;
+  char *body;
+  if ( strchr(text, '|') != NULL ){
+    body = strchr(text, '|')+1;
+  } else {
+    body = text;
+  }
 
   // The subject header
   char *subj_start = strchr(strstr(text, "Subject"), ':')+1;
