@@ -2166,7 +2166,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   flag = 0;
   if ( get_verbose() >= VERBOSE_INFO ){
     flag = SMTP_DEBUG;
-    eprintf("Connecting to %s on port %d" smtp_host, smtp_port);
+    eprintf("Connecting to %s on port %d", smtp_host, smtp_port);
   }
 
   snprintf(str, strsize, "%d", smtp_port);
