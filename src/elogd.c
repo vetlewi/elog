@@ -2273,9 +2273,12 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   while ( *subj_start == ' ' )
     ++subj_start;
 
-  char *subj_end = strchr(subj_start, '\n');
+  char *subj_end = strchr(subj_start, '\n')-1;
   memset(str,0,strsize);
   memcpy(str, subj_start, subj_end-subj_start);
+
+  // Remove any non-ascii characters
+
 
   if ( get_verbose() >= VERBOSE_INFO ){
     eprintf("Adding header: 'Subject: %s'\n", str);
