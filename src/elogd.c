@@ -2297,6 +2297,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   rc = smtp_mail(smtp, body);
 
   if ( rc != SMTP_STATUS_OK ){
+    eprintf("SMTP rc=%d\n", rc);
     snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
     eprintf(error);
     xfree(str);
