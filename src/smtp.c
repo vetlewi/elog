@@ -3108,6 +3108,7 @@ smtp_mail(struct smtp *const smtp,
   smtp_set_read_timeout(smtp, 60 * 2);
 
   if(smtp_puts(smtp, "DATA\r\n") != SMTP_STATUS_OK){
+    printf("Error in puts DATA");
     return smtp->status_code;
   }
 
