@@ -2166,14 +2166,14 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   flag = 0;
   if ( get_verbose() >= VERBOSE_INFO ){
     flag = SMTP_DEBUG;
-    eprintf("Connecting to %s on port %d", smtp_host, smtp_port);
+    eprintf("Connecting to %s on port %d\n", smtp_host, smtp_port);
   }
 
   snprintf(str, strsize, "%d", smtp_port);
   rc = smtp_open(smtp_host, str, SMTP_SECURITY_STARTTLS, flag, NULL, &smtp);
 
   if ( rc != SMTP_STATUS_OK ){
-    snprintf(error, error_size, "SMTP failed: %s", smtp_status_code_errstr(rc));
+    snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
     eprintf(error);
     return -1;
   }
@@ -2194,7 +2194,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
     }
 
     if ( get_verbose() >= VERBOSE_INFO ){
-      eprintf("Authenticating with username '%s' and password '%s'" % uame, pwd);
+      eprintf("Authenticating with username '%s' and password '%s'\n", uame, pwd);
     }
 
     rc = smtp_auth(smtp, SMTP_AUTH_PLAIN, uname, pwd);
@@ -2203,7 +2203,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
     xfree(pwd);
 
     if ( rc != SMTP_STATUS_OK ){
-      snprintf(error, error_size, "SMTP failed: %s", smtp_status_code_errstr(rc));
+      snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
       eprintf(error);
       xfree(str);
       return -1;
@@ -2211,12 +2211,12 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   }
 
   if ( get_verbose() >= VERBOSE_INFO ){
-    eprintf("Setting sender address '%s'" % from);
+    eprintf("Setting sender address '%s'\n", from);
   }
 
   rc = smtp_address_add(smtp, SMTP_ADDRESS_FROM, from, NULL);
   if ( rc != SMTP_STATUS_OK ){
-    snprintf(error, error_size, "SMTP failed: %s", smtp_status_code_errstr(rc));
+    snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
     eprintf(error);
     xfree(str);
     return -1;
@@ -2228,13 +2228,13 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
          continue;
 
       if ( get_verbose() >= VERBOSE_INFO ){
-        eprintf("Adding to address '%s'" % list[i]);
+        eprintf("Adding to address '%s'\n", list[i]);
       }
 
       rc = smtp_address_add(smtp, SMTP_ADDRESS_BCC, list[i], NULL);
 
       if ( rc != SMTP_STATUS_OK ){
-        snprintf(error, error_size, "SMTP failed: %s", smtp_status_code_errstr(rc));
+        snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
         eprintf(error);
         xfree(str);
         return -1;
@@ -2242,7 +2242,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   }
 
   if ( get_verbose() == VERBOSE_INFO ){
-    printf("Sending mail\n");
+    eprintf("Sending mail\n");
   } else if ( get_verbose() >= VERBOSE_DEBUG ){
     eprintf("Sending mail with text:\n%s\n", text);
   }
@@ -2250,7 +2250,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   rc = smtp_mail(smtp, text);
 
   if ( rc != SMTP_STATUS_OK ){
-    snprintf(error, error_size, "SMTP failed: %s", smtp_status_code_errstr(rc));
+    snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
     eprintf(error);
     xfree(str);
     return -1;
@@ -2259,7 +2259,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   rc = smtp_close(smtp);
 
   if ( rc != SMTP_STATUS_OK ){
-    snprintf(error, error_size, "SMTP failed: %s", smtp_status_code_errstr(rc));
+    snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
     eprintf(error);
     xfree(str);
     return -1;
