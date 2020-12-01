@@ -2147,6 +2147,17 @@ void compose_email_header(LOGBOOK *lbs, char *subject, char *from, char *to, cha
 
 /*-------------------------------------------------------------------*/
 
+void remove_all_chars(char* str, char c) {
+    char *pr = str, *pw = str;
+    while (*pr) {
+        *pw = *pr++;
+        pw += (*pw != c);
+    }
+    *pw = '\0';
+}
+
+/*-------------------------------------------------------------------*/
+
 int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, char *error, int error_size) {
   struct smtp *smtp;
   int rc, strsize, n, i, flag;
@@ -2213,6 +2224,9 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   if ( get_verbose() >= VERBOSE_INFO ){
     eprintf("Setting sender address '%s'\n", from);
   }
+
+  remove_all_chars(from, '<');
+  remove_all_chars(from, '>');
 
   rc = smtp_address_add(smtp, SMTP_ADDRESS_FROM, from, NULL);
   if ( rc != SMTP_STATUS_OK ){
