@@ -41,6 +41,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 # optional SSL library
 if (USE_SSL)
   add_definitions(-DHAVE_SSL)
+  add_definitions(-DSMTP_OPENSSL)
   find_package(OpenSSL REQUIRED)
   include_directories(${OPENSSL_INCLUDE_DIR})
 endif (USE_SSL)
@@ -91,6 +92,7 @@ add_executable(elogd
   ${CMAKE_SOURCE_DIR}/mxml/strlcpy.c
   ${CMAKE_SOURCE_DIR}/src/crypt.c
   ${CMAKE_SOURCE_DIR}/src/regex.c
+  ${CMAKE_SOURCE_DIR}/src/smtp.c
 )
 
 add_executable(elog
