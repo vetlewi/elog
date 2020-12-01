@@ -3289,10 +3289,12 @@ smtp_header_add(struct smtp *const smtp,
   }
 
   if(smtp_header_key_validate(key) < 0){
+    fprintf(stderr, "Key error");
     return smtp_status_code_set(smtp, SMTP_STATUS_PARAM);
   }
 
   if(value && smtp_header_value_validate(value) < 0){
+    fprintf(stderr, "value error");
     return smtp_status_code_set(smtp, SMTP_STATUS_PARAM);
   }
 
