@@ -2246,7 +2246,6 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
       }
 
       rc = smtp_address_add(smtp, SMTP_ADDRESS_BCC, list[i], NULL);
-      printf("rc=%d\n", rc);
       if ( rc != SMTP_STATUS_OK ){
         snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
         eprintf(error);
@@ -2255,53 +2254,36 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
       }
   }
 
-  // Next we will split header and body. Unfortunatly this will be nasty...
-  n = strbreak(text, list, MAX_N_EMAIL, "|", FALSE);
-  // First block of text should be the headers!
-  for (i = 0 ; i < n ; ++i){
-    if (list[i] == 0 || strchr(list[i], ':') == NULL)
-      continue;
-    break;
+
+  // Next we will find the end of the header
+  char *body = strchr(text, '|')+1;
+
+  // The subject header
+  char *subj_start = strchr(strstr(text, "Subject"), ':')+1;
+  char *subj_end = strchr(subj_start, '\n');
+  strncpy(str, subj_start, subj_end-subj_start);
+  str[subj_end-subj_start] = 0;
+
+  if ( get_verbose() >= VERBOSE_INFO ){
+    eprintf("Adding header: 'Subject: %s'", str);
   }
-  if (i < n){
-    strncpy(str, list[i], strsize);
-    n = strbreak(str, list, MAX_N_EMAIL, "\n", FALSE);
-    for ( i = 0 ; i < n ; ++i){
-      if (list[i] == 0 || strchr(list[i], ':') == NULL )
-        continue;
 
-      strncpy(str, list[i], strsize);
-      *(strchr(str, ':')) = 0;
-
-      if ( strstr(str, "Date") != NULL )
-        continue;
-      if ( strstr(str, "To") != NULL )
-        continue;
-      if ( strstr(str, "From") != NULL)
-        continue;
-
-      if ( get_verbose() >= VERBOSE_INFO ){
-        eprintf("Adding header: '%s: %s'", str, strchr(list[i], ':')+1);
-      }
-
-      rc = smtp_header_add(smtp, str, strchr(list[i], ':')+1);
-      if ( rc != SMTP_STATUS_OK ){
-        snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
-        eprintf(error);
-        xfree(str);
-        return -1;
-      }
-    }
+  rc = smtp_header_add(smtp, "Subject", str);
+  if ( rc != SMTP_STATUS_OK ){
+    snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
+    eprintf(error);
+    xfree(str);
+    return -1;
   }
 
 
   if ( get_verbose() == VERBOSE_INFO ){
     eprintf("Sending mail\n");
   } else if ( get_verbose() >= VERBOSE_DEBUG ){
-    eprintf("Sending mail with text:\n%s\n", text);
+    eprintf("Sending mail with text:\n%s\n", body);
   }
 
-  rc = smtp_mail(smtp, text);
+  rc = smtp_mail(smtp, body);
 
   if ( rc != SMTP_STATUS_OK ){
     snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
