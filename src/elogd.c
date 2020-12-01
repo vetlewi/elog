@@ -2269,7 +2269,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   }
 
   // The subject header
-  /*char *subj_start = strchr(strstr(text, "Subject"), ':')+1;
+  char *subj_start = strchr(strstr(text, "Subject"), ':')+1;
   char *subj_end = strchr(subj_start, '\n');
   strncpy(str, subj_start, subj_end-subj_start);
   str[subj_end-subj_start] = 0;
@@ -2278,7 +2278,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
     eprintf("Adding header: 'Subject: %s'", str);
   }
 
-  rc = smtp_header_add(smtp, "Subject", str);
+  /*rc = smtp_header_add(smtp, "Subject", str);
   if ( rc != SMTP_STATUS_OK ){
     snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
     eprintf(error);
