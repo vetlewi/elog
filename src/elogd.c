@@ -2278,13 +2278,13 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
     eprintf("Adding header: 'Subject: %s'", str);
   }
 
-  rc = smtp_header_add(smtp, "Subject", str);
+  /*rc = smtp_header_add(smtp, "Subject", str);
   if ( rc != SMTP_STATUS_OK ){
     snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
     eprintf(error);
     xfree(str);
     return -1;
-  }
+  }*/
 
 
   if ( get_verbose() == VERBOSE_INFO ){
