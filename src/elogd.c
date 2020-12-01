@@ -2476,6 +2476,7 @@ int sendmail3(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *header,
   }
 
   rc = smtp_address_add(smtp, SMTP_ADDRESS_FROM, from, NULL);
+  printf("rc=%d", rc);
   if ( rc != SMTP_STATUS_OK ){
     snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
     eprintf(error);
