@@ -2194,10 +2194,10 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
     uname = xmalloc(max_auth_len);
     pwd = xmalloc(max_auth_len);
 
-    snprintf(uname, max_auth_len, str);
+    strncpy(uname, str, max_auth_len);
 
     if ( getcfg(lbs->name, "SMTP password", str, strsize) ){
-      snprintf(pwd, max_auth_len, str);
+      strncpy(pwd, str, max_auth_len);
     } else {
       snprintf(pwd, max_auth_len, "");
     }
@@ -2219,7 +2219,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
     }
   }
 
-  snprintf(str, strsize, from);
+  strncpy(str, from, strsize);
 
   remove_all_chars(str, '<');
   remove_all_chars(str, '>');
@@ -2241,7 +2241,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
       if (list[i] == 0 || strchr(list[i], '@') == NULL)
          continue;
 
-      snprintf(str, strsize, list[i]);
+      strncpy(str, list[i], strsize);
       if ( get_verbose() >= VERBOSE_INFO ){
         eprintf("Adding to address '%s'\n", list[i]);
       }
