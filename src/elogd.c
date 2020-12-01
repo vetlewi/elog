@@ -2260,7 +2260,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   // Next we will find the end of the header
   char *body;
   if ( strstr(text, "<EOH>") != NULL ){
-    body = strstr(text, "<EOH>")+1;
+    body = strchr(strstr(text, "<EOH>"), '>')+2;
   } else {
     body = text;
   }
