@@ -3157,8 +3157,10 @@ smtp_mail(struct smtp *const smtp,
 
   /* DATA termination timeout 250 return code - 10 minutes. */
   smtp_set_read_timeout(smtp, 60 * 10);
-  if(smtp_read_and_parse_code(smtp) != SMTP_DONE){
-    return smtp_status_code_set(smtp, SMTP_STATUS_SERVER_RESPONSE);
+  int val = smtp_read_and_parse_code(smtp);
+  if(val != SMTP_DONE){
+    fprintf(stdout, "[smtp Server]: Termination return code %d\n", val);
+    return smtp_status_code_set(smtp, SMTP_STATUS_SERVER_RESPONSE); 
   }
 
   return smtp->status_code;
