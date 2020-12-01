@@ -2858,6 +2858,7 @@ smtp_header_value_validate(const char *const value){
     if((uc < ' ' || uc > 126) &&
         uc != '\t' &&
         uc < 0x80){ /* Allow UTF-8 byte sequence. */
+      fprintf(stderr, "Wrong character '%c'\n", value[i]);
       return -1;
     }
   }
@@ -3289,12 +3290,10 @@ smtp_header_add(struct smtp *const smtp,
   }
 
   if(smtp_header_key_validate(key) < 0){
-    fprintf(stderr, "Key error");
     return smtp_status_code_set(smtp, SMTP_STATUS_PARAM);
   }
 
   if(value && smtp_header_value_validate(value) < 0){
-    fprintf(stderr, "value error");
     return smtp_status_code_set(smtp, SMTP_STATUS_PARAM);
   }
 
