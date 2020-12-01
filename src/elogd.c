@@ -2221,12 +2221,12 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
     }
   }
 
+  remove_all_chars(from, '<');
+  remove_all_chars(from, '>');
+
   if ( get_verbose() >= VERBOSE_INFO ){
     eprintf("Setting sender address '%s'\n", from);
   }
-
-  remove_all_chars(from, '<');
-  remove_all_chars(from, '>');
 
   rc = smtp_address_add(smtp, SMTP_ADDRESS_FROM, from, NULL);
   if ( rc != SMTP_STATUS_OK ){
