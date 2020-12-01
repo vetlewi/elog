@@ -2147,6 +2147,92 @@ void compose_email_header(LOGBOOK *lbs, char *subject, char *from, char *to, cha
 
 /*-------------------------------------------------------------------*/
 
+int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, char *error, int error_size) {
+  struct smtp *smtp;
+  int rc, strsize, n, i;
+  char *str;
+  char list[MAX_N_EMAIL][NAME_LENGTH];
+  strsize = MAX_CONTENT_LENGTH + 1000;
+  str = xmalloc(strsize);
+
+  memset(error, 0, error_size);
+
+  int smtp_port = 25;
+  if (getcfg(lbs->name, "SMTP port", str, strsize))
+      smtp_port = atoi(str);
+
+  snprintf(str, strsize, "%d", smtp_port);
+
+  rc = smtp_open(smtp_host, str, SMTP_SECURITY_STARTTLS, 0, NULL, &smtp);
+
+  if ( rc != SMTP_STATUS_OK ){
+    snprintf(error, error_size, "SMTP failed: %s", smtp_status_code_errstr(rc));
+    return -1;
+  }
+
+  if ( getcfg(lbs->name, "SMTP username", str, strsize) ){
+    int max_auth_len = 1024;
+    char *uname;
+    char *pwd;
+    uname = xmalloc(max_auth_len);
+    pwd = xmalloc(max_auth_len);
+
+    snprintf(uname, max_auth_len, "%s", str);
+
+    if ( getcfg(lbs->name, "SMTP password", str, strsize) ){
+      snprintf(pwd, max_auth_len, "%s", str);
+    } else {
+      snprintf(pwd, max_auth_len, "");
+    }
+
+    rc = smtp_auth(smtp, SMTP_AUTH_PLAIN, uname, pwd);
+
+    xfree(uname);
+    xfree(pwd);
+
+    if ( rc != SMTP_STATUS_OK ){
+      snprintf(error, error_size, "SMTP failed: %s", smtp_status_code_errstr(rc));
+      xfree(str);
+      return -1;
+    }
+  }
+
+  rc = smtp_address_add(smtp, SMTP_ADDRESS_FROM, from, NULL);
+  if ( rc != SMTP_STATUS_OK ){
+    snprintf(error, error_size, "SMTP failed: %s", smtp_status_code_errstr(rc));
+    xfree(str);
+    return -1;
+  }
+
+  n = strbreak(to, list, MAX_N_EMAIL, ",", FALSE);
+  for (i = 0; i < n; i++) {
+      if (list[i] == 0 || strchr(list[i], '@') == NULL)
+         continue;
+
+      rc = smtp_address_add(smtp, SMTP_ADDRESS_BCC, list[i], NULL);
+
+      if ( rc != SMTP_STATUS_OK ){
+        snprintf(error, error_size, "SMTP failed: %s", smtp_status_code_errstr(rc));
+        xfree(str);
+        return -1;
+      }
+  }
+
+
+  rc = smtp_mail(smtp, text);
+
+  if ( rc != SMTP_STATUS_OK ){
+    snprintf(error, error_size, "SMTP failed: %s", smtp_status_code_errstr(rc));
+    xfree(str);
+    return -1;
+  }
+
+  xfree(str);
+  return 1;
+}
+
+/*-------------------------------------------------------------------*/
+
 int check_smtp_error(char *str, int expected, char *error, int error_size) {
    if (atoi(str) != expected) {
       if (error)
@@ -2160,6 +2246,12 @@ int check_smtp_error(char *str, int expected, char *error, int error_size) {
 /*-------------------------------------------------------------------*/
 
 int sendmail(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, char *error, int error_size) {
+  return sendmail2(lbs, smtp_host, from, to, text, error, error_size);
+}
+
+/*-------------------------------------------------------------------*/
+
+int sendmail_old(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, char *error, int error_size) {
    struct sockaddr_in bind_addr;
    struct hostent *phe;
    int i, n, s, strsize;

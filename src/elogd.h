@@ -151,6 +151,7 @@ typedef int BOOL;
 #include "regex.h"
 #include "mxml.h"
 #include "strlcpy.h"
+#include "smtp.h"
 
 #define SYSLOG_PRIORITY LOG_NOTICE      /* Default priority for syslog facility */
 
