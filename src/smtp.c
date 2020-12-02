@@ -2858,7 +2858,6 @@ smtp_header_value_validate(const char *const value){
     if((uc < ' ' || uc > 126) &&
         uc != '\t' &&
         uc < 0x80){ /* Allow UTF-8 byte sequence. */
-      fprintf(stderr, "Wrong character '%c'\n", value[i]);
       return -1;
     }
   }
@@ -3161,6 +3160,9 @@ smtp_mail(struct smtp *const smtp,
   int val = smtp_read_and_parse_code(smtp);
   if(val != SMTP_DONE){
     fprintf(stderr, "[smtp Server]: Termination return code %d\n", val);
+    if ( val == SMTP_INTERNAL_ERROR ){ // Common error, seems to still send though...
+      return smtp_status_code_set(smtp, SMTP_STATUS_OK);
+    }
     return smtp_status_code_set(smtp, SMTP_STATUS_SERVER_RESPONSE); 
   }
 

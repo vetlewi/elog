@@ -2281,7 +2281,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
 
 
   if ( get_verbose() >= VERBOSE_INFO ){
-    eprintf("Adding header: 'Subject: %s'\n", str);
+    eprintf("Adding header: Subject: %s\n", str);
   }
 
   rc = smtp_header_add(smtp, "Subject", str);
