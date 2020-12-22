@@ -106,7 +106,7 @@ endif
 ifdef USE_LDAP
 ifeq ($(USE_LDAP),1)
 override CFLAGS += -DHAVE_LDAP
-LIBS += -lldap
+LIBS += -lldap -llber
 endif
 endif
 
