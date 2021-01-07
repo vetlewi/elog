@@ -29523,6 +29523,17 @@ SSL_CTX *init_ssl(void) {
 #endif
    ctx = SSL_CTX_new(meth);
 
+#if OPENSSL_VERSION_NUMBER > 0x1010000fL
+   // disable obsolete SSL and TLS, need TLSv1_2 for Internet Explorer
+   SSL_CTX_set_options(ctx, SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3 |
+                            SSL_OP_NO_TLSv1 | SSL_OP_NO_TLSv1_1);
+
+   if (SSL_CTX_set_cipher_list(ctx, "ALL:!NULL-MD5:!NULL-SHA:!NULL-RSA") <= 0) {
+      eprintf("Error setting the cipher list.\n");
+      return NULL;
+   }
+#endif
+
    if (getcfg("global", "SSL Passphrase", pwd, sizeof(pwd))) {
       SSL_CTX_set_default_passwd_cb_userdata(ctx, pwd);
    }
