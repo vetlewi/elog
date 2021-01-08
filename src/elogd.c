@@ -8480,16 +8480,16 @@ void send_file_direct(char *file_name) {
 
       close(fh);
    } else {
-      char encodedname[256];
+      char encodedname[256], str[256];
       show_html_header(NULL, FALSE, "404 Not Found", TRUE, FALSE, NULL, FALSE, 0);
 
-      rsprintf("<body><h1>Not Found</h1>\r\n");
+      rsprintf("<body><h1>404 Not Found</h1>\r\n");
       rsprintf("The requested file <b>");
       strencode2(encodedname, file_name, sizeof(encodedname));
-      if (strchr(file_name, DIR_SEPARATOR))
-         rsprintf("%s", encodedname);
+      if (strrchr(encodedname, DIR_SEPARATOR))
+         rsprintf("%s", strrchr(encodedname, DIR_SEPARATOR)+1, sizeof(str));
       else
-         rsprintf("%s%c%s", dir, DIR_SEPARATOR, encodedname);
+         rsprintf("%s", encodedname);
       rsprintf("</b> was not found on this server<p>\r\n");
       return_length = strlen_retbuf;
       keep_alive = FALSE;
@@ -29528,7 +29528,8 @@ SSL_CTX *init_ssl(void) {
    SSL_CTX_set_options(ctx, SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3 |
                             SSL_OP_NO_TLSv1 | SSL_OP_NO_TLSv1_1);
 
-   if (SSL_CTX_set_cipher_list(ctx, "ALL:!NULL-MD5:!NULL-SHA:!NULL-RSA") <= 0) {
+   if (SSL_CTX_set_cipher_list(ctx,
+           "ECDH+AESGCM:ECDH+AES256:ECDH+AES:DH+AESGCM:DH+AES256:DH+AES:!aNULL:!ADH:!DSS:!kDH:!kECDH") <= 0) {
       eprintf("Error setting the cipher list.\n");
       return NULL;
    }
