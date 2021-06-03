@@ -7537,7 +7537,7 @@ void show_plain_header(int size, char *file_name) {
 void show_html_header(LOGBOOK *lbs, BOOL expires, char *title, BOOL close_head, BOOL rss_feed, char *cookie,
                       int embed_css, int refresh) {
    int i, n;
-   char css[1000], css_base[1000], str[1000], media[1000], file_name[256];
+   char css[1000], str[1000], media[1000], file_name[256];
    char css_list[MAX_N_LIST][NAME_LENGTH];
 
    show_http_header(lbs, expires, cookie);
@@ -7612,7 +7612,7 @@ void show_html_header(LOGBOOK *lbs, BOOL expires, char *title, BOOL close_head, 
             }
          }
       } else
-         rsprintf("<link rel=\"stylesheet\" type=\"text/css\" href=\"%s%s\">\n", css_base, css);
+         rsprintf("<link rel=\"stylesheet\" type=\"text/css\" href=\"%s\">\n", css);
    }
 
    if (!embed_css) {
