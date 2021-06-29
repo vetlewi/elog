@@ -121,6 +121,8 @@ function upload(files) {
    
    formData.append('cmd', "Upload");          // Command for server to recognize this as an file upload
    
+   formData.append('Author', $("input[name^='Author']").attr('value')); // Other attributes missing should be fine, but author is needed 
+
    if (!!window.FormData) {
       var URL = 'upload.html?next_attachment=' + parent.next_attachment;
       
