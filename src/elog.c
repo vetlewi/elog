@@ -1154,6 +1154,7 @@ int main(int argc, char *argv[])
 
       if (size > (INT) (sizeof(text) - 1)) {
          printf("Message file \"%s\" is too long (%zd bytes max).\n", textfile, sizeof(text));
+         close(fh);
          return 1;
       }
 
@@ -1161,6 +1162,7 @@ int main(int argc, char *argv[])
 
       if (i < size) {
          printf("Cannot fully read message from file %s.\n", textfile);
+         close(fh);
          return 1;
       }
 
