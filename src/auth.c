@@ -258,8 +258,14 @@ int auth_verify_password_ldap(LOGBOOK *lbs, const char *user, const char *passwo
    
    ldap_ld = NULL;
    memset(&ldap_bindDN[0], 0, sizeof(ldap_bindDN));
-   
-   if(!ldap_init(lbs,error_str,error_size)) {
+
+   if (!strcmp(password, "")) {
+      strlcpy(error_str, "<b>LDAP authentication failed, no password provided</b>", error_size);
+      write_logfile(lbs, "LDAP authentication failed, no password provided");
+      return FALSE;
+   }
+
+   if (!ldap_init(lbs,error_str, error_size)) {
       strlcpy(error_str, "<b>LDAP initialization error</b><br>", error_size);
       strlcat(error_str, "<br>Please check your LDAP configuration.", error_size);
       return FALSE;
