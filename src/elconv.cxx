@@ -54,7 +54,7 @@
 #define DIR_SEPARATOR '/'
 #define DIR_SEPARATOR_STR "/"
 
-#define __USE_XOPEN             /* needed for crypt() */
+#define __USE_XOPEN 1            /* needed for crypt() */
 
 typedef int BOOL;
 
@@ -230,7 +230,7 @@ INT ss_file_find(char *path, const char *pattern, char **plist)
    for (dp = readdir(dir_pointer); dp != NULL; dp = readdir(dir_pointer)) {
       if (fnmatch1(pattern, dp->d_name) == 0) {
          *plist = (char *) realloc(*plist, (i + 1) * MAX_PATH_LENGTH);
-         strncpy(*plist + (i * MAX_PATH_LENGTH), dp->d_name, strlen(dp->d_name));
+         strncpy(*plist + (i * MAX_PATH_LENGTH), dp->d_name, MAX_PATH_LENGTH);
          *(*plist + (i * MAX_PATH_LENGTH) + strlen(dp->d_name)) = '\0';
          i++;
          seekdir(dir_pointer, telldir(dir_pointer));
@@ -278,7 +278,7 @@ INT el_search_message(char *tag, int *fh, BOOL walk, BOOL first)
    int lfh, i, n, d, min, max, size, offset, direction, status, did_walk;
    struct tm *tms, ltms;
    time_t lt, ltime, lact;
-   char str[256], file_name[256], dir[256];
+   char str[256], file_name[1024], dir[256];
    char *file_list, *tag_dir;
 
    did_walk = 0;
@@ -583,7 +583,7 @@ INT el_submit(char attr_name[MAX_N_ATTR][NAME_LENGTH],
 {
    INT n, i, size, fh, status, index, offset, tail_size;
    struct tm *tms;
-   char file_name[256], afile_name[MAX_ATTACHMENTS][256], dir[256],
+   char file_name[1024], afile_name[MAX_ATTACHMENTS][256], dir[256],
        str[256], start_str[80], end_str[80], last[80], date[80], thread[80],
        attachment_all[64 * MAX_ATTACHMENTS];
    time_t now;
@@ -892,7 +892,7 @@ INT el_get_v1(char *tag, char *message, int *bufsize)
 void scan_messages()
 {
    int size, status, fh, message_id, i, n, n_messages;
-   char file_name[256], tag[256], str[256], last_file[256];
+   char file_name[1024], tag[256], str[256], last_file[256];
    char message[TEXT_SIZE + 1000];
    char *ps, *pd, *file_list;
    THREAD *thread_list;

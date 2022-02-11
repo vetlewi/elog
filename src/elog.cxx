@@ -360,7 +360,7 @@ INT retrieve_elog(char *host, int port, char *subdir, int ssl, char *experiment,
 \********************************************************************/
 {
    int i, n, first, index, sock;
-   char str[256], encrypted_passwd[256], *ph, *ps;
+   char str[1024], encrypted_passwd[256], *ph, *ps;
 #ifdef HAVE_SSL
    SSL *ssl_con = NULL;
 #endif
@@ -525,7 +525,7 @@ INT retrieve_elog(char *host, int port, char *subdir, int ssl, char *experiment,
          if (strstr(response, "fail"))
             printf("Error: Invalid user name or password\n");
          else {
-            strncpy(str, strstr(response, "Location:") + 10, sizeof(str));
+            strncpy(str, strstr(response, "Location:") + 10, sizeof(str)-1);
             if (strchr(str, '?'))
                *strchr(str, '?') = 0;
             if (strchr(str, '\n'))
@@ -958,7 +958,7 @@ INT submit_elog(char *host, int port, int ssl, char *subdir, char *experiment,
          else if (strstr(response, "fail"))
             printf("Error: Invalid user name or password\n");
          else {
-            strncpy(str, strstr(response, "Location:") + 10, sizeof(str));
+            strncpy(str, strstr(response, "Location:") + 10, sizeof(str)-1);
             if (strchr(str, '?'))
                *strchr(str, '?') = 0;
             if (strchr(str, '\n'))
@@ -979,12 +979,12 @@ INT submit_elog(char *host, int port, int ssl, char *subdir, char *experiment,
       printf("Error: Missing or invalid password\n");
    else if (strstr(response, "Error: Attribute")) {
       if (strstr(response, "not existing")) {
-         strncpy(str, strstr(response, "Error: Attribute") + 27, sizeof(str));
+         strncpy(str, strstr(response, "Error: Attribute") + 27, sizeof(str)-1);
          if (strchr(str, '<'))
             *strchr(str, '<') = 0;
          printf("Error: Non existing attribute option \"%s\"\n", str);
       } else {
-         strncpy(str, strstr(response, "Error: Attribute") + 20, sizeof(str));
+         strncpy(str, strstr(response, "Error: Attribute") + 20, sizeof(str)-1);
          if (strchr(str, '<'))
             *strchr(str, '<') = 0;
          printf("Error: Missing required attribute \"%s\"\n", str);

@@ -38,7 +38,7 @@
 /* Include version from central version file */
 #include "elog-version.h"
 
-#define _GNU_SOURCE
+#define _GNU_SOURCE 1
 #include <stdio.h>
 #include <sys/types.h>
 #include <fcntl.h>
