@@ -84,18 +84,17 @@ add_custom_target(git_revision_h
 endif()
 
 add_executable(elogd 
-  ${CMAKE_SOURCE_DIR}/src/elogd.c
-  ${CMAKE_SOURCE_DIR}/src/auth.c
-  ${CMAKE_SOURCE_DIR}/mxml/mxml.c
-  ${CMAKE_SOURCE_DIR}/mxml/strlcpy.c
-  ${CMAKE_SOURCE_DIR}/src/crypt.c
-  ${CMAKE_SOURCE_DIR}/src/regex.c
+  ${CMAKE_SOURCE_DIR}/src/elogd.cxx
+  ${CMAKE_SOURCE_DIR}/src/auth.cxx
+  ${CMAKE_SOURCE_DIR}/mxml/mxml.cxx
+  ${CMAKE_SOURCE_DIR}/mxml/strlcpy.cxx
+  ${CMAKE_SOURCE_DIR}/src/crypt.cxx
 )
 
 add_executable(elog
-  ${CMAKE_SOURCE_DIR}/src/elog.c
-  ${CMAKE_SOURCE_DIR}/src/crypt.c
-  ${CMAKE_SOURCE_DIR}/mxml/strlcpy.c
+  ${CMAKE_SOURCE_DIR}/src/elog.cxx
+  ${CMAKE_SOURCE_DIR}/src/crypt.cxx
+  ${CMAKE_SOURCE_DIR}/mxml/strlcpy.cxx
 )
 
 add_dependencies(elogd git_revision_h)

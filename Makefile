@@ -1,3 +1,4 @@
+#############################################################
 # Simple makefile for elogd
 #
 # S. Ritt, May 12th 2000
@@ -39,9 +40,9 @@ USE_PAM    = 0
 # Default compilation flags unless stated otherwise.
 CFLAGS += -O3 -funroll-loops -fomit-frame-pointer -W -Wall -Wno-deprecated-declarations -Wno-unused-result -Imxml
 
-CC = gcc
+CC = c++
 EXECS = elog elogd elconv
-OBJS = mxml.o crypt.o regex.o
+OBJS = mxml.o crypt.o
 GIT_REVISION = src/git-revision.h
 BINOWNER = bin
 BINGROUP = bin
@@ -71,7 +72,7 @@ OSTYPE=darwin
 endif
 
 ifeq ($(OSTYPE),darwin)
-CC = cc
+CC = c++
 BINOWNER = root
 BINGROUP = admin
 NEED_STRLCPY =
@@ -86,7 +87,7 @@ BINGROUP = wheel
 endif
 
 ifeq ($(OSTYPE),Linux)
-CC = gcc
+CC = c++
 endif
 
 ifdef USE_SSL
@@ -129,46 +130,43 @@ endif
 all: $(EXECS)
 
 # put current GIT revision into header file to be included by programs
-$(GIT_REVISION): src/elogd.c src/elog.c
+$(GIT_REVISION): src/elogd.cxx src/elog.cxx
 	type git &> /dev/null; if [ $$? -eq 1 ]; then REV="unknown" ;else REV=`git log -n 1 --pretty=format:"%ad - %h"`; fi; echo \#define GIT_REVISION \"$$REV\" > $(GIT_REVISION)
 
-regex.o: src/regex.c src/regex.h
-	$(CC) $(CFLAGS) -w -c -o regex.o src/regex.c
+crypt.o: src/crypt.cxx
+	$(CC) $(CFLAGS) -w -c -o crypt.o src/crypt.cxx
 
-crypt.o: src/crypt.c
-	$(CC) $(CFLAGS) -w -c -o crypt.o src/crypt.c
+auth.o: src/auth.cxx
+	$(CC) $(CFLAGS) -w -c -o auth.o src/auth.cxx
 
-auth.o: src/auth.c
-	$(CC) $(CFLAGS) -w -c -o auth.o src/auth.c
+mxml.o: mxml/mxml.cxx mxml/mxml.h
+	$(CC) $(CFLAGS) -c -o mxml.o mxml/mxml.cxx
 
-mxml.o: mxml/mxml.c mxml/mxml.h
-	$(CC) $(CFLAGS) -c -o mxml.o mxml/mxml.c
+strlcpy.o: mxml/strlcpy.cxx mxml/strlcpy.h
+	$(CC) $(CFLAGS) -c -o strlcpy.o mxml/strlcpy.cxx
 
-strlcpy.o: mxml/strlcpy.c mxml/strlcpy.h
-	$(CC) $(CFLAGS) -c -o strlcpy.o mxml/strlcpy.c
+elogd: src/elogd.cxx auth.o $(OBJS) $(GIT_REVISION)
+	$(CC) $(CFLAGS) -o elogd src/elogd.cxx auth.o $(OBJS) $(LIBS)
 
-elogd: src/elogd.c auth.o $(OBJS) $(GIT_REVISION)
-	$(CC) $(CFLAGS) -o elogd src/elogd.c auth.o $(OBJS) $(LIBS)
+elog: src/elog.cxx $(OBJS) $(GIT_REVISION)
+	$(CC) $(CFLAGS) -o elog src/elog.cxx $(OBJS) $(LIBS)
 
-elog: src/elog.c $(OBJS) $(GIT_REVISION)
-	$(CC) $(CFLAGS) -o elog src/elog.c $(OBJS) $(LIBS)
+debug: src/elogd.cxx auth.o $(OBJS)
+	$(CC) -g $(CFLAGS) -O0 -o elogd src/elogd.cxx auth.o $(OBJS) $(LIBS)
 
-debug: src/elogd.c auth.o $(OBJS)
-	$(CC) -g $(CFLAGS) -O0 -o elogd src/elogd.c auth.o $(OBJS) $(LIBS)
-
-%: src/%.c
+%: src/%.cxx
 	$(CC) $(CFLAGS) -o $@ $< $(LIBS)
 
 ifeq ($(OSTYPE),CYGWIN_NT-5.1)
 loc: locext.exe
 	for lang in resources/eloglang*; do \
-	  ./locext.exe src/elogd.c $$lang; echo locext src/elogd.c $$lang;\
+	  ./locext.exe src/elogd.cxx $$lang; echo locext src/elogd.cxx $$lang;\
 	done
 else
-locext: src/locext.c
+locext: src/locext.cxx
 loc: locext
 	@for lang in resources/eloglang*; do \
-	  ./locext src/elogd.c $$lang; echo locext src/elogd.c $$lang;\
+	  ./locext src/elogd.cxx $$lang; echo locext src/elogd.cxx $$lang;\
 	done
 endif
 
@@ -233,4 +231,4 @@ endif
 restart:
 	$(RCDIR)/elogd restart
 clean:
-	-$(RM) *~ $(EXECS) regex.o crypt.o auth.o mxml.o strlcpy.o locext
+	-$(RM) *~ $(EXECS) crypt.o auth.o mxml.o strlcpy.o locext

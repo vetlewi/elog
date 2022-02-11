@@ -135,7 +135,7 @@ BOOL equal_ustring(char *str1, char *str2)
 
 /*------------------------------------------------------------------*/
 
-void el_decode(char *message, char *key, char *result)
+void el_decode(char *message, const char *key, char *result)
 {
    char *pc;
 
@@ -198,7 +198,7 @@ int fnmatch1(const char *pattern, const char *string)
 
 /*------------------------------------------------------------------*/
 
-INT ss_file_find(char *path, char *pattern, char **plist)
+INT ss_file_find(char *path, const char *pattern, char **plist)
 /********************************************************************\
 
   Routine: ss_file_find
@@ -672,7 +672,7 @@ INT el_submit(char attr_name[MAX_N_ATTR][NAME_LENGTH],
       tail_size = TELL(fh) - (offset + size);
 
       if (tail_size > 0) {
-         buffer = malloc(tail_size);
+         buffer = (char **)malloc(tail_size);
          if (buffer == NULL) {
             close(fh);
             return -1;
@@ -899,7 +899,7 @@ void scan_messages()
 
    tag[0] = 0;
    message_id = 1;
-   thread_list = malloc(sizeof(THREAD));
+   thread_list = (THREAD *)malloc(sizeof(THREAD));
 
    /* search first message */
    status = el_search_message(tag, NULL, TRUE, TRUE);
@@ -954,7 +954,7 @@ void scan_messages()
 
       message_id++;
       strcat(tag, "+1");
-      thread_list = realloc(thread_list, sizeof(THREAD) * message_id);
+      thread_list = (THREAD *)realloc(thread_list, sizeof(THREAD) * message_id);
 
    } while (1);
 

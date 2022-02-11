@@ -84,7 +84,7 @@ const char *git_revision()
 
 /*------------------------------------------------------------------*/
 
-char *map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+const char *map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 void base64_encode(unsigned char *s, unsigned char *d, int size)
 {
@@ -122,7 +122,7 @@ void base64_encode(unsigned char *s, unsigned char *d, int size)
 
 /*---- string comparison -------------------------------------------*/
 
-int equal_ustring(char *str1, char *str2)
+int equal_ustring(const char *str1, const char *str2)
 {
    if (str1 == NULL && str2 != NULL)
       return 0;
@@ -280,7 +280,7 @@ int elog_connect(char *host, int port)
    memcpy((char *) &(bind_addr.sin_addr), phe->h_addr, phe->h_length);
 
    /* connect to server */
-   status = connect(sock, (void *) &bind_addr, sizeof(bind_addr));
+   status = connect(sock, (const struct sockaddr *) &bind_addr, sizeof(bind_addr));
    if (status != 0) {
       printf("Cannot connect to host %s, port %d\n", host, port);
       return -1;
@@ -598,7 +598,8 @@ INT submit_elog(char *host, int port, int ssl, char *subdir, char *experiment,
 \********************************************************************/
 {
    int status, sock, i, n, header_length, content_length, index;
-   char host_name[256], boundary[80], str[80], encrypted_passwd[256], *p, *old_encoding;
+   char host_name[256], boundary[80], str[80], encrypted_passwd[256], *p;
+   const char *old_encoding;
    char old_attrib_name[MAX_N_ATTR+1][NAME_LENGTH], old_attrib[MAX_N_ATTR+1][NAME_LENGTH];
    struct hostent *phe;
 #ifdef HAVE_SSL

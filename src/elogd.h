@@ -48,6 +48,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <locale.h>
+#include <regex.h>
 
 /* Default name of the configuration file. */
 #ifndef CFGFILE
@@ -148,7 +149,6 @@ typedef int BOOL;
 #endif
 
 /* local includes */
-#include "regex.h"
 #include "mxml.h"
 #include "strlcpy.h"
 
@@ -275,7 +275,7 @@ typedef struct {
    time_t time;
 } SESSION_ID;
 
-void show_error(char *error);
+void show_error(const char *error);
 int is_verbose(void);
 extern void eprintf(const char *, ...);
 BOOL enum_user_line(LOGBOOK * lbs, int n, char *user, int size);
@@ -283,11 +283,11 @@ int get_user_line(LOGBOOK * lbs, char *user, char *password, char *full_name, ch
                   BOOL email_notify[1000], time_t * last_access, int *inactive);
 int get_full_name(LOGBOOK *lbs, char *uname, char *full_name);
 int set_user_inactive(LOGBOOK * lbs, char *user, int inactive);
-int strbreak(char *str, char list[][NAME_LENGTH], int size, char *brk, BOOL ignore_quotes);
+int strbreak(char *str, char list[][NAME_LENGTH], int size, const char *brk, BOOL ignore_quotes);
 int execute_shell(LOGBOOK * lbs, int message_id, char attrib[MAX_N_ATTR][NAME_LENGTH],
                   char att_file[MAX_ATTACHMENTS][256], char *sh_cmd);
-BOOL isparam(char *param);
-char *getparam(char *param);
+BOOL isparam(const char *param);
+char *getparam(const char *param);
 void write_logfile(LOGBOOK * lbs, const char *str);
 BOOL check_login_user(LOGBOOK * lbs, char *user);
 LBLIST get_logbook_hierarchy(void);
@@ -299,28 +299,28 @@ void show_top_text(LOGBOOK * lbs);
 void show_bottom_text(LOGBOOK * lbs);
 int set_attributes(LOGBOOK * lbs, char attributes[][NAME_LENGTH], int n);
 void show_elog_list(LOGBOOK * lbs, int past_n, int last_n, int page_n, BOOL default_page, char *info);
-int change_config_line(LOGBOOK * lbs, char *option, char *old_value, char *new_value);
+int change_config_line(LOGBOOK * lbs, char *option, const char *old_value, const char *new_value);
 int read_password(char *pwd, int size);
-int getcfg(char *group, char *param, char *value, int vsize);
+int getcfg(const char *group, const char *param, char *value, int vsize);
 int build_subst_list(LOGBOOK * lbs, char list[][NAME_LENGTH], char value[][NAME_LENGTH],
                      char attrib[][NAME_LENGTH], BOOL format_date);
 void highlight_searchtext(regex_t * re_buf, char *src, char *dst, BOOL hidden);
 int parse_config_file(char *config_file);
 PMXML_NODE load_password_file(LOGBOOK * lbs, char *error, int error_size);
 int load_password_files(void);
-BOOL check_login(LOGBOOK * lbs, char *sid);
+BOOL check_login(LOGBOOK * lbs, const char *sid);
 void compose_base_url(LOGBOOK * lbs, char *base_url, int size, BOOL email_notify);
 void show_elog_entry(LOGBOOK * lbs, char *dec_path, char *command);
-char *loc(char *orig);
+const char *loc(const char *orig);
 void strencode(char *text);
 void strencode_nouml(char *text);
 char *stristr(const char *str, const char *pattern);
 int scan_attributes(char *logbook);
-int is_inline_attachment(char *encoding, int message_id, char *text, int i, char *att);
-int setgroup(char *str);
-int setuser(char *str);
-int setegroup(char *str);
-int seteuser(char *str);
+int is_inline_attachment(const char *encoding, int message_id, const char *text, int i, char *att);
+int setgroup(const char *str);
+int setuser(const char *str);
+int setegroup(const char *str);
+int seteuser(const char *str);
 void strencode2(char *b, const char *text, int size);
 void load_config_section(char *section, char **buffer, char *error);
 void remove_crlf(char *buffer);
