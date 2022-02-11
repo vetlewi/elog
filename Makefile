@@ -37,7 +37,7 @@ USE_PAM    = 0
 #############################################################
 
 # Default compilation flags unless stated otherwise.
-CFLAGS += -O3 -funroll-loops -fomit-frame-pointer -W -Wall -Wno-deprecated-declarations -Wno-unused-results -Imxml
+CFLAGS += -O3 -funroll-loops -fomit-frame-pointer -W -Wall -Wno-deprecated-declarations -Wno-unused-result -Imxml
 
 CC = gcc
 EXECS = elog elogd elconv

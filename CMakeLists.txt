@@ -19,11 +19,10 @@ set(SRVDIR   /usr/lib/systemd/system)
 include_directories(${CMAKE_SOURCE_DIR}/mxml)
 
 # default compiler flags
-if (!MSVC)
-  add_compile_options(-W -Wall -Wno-deprecated-declarations)
-endif()
 if (MSVC)
   add_compile_options(/D_CRT_SECURE_WARNINGS /wd4005 /wd4244 /wd4267 /wd4996 /nologo)
+else()
+  add_compile_options(-W -Wall -Wno-deprecated-declarations)
 endif()
 
 # find git
