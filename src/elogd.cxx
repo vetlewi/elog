@@ -3453,7 +3453,7 @@ void retrieve_domain(char *ret, int size) {
 /*-------------------------------------------------------------------*/
 
 void retrieve_email_from(LOGBOOK *lbs, char *ret, char *ret_name, char attrib[MAX_N_ATTR][NAME_LENGTH]) {
-   char email_from[256], email_from_name[256], str[256], *p, login_name[256],
+   char email_from[1000], email_from_name[1300], str[256], *p, login_name[256],
            slist[MAX_N_ATTR + 10][NAME_LENGTH], svalue[MAX_N_ATTR + 10][NAME_LENGTH],
            full_name[256], user_email[256];
    int i;
@@ -8663,7 +8663,7 @@ void strencode2(char *b, const char *text, int size) {
 int build_subst_list(LOGBOOK *lbs, char list[][NAME_LENGTH], char value[][NAME_LENGTH],
                      char attrib[][NAME_LENGTH], BOOL format_date) {
    int i;
-   char str[NAME_LENGTH], format[256], full_name[256], user_email[256];
+   char str[NAME_LENGTH+100], format[256], full_name[256], user_email[256];
    time_t t;
    struct tm *ts;
 
@@ -8837,7 +8837,7 @@ BOOL get_password_file(LOGBOOK *lbs, char *file_name, int size) {
 /*------------------------------------------------------------------*/
 
 void show_change_pwd_page(LOGBOOK *lbs) {
-   char str[256], config[256], old_pwd[256], new_pwd[256], new_pwd2[256], user[256], auth[32], error_str[256];
+   char str[1000], config[256], old_pwd[256], new_pwd[256], new_pwd2[256], user[256], auth[32], error_str[256];
    int wrong_pwd;
    /* otherwise calls with null lbs which make this procedure crash */
    if (lbs == NULL)
@@ -9055,7 +9055,7 @@ void get_auto_index(LOGBOOK *lbs, int index, char *format, char *retstr, int siz
 /*------------------------------------------------------------------*/
 
 BOOL is_author(LOGBOOK *lbs, char attrib[MAX_N_ATTR][NAME_LENGTH], char *owner) {
-   char str[NAME_LENGTH], preset[NAME_LENGTH], full_name[NAME_LENGTH];
+   char str[NAME_LENGTH+100], preset[NAME_LENGTH], full_name[NAME_LENGTH], attr[NAME_LENGTH];
    int i;
 
    /* check if current user is admin */
@@ -9064,7 +9064,8 @@ BOOL is_author(LOGBOOK *lbs, char attrib[MAX_N_ATTR][NAME_LENGTH], char *owner) 
 
    /* search attribute which contains short_name of author */
    for (i = 0; i < lbs->n_attr; i++) {
-      sprintf(str, "Preset %s", attr_list[i]);
+      strlcpy(attr, attr_list[i], sizeof(attr));
+      sprintf(str, "Preset %s", attr);
       if (getcfg(lbs->name, str, preset, sizeof(preset))) {
          if (strstr(preset, "$short_name")) {
             if (!isparam("unm") || strstr(attrib[i], getparam("unm")) == NULL) {
@@ -9081,7 +9082,8 @@ BOOL is_author(LOGBOOK *lbs, char attrib[MAX_N_ATTR][NAME_LENGTH], char *owner) 
       if (isparam("unm")) {
          get_full_name(lbs, getparam("unm"), full_name);
          for (i = 0; i < lbs->n_attr; i++) {
-            sprintf(str, "Preset %s", attr_list[i]);
+            strlcpy(attr, attr_list[i], sizeof(attr));
+            sprintf(str, "Preset %s", attr);
             if (getcfg(lbs->name, str, preset, sizeof(preset))) {
                if (strstr(preset, "$long_name")) {
                   if (strstr(attrib[i], full_name) == NULL) {
@@ -9101,12 +9103,13 @@ BOOL is_author(LOGBOOK *lbs, char attrib[MAX_N_ATTR][NAME_LENGTH], char *owner) 
 /*------------------------------------------------------------------*/
 
 BOOL get_author(LOGBOOK *lbs, char attrib[MAX_N_ATTR][NAME_LENGTH], char *author) {
-   char str[NAME_LENGTH], preset[NAME_LENGTH];
+   char attr[NAME_LENGTH], str[NAME_LENGTH+100], preset[NAME_LENGTH];
    int i;
 
    /* search attribute which contains full_name of author */
    for (i = 0; i < lbs->n_attr; i++) {
-      sprintf(str, "Preset %s", attr_list[i]);
+      strlcpy(attr, attr_list[i], sizeof(attr));
+      sprintf(str, "Preset %s", attr);
       if (getcfg(lbs->name, str, preset, sizeof(preset))) {
          if (stristr(preset, "$long_name")) {
             strcpy(author, attrib[i]);
@@ -9117,7 +9120,8 @@ BOOL get_author(LOGBOOK *lbs, char attrib[MAX_N_ATTR][NAME_LENGTH], char *author
 
    /* if not found, search attribute which contains short_name of author */
    for (i = 0; i < lbs->n_attr; i++) {
-      sprintf(str, "Preset %s", attr_list[i]);
+      strlcpy(attr, attr_list[i], sizeof(attr));
+      sprintf(str, "Preset %s", attr);
       if (getcfg(lbs->name, str, preset, sizeof(preset))) {
          if (stristr(preset, "$short_name")) {
             strcpy(author, attrib[i]);
@@ -9542,16 +9546,16 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
            format_flags[MAX_N_ATTR], year, month, day, hour, min, sec, n_attr, n_disp_attr, n_lines,
            attr_index[MAX_N_ATTR], enc_selected, show_text, n_moptions, display_inline,
            allowed_encoding, thumb_status, max_n_lines, fixed_text, autosave, new_entry, status;
-   char str[2 * NAME_LENGTH], str2[NAME_LENGTH], preset[2 * NAME_LENGTH], *p, *pend, star[80],
-           comment[10000], reply_string[256], list[MAX_N_ATTR][NAME_LENGTH], file_name[256], *buffer,
+   char str[4000], str2[NAME_LENGTH], preset[2 * NAME_LENGTH], *p, *pend, star[80],
+           comment[1000], reply_string[256], list[MAX_N_ATTR][NAME_LENGTH], file_name[256], *buffer,
            format[256], date[80], script_onload[256], script_onfocus[256], script_onunload[256],
            attrib[MAX_N_ATTR][NAME_LENGTH], *text, orig_tag[80], reply_tag[MAX_REPLY_TO * 10],
            att[MAX_ATTACHMENTS][256], encoding[80], slist[MAX_N_ATTR + 10][NAME_LENGTH],
            svalue[MAX_N_ATTR + 10][NAME_LENGTH], owner[256], locked_by[256], class_value[80], class_name[80],
-           ua[NAME_LENGTH], mid[80], title[256], login_name[256], full_name[256],
-           orig_author[256], attr_moptions[MAX_N_LIST][NAME_LENGTH], ref[256], file_enc[256], tooltip[10000],
-           enc_attr[NAME_LENGTH], user_email[256], cmd[256], thumb_name[256], thumb_ref[256], **user_list, fid[20],
-           upwd[80], subdir[256], draft[256], page_title[300];
+           ua[NAME_LENGTH], mid[80], title[10100], login_name[256], full_name[256],
+           orig_author[256], attr_moptions[MAX_N_LIST][NAME_LENGTH], ref[4400], file_enc[256], tooltip[1100],
+           enc_attr[NAME_LENGTH], user_email[256], cmd[1000], thumb_name[256], thumb_ref[256], **user_list, fid[20],
+           upwd[80], subdir[256], draft[256], page_title[300], attr[NAME_LENGTH];
    time_t now, ltime;
    char fl[8][NAME_LENGTH];
    struct tm *pts;
@@ -10608,7 +10612,8 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
    /* retrieve attribute flags */
    for (i = 0; i < n_attr; i++) {
       format_flags[i] = 0;
-      sprintf(str, "Format %s", attr_list[i]);
+      strlcpy(attr, attr_list[i], sizeof(attr));
+      sprintf(str, "Format %s", attr);
       if (getcfg(lbs->name, str, format, sizeof(format))) {
          n = strbreak(format, fl, 8, ",", FALSE);
          if (n > 0)
@@ -11898,16 +11903,18 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
                         strsubst(thumb_name, sizeof(thumb_name), "-0.png", "");
 
                      rsprintf("<table><tr><td class=\"toolframe\">\n");
-                     sprintf(str, "im('att'+'%d','%s','%s','smaller');", index, thumb_name, att[index]);
+                     char atti[256];
+                     strlcpy(atti, att[index], sizeof(atti));
+                     sprintf(str, "im('att'+'%d','%s','%s','smaller');", index, thumb_name, atti);
                      ricon("smaller", loc("Make smaller"), str);
-                     sprintf(str, "im('att'+'%d','%s','%s','original');", index, thumb_name, att[index]);
+                     sprintf(str, "im('att'+'%d','%s','%s','original');", index, thumb_name, atti);
                      ricon("original", loc("Original size"), str);
-                     sprintf(str, "im('att'+'%d','%s','%s','larger');", index, thumb_name, att[index]);
+                     sprintf(str, "im('att'+'%d','%s','%s','larger');", index, thumb_name, atti);
                      ricon("larger", loc("Make larger"), str);
                      rsprintf("&nbsp;\n");
-                     sprintf(str, "im('att'+'%d','%s','%s','rotleft');", index, thumb_name, att[index]);
+                     sprintf(str, "im('att'+'%d','%s','%s','rotleft');", index, thumb_name, atti);
                      ricon("rotleft", loc("Rotate left"), str);
-                     sprintf(str, "im('att'+'%d','%s','%s','rotright');", index, thumb_name, att[index]);
+                     sprintf(str, "im('att'+'%d','%s','%s','rotright');", index, thumb_name, atti);
                      ricon("rotright", loc("Rotate right"), str);
                      rsprintf("&nbsp;\n");
                      sprintf(str, "deleteAtt('%d','%s')", index,
@@ -12123,9 +12130,9 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
 
 void show_find_form(LOGBOOK *lbs) {
    int i, j, year, month, day, flag;
-   char str[NAME_LENGTH], mode[NAME_LENGTH], comment[NAME_LENGTH], option[NAME_LENGTH], login_name[256],
-           full_name[256], user_email[256], enc_attr[NAME_LENGTH], whole_attr[NAME_LENGTH],
-           attrib[MAX_N_ATTR][NAME_LENGTH];
+   char str[NAME_LENGTH+100], mode[NAME_LENGTH], comment[NAME_LENGTH], option[NAME_LENGTH], login_name[256],
+           full_name[256], user_email[256], enc_attr[NAME_LENGTH], whole_attr[2000],
+           attrib[MAX_N_ATTR][NAME_LENGTH], attr[NAME_LENGTH];
 
    /*---- header ----*/
 
@@ -12397,7 +12404,8 @@ void show_find_form(LOGBOOK *lbs) {
                   break;
                get_user_line(lbs, login_name, NULL, full_name, NULL, NULL, NULL, NULL);
 
-               sprintf(str, "%s_%d", attr_list[i], j);
+               strlcpy(attr, attr_list[i], sizeof(attr));
+               sprintf(str, "%s_%d", attr, j);
 
                rsprintf("<nobr><input type=checkbox id=\"%s\" name=\"%s\" value=\"%s\"\">\n", str, str,
                         full_name);
@@ -12412,7 +12420,8 @@ void show_find_form(LOGBOOK *lbs) {
                   break;
                get_user_line(lbs, login_name, NULL, NULL, user_email, NULL, NULL, NULL);
 
-               sprintf(str, "%s_%d", attr_list[i], j);
+               strlcpy(attr, attr_list[i], sizeof(attr));
+               sprintf(str, "%s_%d", attr, j);
 
                rsprintf("<nobr><input type=checkbox id=\"%s\" name=\"%s\" value=\"%s\"\">\n", str, str,
                         user_email);
@@ -12433,7 +12442,8 @@ void show_find_form(LOGBOOK *lbs) {
             else
                flag = -1;
 
-            sprintf(str, "%s_0", attr_list[i]);
+            strlcpy(attr, attr_list[i], sizeof(attr));
+            sprintf(str, "%s_0", attr);
             rsprintf("<span style=\"white-space:nowrap;\">\n");
             if (flag == 0)
                rsprintf("<input type=radio checked id=\"%s\" name=\"%s\" value=\"0\">\n", str, attr_list[i]);
@@ -12442,7 +12452,7 @@ void show_find_form(LOGBOOK *lbs) {
             rsprintf("<label for=\"%s\">0</label>\n", str);
             rsprintf("</span>\n");
 
-            sprintf(str, "%s_1", attr_list[i]);
+            sprintf(str, "%s_1", attr);
             rsprintf("<span style=\"white-space:nowrap;\">\n");
             if (flag == 1)
                rsprintf("<input type=radio checked id=\"%s\" name=\"%s\" value=\"1\">\n", str, attr_list[i]);
@@ -12451,7 +12461,7 @@ void show_find_form(LOGBOOK *lbs) {
             rsprintf("<label for=\"%s\">1</label>\n", str);
             rsprintf("</span>\n");
 
-            sprintf(str, "%s_2", attr_list[i]);
+            sprintf(str, "%s_2", attr);
             rsprintf("<span style=\"white-space:nowrap;\">\n");
             if (flag == -1)
                rsprintf("<input type=radio checked id=\"%s\" name=\"%s\" value=\"\">\n", str, attr_list[i]);
@@ -12483,7 +12493,9 @@ void show_find_form(LOGBOOK *lbs) {
          /* display check boxes (or'ed) */
          else if (attr_flags[i] & AF_MULTI) {
             for (j = 0; j < MAX_N_LIST && attr_options[i][j][0]; j++) {
-               sprintf(str, "%s_%d", attr_list[i], j);
+
+               strlcpy(attr, attr_list[i], sizeof(attr));
+               sprintf(str, "%s_%d", attr, j);
 
                if (isparam(str))
                   rsprintf("<nobr><input type=checkbox checked id=\"%s\" name=\"%s\" value=\"%s\"\">\n",
@@ -13061,7 +13073,7 @@ int delete_logbook(LOGBOOK *lbs, char *error) {
 int rename_logbook(LOGBOOK *lbs, char *new_name) {
    int fh, i, length, bufsize;
    char *buf, *buf2, *p1, *p2;
-   char str[256], lb_dir[256], old_dir[256], new_dir[256];
+   char str[256], lb_dir[256], old_dir[1000], new_dir[1000];
 
    fh = open(config_file, O_RDWR | O_BINARY, 644);
    if (fh < 0) {
@@ -13276,7 +13288,7 @@ int save_config(char *buffer, char *error) {
 int save_user_config(LOGBOOK *lbs, const char *user, BOOL new_user) {
    char file_name[256], str[1000], *pl, user_enc[256], new_pwd[80], new_pwd2[80], smtp_host[256],
            email_addr[256], mail_from[256], mail_from_name[256], subject[256], mail_text[2000], str2[256],
-           admin_user[80], url[256], error[2000], sid[32];
+           admin_user[80], url[1000], error[2000], sid[32];
    int i, self_register, code, first_user;
    PMXML_NODE node, subnode, npwd;
 
@@ -14021,7 +14033,7 @@ void show_config_page(LOGBOOK *lbs) {
 
 int activate_user(LOGBOOK *lbs, char *user_name, int code) {
    int inactive, self_register;
-   char str[256], str2[256], smtp_host[256], url[256], mail_text[2000],
+   char str[256], str2[256], smtp_host[256], url[1000], mail_text[2000],
            error[256], mail_from_name[256], mail_from[256], user_email[256], logbook[256];
 
    if (lbs == NULL)
@@ -14113,8 +14125,8 @@ int activate_user(LOGBOOK *lbs, char *user_name, int code) {
 
 void show_forgot_pwd_page(LOGBOOK *lbs) {
    int i;
-   char str[1000], str2[1000], login_name[256], full_name[256], user_email[256], name[256], pwd[256],
-           redir[256], smtp_host[256], mail_from[256], mail_from_name[256], subject[256],
+   char str[2000], str2[1000], login_name[256], full_name[256], user_email[256], name[256], pwd[256],
+           redir[1000], smtp_host[256], mail_from[256], mail_from_name[256], subject[256],
            mail_text[1000], url[1000], error[1000];
 
    if (isparam("login_name")) {
@@ -14623,7 +14635,7 @@ void show_logbook_rename(LOGBOOK *lbs) {
 /*------------------------------------------------------------------*/
 
 void show_logbook_new(LOGBOOK *lbs) {
-   char str[256], lbn[256];
+   char str[1000], lbn[256];
    int i;
 
    if (isparam("lbname")) {
@@ -16002,7 +16014,7 @@ int submit_message(LOGBOOK *lbs, char *host, int message_id, char *error_str) {
    else if (strstr(response, "form name=form1"))
       sprintf(error_str, "Missing or invalid user name/password\n");
    else if (strstr(response, "Error: Attribute")) {
-      strncpy(str, strstr(response, "Error: Attribute") + 20, sizeof(str));
+      strncpy(str, strstr(response, "Error: Attribute") + 20, sizeof(str)-1);
       if (strchr(str, '<'))
          *strchr(str, '<') = 0;
       sprintf(error_str, "Missing required attribute \"%s\"\n", str);
@@ -16283,7 +16295,7 @@ void submit_config(LOGBOOK *lbs, char *server, char *buffer, char *error_str) {
    else if (strstr(response, "form name=form1"))
       strlcpy(error_str, "Missing or invalid user name/password\n", 256);
    else if (strstr(response, "Error: Attribute")) {
-      strncpy(str, strstr(response, "Error: Attribute") + 20, sizeof(str));
+      strncpy(str, strstr(response, "Error: Attribute") + 20, sizeof(str)-1);
       if (strchr(str, '<'))
          *strchr(str, '<') = 0;
       sprintf(error_str, "Missing required attribute \"%s\"\n", str);
@@ -16733,7 +16745,7 @@ BOOL equal_md5(unsigned char m1[16], unsigned char m2[16]) {
 #define SYNC_CLONE  3
 
 void mprint(LOGBOOK *lbs, int mode, const char *str) {
-   char line[1000];
+   char line[3000];
 
    if (mode == SYNC_HTML)
       rsprintf("%s\n", str);
@@ -16750,7 +16762,7 @@ void synchronize_logbook(LOGBOOK *lbs, int mode, BOOL sync_all) {
    int index, i, j, i_msg, i_remote, i_cache, n_remote, n_cache, nserver, remote_id, exist_remote,
            exist_cache, message_id, max_id, ssl;
    int all_identical, n_delete;
-   char str[2000], url[256], loc_ref[256], rem_ref[256], pwd[256], locked_by[256], draft[256];
+   char str[2000], url[256], loc_ref[1000], rem_ref[3000], pwd[256], locked_by[256], draft[256];
    MD5_INDEX *md5_remote, *md5_cache;
    char list[MAX_N_LIST][NAME_LENGTH], error_str[256], *buffer;
    unsigned char digest[16];
@@ -17585,8 +17597,8 @@ void display_line(LOGBOOK *lbs, int message_id, int number, const char *mode, in
                   char attachment[MAX_ATTACHMENTS][MAX_PATH_LENGTH], char *encoding, BOOL select,
                   int *n_display, char *locked_by, int highlight, regex_t *re_buf, int highlight_mid,
                   int absolute_link, char *draft) {
-   char str[NAME_LENGTH], ref[256], rowstyle[80], tdstyle[80], format[256],
-           file_name[MAX_PATH_LENGTH], *slist, *svalue, comment[256], param[80], subdir[256];
+   char str[NAME_LENGTH+100], ref[2000], rowstyle[80], tdstyle[80], format[256],
+           file_name[MAX_PATH_LENGTH], *slist, *svalue, comment[256], param[80], subdir[256], attr[NAME_LENGTH];
    const char *nowrap;
    char display[NAME_LENGTH], attr_icon[80];
    int i, j, n, i_line, index, colspan, n_attachments, line_len, thumb_status, max_line_len, n_lines,
@@ -17651,10 +17663,11 @@ void display_line(LOGBOOK *lbs, int message_id, int number, const char *mode, in
 
    /* check attributes for row style */
    for (i = 0; i < n_attr; i++) {
+      strlcpy(attr, attr_list[i], sizeof(attr));
       if (attrib[i][0] == 0)
-         snprintf(str, sizeof(str), "Style %s \"\"", attr_list[i]);
+         snprintf(str, sizeof(str), "Style %s \"\"", attr);
       else
-         snprintf(str, sizeof(str), "Style %s %s", attr_list[i], attrib[i]);
+         snprintf(str, sizeof(str), "Style %s %s", attr, attrib[i]);
       if (getcfg(lbs->name, str, display, sizeof(display))) {
          sprintf(str, "%s\" style=\"%s", rowstyle, display);
          strlcpy(rowstyle, str, sizeof(rowstyle));
@@ -19668,7 +19681,7 @@ time_t convert_datetime(char *date_string) {
 
 void show_rss_feed(LOGBOOK *lbs) {
    int i, n, size, index, message_id, offset;
-   char str[256], charset[256], url[256], attrib[MAX_N_ATTR][NAME_LENGTH], date[80], *text, title[2000],
+   char str[256], charset[256], url[1000], attrib[MAX_N_ATTR][NAME_LENGTH], date[1000], *text, title[2000],
            slist[MAX_N_ATTR + 10][NAME_LENGTH], svalue[MAX_N_ATTR + 10][NAME_LENGTH], draft[1000];
    time_t ltime;
    struct tm *ts;
@@ -19926,11 +19939,11 @@ void show_elog_list(LOGBOOK *lbs, int past_n, int last_n, int page_n, BOOL defau
            page_mid, page_mid_head, level, refresh, disp_attr_flags[MAX_N_ATTR + 4];
    char date[80], attrib[MAX_N_ATTR][NAME_LENGTH], disp_attr[MAX_N_ATTR + 4][NAME_LENGTH], *list, *text,
            *text1, in_reply_to[80], reply_to[MAX_REPLY_TO * 10], attachment[MAX_ATTACHMENTS][MAX_PATH_LENGTH],
-           encoding[80], locked_by[256], str[NAME_LENGTH], ref[256], img[80], comment[NAME_LENGTH], mode[80],
+           encoding[80], locked_by[256], str[NAME_LENGTH+100], ref[1700], img[80], comment[NAME_LENGTH], mode[80],
            mid[80], menu_str[1000], menu_item[MAX_N_LIST][NAME_LENGTH], param[NAME_LENGTH], format[80],
-           sort_attr[MAX_N_ATTR + 4][NAME_LENGTH], mode_cookie[80], charset[25], sort_item[NAME_LENGTH],
-           refr[80], str2[80], draft[256];
-   char *p, *pt1, *pt2, *slist, *svalue, *gattr, line[1024], iattr[256];
+           sort_attr[MAX_N_ATTR + 4][NAME_LENGTH], mode_cookie[256], charset[25], sort_item[NAME_LENGTH],
+           refr[80], str2[80], draft[256], attr[NAME_LENGTH];
+   char *p, *pt1, *pt2, *slist, *svalue, *gattr, line[1024], iattr[1600];
    BOOL show_attachments, threaded, csv, xml, raw, mode_commands, expand, filtering, date_filtering,
            disp_filter, show_text, text_in_attr, searched, found, disp_attr_link[MAX_N_ATTR + 4],
            sort_attributes, show_att_column = 0;
@@ -20046,7 +20059,8 @@ void show_elog_list(LOGBOOK *lbs, int past_n, int last_n, int page_n, BOOL defau
             subst_param(str, sizeof(str), attr_list[i], "");
             found = 1;
          }
-         sprintf(ref, "-- %s --", attr_list[i]);
+         strlcpy(attr, attr_list[i], sizeof(attr));
+         sprintf(ref, "-- %s --", attr);
          if (strieq(getparam(attr_list[i]), ref)) {
             subst_param(str, sizeof(str), attr_list[i], "");
             found = 1;
@@ -20363,7 +20377,8 @@ void show_elog_list(LOGBOOK *lbs, int past_n, int last_n, int page_n, BOOL defau
 
       if (attr_flags[i] & AF_MULTI) {
          for (j = 0; j < MAX_N_LIST && attr_options[i][j][0]; j++) {
-            sprintf(str, "%s_%d", attr_list[i], j);
+            strlcpy(attr, attr_list[i], sizeof(attr));
+            sprintf(str, "%s_%d", attr, j);
             if (isparam(str)) {
                filtering = TRUE;
                break;
@@ -20373,7 +20388,8 @@ void show_elog_list(LOGBOOK *lbs, int past_n, int last_n, int page_n, BOOL defau
 
       if (attr_flags[i] & (AF_MUSERLIST | AF_MUSEREMAIL)) {
          for (j = 0; j < MAX_N_LIST; j++) {
-            sprintf(str, "%s_%d", attr_list[i], j);
+            strlcpy(attr, attr_list[i], sizeof(attr));
+            sprintf(str, "%s_%d", attr, j);
             if (isparam(str)) {
                filtering = TRUE;
                break;
@@ -21191,7 +21207,8 @@ void show_elog_list(LOGBOOK *lbs, int past_n, int last_n, int page_n, BOOL defau
                line[0] = 0;
 
                for (j = 0; j < MAX_N_LIST && attr_options[i][j][0]; j++) {
-                  sprintf(iattr, "%s_%d", attr_list[i], j);
+                  strlcpy(attr, attr_list[i], sizeof(attr));
+                  sprintf(iattr, "%s_%d", attr, j);
                   if (isparam(iattr)) {
 
                      comment[0] = 0;
@@ -21252,7 +21269,8 @@ void show_elog_list(LOGBOOK *lbs, int past_n, int last_n, int page_n, BOOL defau
                line[0] = 0;
 
                for (j = 0; j < MAX_N_LIST; j++) {
-                  sprintf(iattr, "%s_%d", attr_list[i], j);
+                  strlcpy(attr, attr_list[i], sizeof(attr));
+                  sprintf(iattr, "%s_%d", attr, j);
                   if (isparam(iattr)) {
                      if (line[0])
                         strlcat(line, " | ", sizeof(line));
@@ -21479,7 +21497,8 @@ void show_elog_list(LOGBOOK *lbs, int past_n, int last_n, int page_n, BOOL defau
                sprintf(img, "<img align=top src=\"down.png\" alt=\"%s\" title=\"%s\">", loc("down"),
                        loc("down"));
 
-            sprintf(str, "Tooltip %s", disp_attr[i]);
+            strlcpy(attr, disp_attr[i], sizeof(attr));
+            sprintf(str, "Tooltip %s", attr);
             if (getcfg(lbs->name, str, comment, sizeof(comment)))
                sprintf(str, "title=\"%s\"", comment);
             else
@@ -22928,7 +22947,7 @@ void submit_elog(LOGBOOK *lbs) {
            subst_str[MAX_PATH_LENGTH], in_reply_to[80], reply_to[MAX_REPLY_TO * 10], user[256],
            user_email[256], mail_param[1000], *mail_to, *rcpt_to, full_name[256],
            att_file[MAX_ATTACHMENTS][256], slist[MAX_N_ATTR + 10][NAME_LENGTH],
-           svalue[MAX_N_ATTR + 10][NAME_LENGTH], ua[NAME_LENGTH], draft[256];
+           svalue[MAX_N_ATTR + 10][NAME_LENGTH], ua[NAME_LENGTH], draft[256], attr[NAME_LENGTH];
    int i, j, k, n, missing, first, index, mindex, suppress, message_id, resubmit_orig, mail_to_size,
            rcpt_to_size, ltime, year, month, day, hour, min, sec, n_attr, email_notify[1000], allowed_encoding,
            status, bdraft, old_mail;
@@ -23284,7 +23303,8 @@ void submit_elog(LOGBOOK *lbs) {
    /* substitute attributes */
    if (!bedit && !isparam("reply_to")) {
       for (index = 0; index < n_attr; index++) {
-         sprintf(str, "Subst %s", attr_list[index]);
+         strlcpy(attr, attr_list[index], sizeof(attr));
+         sprintf(str, "Subst %s", attr);
          if (getcfg(lbs->name, str, subst_str, sizeof(subst_str))) {
 
             /* do not format date for date attributes */
