@@ -12627,7 +12627,10 @@ void load_config_section(char *section, char **buffer, char *error) {
          while (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r')
             p++;
       }
-      memmove(*buffer, p, length);
+      int n = length;
+      if ((int)strlen(p)+1 < n)
+         n = strlen(p)+1;
+      memmove(*buffer, p, n);
       if ((p = (char *) find_next_section(*buffer + 1)) != NULL) {
          *p = 0;
 
