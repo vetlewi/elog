@@ -514,7 +514,6 @@ void *xcalloc(size_t count, size_t bytes) {
 
 void *xrealloc(void *pointer, size_t bytes) {
    char *temp;
-   int old_size;
 
    /* Align buffer on 4 byte boundery for HP UX and other 64 bit systems to prevent Bus error (core dump) */
    if (bytes & 3)
@@ -526,8 +525,7 @@ void *xrealloc(void *pointer, size_t bytes) {
    /* check old magic number */
    temp = (char *)pointer;
    assert(*((unsigned int *) (temp - 4)) == 0xdeadc0de);
-   old_size = *((unsigned int *) (temp - 8));
-   assert(*((unsigned int *) (temp + old_size)) == 0xdeadc0de);
+   assert(*((unsigned int *) (temp + (*((unsigned int *) (temp - 8))))) == 0xdeadc0de);
 
    temp = (char *) realloc(temp - 8, bytes + 12);
 
@@ -544,7 +542,6 @@ void *xrealloc(void *pointer, size_t bytes) {
 
 void xfree(void *pointer) {
    char *temp;
-   int old_size;
 
    if (!pointer)
       return;
@@ -552,8 +549,7 @@ void xfree(void *pointer) {
    /* check for magic byte */
    temp = (char *)pointer;
    assert(*((unsigned int *) (temp - 4)) == 0xdeadc0de);
-   old_size = *((unsigned int *) (temp - 8));
-   assert(*((unsigned int *) (temp + old_size)) == 0xdeadc0de);
+   assert(*((unsigned int *) (temp + (*((unsigned int *) (temp - 8))))) == 0xdeadc0de);
 
    free(temp - 8);
 }
