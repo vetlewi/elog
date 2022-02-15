@@ -28692,9 +28692,9 @@ void decode_post(char *logbook, LOGBOOK *lbs, char *string, const char *boundary
                   if (strstr(str, boundary))
                      *strstr(str, boundary) = 0;
                   ptmp = str + (strlen(str) - 1);
-                  while (*ptmp == '-')
+                  while (ptmp >= str && *ptmp == '-')
                      *ptmp-- = 0;
-                  while (*ptmp == '\n' || *ptmp == '\r')
+                  while (ptmp >= str && (*ptmp == '\n' || *ptmp == '\r'))
                      *ptmp-- = 0;
 
                   if (setparam(item, str) == 0)
