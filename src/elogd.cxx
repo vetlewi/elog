@@ -21656,8 +21656,8 @@ void show_elog_list(LOGBOOK *lbs, int past_n, int last_n, int page_n, BOOL defau
 
             strlcpy(str, attrib[i], sizeof(str));
             if (attr_flags[i] & AF_DATE) {
-
-               sprintf(str, "Date format %s", attr_list[i]);
+               strlcpy(attr, attr_list[i], sizeof(attr));
+               sprintf(str, "Date format %s", attr);
                if (!getcfg(lbs->name, str, format, sizeof(format)))
                   if (!getcfg(lbs->name, "Date format", format, sizeof(format)))
                      strcpy(format, DEFAULT_DATE_FORMAT);
@@ -21673,7 +21673,8 @@ void show_elog_list(LOGBOOK *lbs, int past_n, int last_n, int page_n, BOOL defau
 
             } else if (attr_flags[i] & AF_DATETIME) {
 
-               sprintf(str, "Time format %s", attr_list[i]);
+               strlcpy(attr, attr_list[i], sizeof(attr));
+               sprintf(str, "Time format %s", attr);
                if (!getcfg(lbs->name, str, format, sizeof(format)))
                   if (!getcfg(lbs->name, "Time format", format, sizeof(format)))
                      strcpy(format, DEFAULT_TIME_FORMAT);
@@ -22037,7 +22038,7 @@ void format_email_text(LOGBOOK *lbs, char attrib[MAX_N_ATTR][NAME_LENGTH],
    int i, j, k, flags, n_email_attr, attr_index[MAX_N_ATTR];
    char str[NAME_LENGTH + 100], str2[256], mail_from[256], mail_from_name[256], format[256],
            list[MAX_N_ATTR][NAME_LENGTH], comment[256], charset[256], heading[256],
-           slist[MAX_N_ATTR + 10][NAME_LENGTH], svalue[MAX_N_ATTR + 10][NAME_LENGTH];
+           slist[MAX_N_ATTR + 10][NAME_LENGTH], svalue[MAX_N_ATTR + 10][NAME_LENGTH], attr[NAME_LENGTH];
    time_t ltime;
    struct tm *pts;
 
@@ -22121,7 +22122,8 @@ void format_email_text(LOGBOOK *lbs, char attrib[MAX_N_ATTR][NAME_LENGTH],
 
          } else if (attr_flags[i] & AF_DATE) {
 
-            sprintf(str, "Date format %s", attr_list[i]);
+            strlcpy(attr, attr_list[i], sizeof(attr));
+            sprintf(str, "Date format %s", attr);
             if (!getcfg(lbs->name, str, format, sizeof(format)))
                if (!getcfg(lbs->name, "Date format", format, sizeof(format)))
                   strcpy(format, DEFAULT_DATE_FORMAT);
@@ -22135,6 +22137,7 @@ void format_email_text(LOGBOOK *lbs, char attrib[MAX_N_ATTR][NAME_LENGTH],
                my_strftime(comment, sizeof(str), format, pts);
          } else if (attr_flags[i] & AF_DATETIME) {
 
+            strlcpy(attr, attr_list[i], sizeof(attr));
             sprintf(str, "Time format %s", attr_list[i]);
             if (!getcfg(lbs->name, str, format, sizeof(format)))
                if (!getcfg(lbs->name, "Time format", format, sizeof(format)))
@@ -22195,7 +22198,7 @@ void format_email_html(LOGBOOK *lbs, int message_id, char attrib[MAX_N_ATTR][NAM
    int i, j, k, flags, n_email_attr, attr_index[MAX_N_ATTR], max_att_size, max_allowed_att_size;
    char str[NAME_LENGTH + 100], str2[256], mail_from[256], mail_from_name[256], format[256],
            list[MAX_N_ATTR][NAME_LENGTH], comment[256], charset[256], multipart_boundary_related[256],
-           heading[256], slist[MAX_N_ATTR + 10][NAME_LENGTH], svalue[MAX_N_ATTR + 10][NAME_LENGTH];
+           heading[256], slist[MAX_N_ATTR + 10][NAME_LENGTH], svalue[MAX_N_ATTR + 10][NAME_LENGTH], attr[NAME_LENGTH];
    time_t ltime;
    struct tm *pts;
 
@@ -22309,7 +22312,8 @@ void format_email_html(LOGBOOK *lbs, int message_id, char attrib[MAX_N_ATTR][NAM
 
          } else if (attr_flags[i] & AF_DATE) {
 
-            sprintf(str, "Date format %s", attr_list[i]);
+            strlcpy(attr, attr_list[i], sizeof(attr));
+            sprintf(str, "Date format %s", attr);
             if (!getcfg(lbs->name, str, format, sizeof(format)))
                if (!getcfg(lbs->name, "Date format", format, sizeof(format)))
                   strcpy(format, DEFAULT_DATE_FORMAT);
@@ -22323,7 +22327,8 @@ void format_email_html(LOGBOOK *lbs, int message_id, char attrib[MAX_N_ATTR][NAM
                my_strftime(comment, sizeof(str), format, pts);
          } else if (attr_flags[i] & AF_DATETIME) {
 
-            sprintf(str, "Time format %s", attr_list[i]);
+            strlcpy(attr, attr_list[i], sizeof(attr));
+            sprintf(str, "Time format %s", attr);
             if (!getcfg(lbs->name, str, format, sizeof(format)))
                if (!getcfg(lbs->name, "Time format", format, sizeof(format)))
                   strcpy(format, DEFAULT_TIME_FORMAT);
@@ -22347,7 +22352,8 @@ void format_email_html(LOGBOOK *lbs, int message_id, char attrib[MAX_N_ATTR][NAM
             if (str[k] != ' ')
                break;
 
-         sprintf(mail_text + strlen(mail_text), "<tr><td bgcolor=\"#CCCCFF\">%s</td>", attr_list[i]);
+         strlcpy(attr, attr_list[i], sizeof(attr));
+         sprintf(mail_text + strlen(mail_text), "<tr><td bgcolor=\"#CCCCFF\">%s</td>", attr);
          sprintf(mail_text + strlen(mail_text), "<td bgcolor=\"#DDEEBB\">%s</td></tr>\r\n", comment);
       }
    }
@@ -22974,7 +22980,7 @@ void submit_elog(LOGBOOK *lbs) {
    /* check for required attributs */
    missing = 0;
    for (i = 0; i < lbs->n_attr; i++) {
-      strcpy(ua, attr_list[i]);
+      strlcpy(ua, attr_list[i], sizeof(ua));
       stou(ua);
 
       if (attr_flags[i] & AF_REQUIRED) {
@@ -23032,9 +23038,10 @@ void submit_elog(LOGBOOK *lbs) {
 
    if (missing && !bdraft) {
       sprintf(error, "<i>");
-      sprintf(error + strlen(error), loc("Error: Attribute <b>%s</b> not supplied"), attr_list[i]);
+      strlcpy(attr, attr_list[i], sizeof(attr));
+      sprintf(error + strlen(error), loc("Error: Attribute <b>%s</b> not supplied"), attr);
       sprintf(error + strlen(error), ".</i><p>\n");
-      sprintf(error + strlen(error), loc("Please go back and enter the <b>%s</b> field"), attr_list[i]);
+      sprintf(error + strlen(error), loc("Please go back and enter the <b>%s</b> field"), attr);
       strcat(error, ".\n");
 
       show_error(error);
@@ -23063,7 +23070,7 @@ void submit_elog(LOGBOOK *lbs) {
    }
 
    for (i = 0; i < n_attr; i++) {
-      strcpy(ua, attr_list[i]);
+      strlcpy(ua, attr_list[i], sizeof(ua));
       stou(ua);
       if (attr_flags[i] & (AF_MULTI | AF_MUSERLIST | AF_MUSEREMAIL))
          strcat(ua, "_0");
@@ -23156,7 +23163,7 @@ void submit_elog(LOGBOOK *lbs) {
    /* retrieve attributes */
    for (i = 0; i < n_attr; i++) {
 
-      strcpy(ua, attr_list[i]);
+      strlcpy(ua, attr_list[i], sizeof(ua));
       stou(ua);
 
       if (strieq(attr_options[i][0], "boolean") && !isparam(ua)) {
@@ -24344,7 +24351,7 @@ void show_elog_entry(LOGBOOK *lbs, char *dec_path, char *command) {
            format[80], slist[MAX_N_ATTR + 10][NAME_LENGTH], file_name[MAX_PATH_LENGTH],
            gattr[MAX_N_ATTR][NAME_LENGTH], svalue[MAX_N_ATTR + 10][NAME_LENGTH], *p,
            lbk_list[MAX_N_LIST][NAME_LENGTH], comment[256], class_name[80], class_value[80],
-           fl[8][NAME_LENGTH], list[MAX_N_ATTR][NAME_LENGTH], domain[256], subdir[256], draft[256];
+           fl[8][NAME_LENGTH], list[MAX_N_ATTR][NAME_LENGTH], domain[256], subdir[256], draft[256], attr[NAME_LENGTH];
    FILE *f;
    BOOL first, show_text, display_inline, subtable, email, att_links;
    struct tm *pts;
@@ -24450,7 +24457,8 @@ void show_elog_entry(LOGBOOK *lbs, char *dec_path, char *command) {
 
          /* check for locked attributes */
          for (i = 0; i < lbs->n_attr; i++) {
-            sprintf(lattr, "l%s", attr_list[i]);
+            strlcpy(attr, attr_list[i], sizeof(attr));
+            sprintf(lattr, "l%s", attr);
             if (isparam(lattr) == '1'
                 && !(isparam(attr_list[i]) && strieq(getparam(attr_list[i]), attrib[i])))
                break;
@@ -24472,7 +24480,8 @@ void show_elog_entry(LOGBOOK *lbs, char *dec_path, char *command) {
          sprintf(str, "%d", message_id);
 
          for (i = 0; i < lbs->n_attr; i++) {
-            sprintf(lattr, "l%s", attr_list[i]);
+            strlcpy(attr, attr_list[i], sizeof(attr));
+            sprintf(lattr, "l%s", attr);
             if (isparam(lattr) == '1') {
                if (strchr(str, '?') == NULL)
                   sprintf(str + strlen(str), "?%s=1", lattr);
@@ -24720,13 +24729,14 @@ void show_elog_entry(LOGBOOK *lbs, char *dec_path, char *command) {
 
       /* check for locked attributes */
       for (i = 0; i < lbs->n_attr; i++) {
-         sprintf(lattr, "l%s", attr_list[i]);
+         strlcpy(attr, attr_list[i], sizeof(attr));
+         sprintf(lattr, "l%s", attr);
          if (isparam(lattr) == '1')
             break;
       }
       if (i < lbs->n_attr) {
-         if (isparam(attr_list[i]))
-            sprintf(str, " %s <i>\"%s = %s\"</i>", loc("with"), attr_list[i], getparam(attr_list[i]));
+         if (isparam(attr))
+            sprintf(str, " %s <i>\"%s = %s\"</i>", loc("with"), attr, getparam(attr));
       } else
          str[0] = 0;
 
@@ -24878,7 +24888,8 @@ void show_elog_entry(LOGBOOK *lbs, char *dec_path, char *command) {
       /* retrieve attribute flags */
       for (i = 0; i < lbs->n_attr; i++) {
          format_flags[i] = 0;
-         sprintf(str, "Format %s", attr_list[i]);
+         strlcpy(attr, attr_list[i], sizeof(attr));
+         sprintf(str, "Format %s", attr);
          if (getcfg(lbs->name, str, format, sizeof(format))) {
             n = strbreak(format, fl, 8, ",", FALSE);
             if (n > 0)
@@ -24926,7 +24937,8 @@ void show_elog_entry(LOGBOOK *lbs, char *dec_path, char *command) {
          strcpy(class_name, "attribname");
          strcpy(class_value, "attribvalue");
 
-         sprintf(str, "Format %s", attr_list[i]);
+         strlcpy(attr, attr_list[i], sizeof(attr));
+         sprintf(str, "Format %s", attr);
          if (getcfg(lbs->name, str, format, sizeof(format))) {
             n = strbreak(format, fl, 8, ",", FALSE);
             if (n > 1)
@@ -24946,10 +24958,11 @@ void show_elog_entry(LOGBOOK *lbs, char *dec_path, char *command) {
             /* for normal attribute, start new row */
             rsprintf("<tr>");
 
-         sprintf(lattr, "l%s", attr_list[i]);
+         strlcpy(attr, attr_list[i], sizeof(attr));
+         sprintf(lattr, "l%s", attr);
 
          /* display cell with optional tooltip */
-         sprintf(str, "Tooltip %s", attr_list[i]);
+         sprintf(str, "Tooltip %s", attr);
          if (getcfg(lbs->name, str, comment, sizeof(comment)))
             rsprintf("<td nowrap title=\"%s\" class=\"%s\">", comment, class_name);
          else
@@ -25007,7 +25020,8 @@ void show_elog_entry(LOGBOOK *lbs, char *dec_path, char *command) {
             rsprintf("</td>\n");
          } else if (attr_flags[i] & AF_DATE) {
 
-            sprintf(str, "Date format %s", attr_list[i]);
+            strlcpy(attr, attr_list[i], sizeof(attr));
+            sprintf(str, "Date format %s", attr);
             if (!getcfg(lbs->name, str, format, sizeof(format)))
                if (!getcfg(lbs->name, "Date format", format, sizeof(format)))
                   strcpy(format, DEFAULT_DATE_FORMAT);
@@ -25024,7 +25038,8 @@ void show_elog_entry(LOGBOOK *lbs, char *dec_path, char *command) {
 
          } else if (attr_flags[i] & AF_DATETIME) {
 
-            sprintf(str, "Time format %s", attr_list[i]);
+            strlcpy(attr, attr_list[i], sizeof(attr));
+            sprintf(str, "Time format %s", attr);
             if (!getcfg(lbs->name, str, format, sizeof(format)))
                if (!getcfg(lbs->name, "Time format", format, sizeof(format)))
                   strcpy(format, DEFAULT_TIME_FORMAT);
@@ -25042,7 +25057,8 @@ void show_elog_entry(LOGBOOK *lbs, char *dec_path, char *command) {
          } else {
             rsprintf("%s:</td><td class=\"%s\">\n", attr_list[i], class_value);
 
-            sprintf(str, "Change %s", attr_list[i]);
+            strlcpy(attr, attr_list[i], sizeof(attr));
+            sprintf(str, "Change %s", attr);
             if (getcfg(lbs->name, str, display, sizeof(display))) {
                k = build_subst_list(lbs, (char (*)[NAME_LENGTH]) slist, (char (*)[NAME_LENGTH]) svalue,
                                     attrib, TRUE);
