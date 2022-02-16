@@ -28456,6 +28456,39 @@ void decode_get(char *logbook, char *string) {
 
 /*------------------------------------------------------------------*/
 
+void hexdump(void *p, int len)
+{
+   unsigned char *buffer = (unsigned char *)p;
+   for (int i = 0; i < len; i++) {
+      if (i % 16 == 0)
+         printf("%p  ", buffer+i);
+      printf("%02X ", buffer[i]);
+      if (i % 16 == 7)
+         printf(" ");
+      if (i % 16 == 15) {
+         printf(" |");
+         for (int j = i - 15; j <= i; j++) {
+            printf("%c", buffer[j] < 32 || buffer[j] > 128 ? '.' : buffer[j]);
+         }
+         printf("|\n");
+      }
+   }
+   if (len % 16 != 0) {
+      if (len % 16 < 8)
+         printf(" ");
+      for (int j = 0; j < 16 - len % 16; j++)
+         printf("   ");
+      printf(" |");
+      for (int j = len - (len % 16); j < len; j++) {
+         printf("%c", buffer[j] < 32 || buffer[j] > 128 ? '.' : buffer[j]);
+      }
+      printf("|\n");
+   }
+   printf("\n");
+}
+
+/*------------------------------------------------------------------*/
+
 void decode_post(char *logbook, LOGBOOK *lbs, char *string, const char *boundary, int length) {
    int n_att, size, status, header_size;
    char *pinit, *p;
@@ -28513,9 +28546,9 @@ void decode_post(char *logbook, LOGBOOK *lbs, char *string, const char *boundary
                /* find next boundary */
                pctmp = string;
                do {
-                  while (*pctmp != '-' && pctmp < string + length)
+                  while (*pctmp != '-' && pctmp < pinit + length)
                      pctmp++;
-                  if (pctmp == string + length)
+                  if (pctmp == pinit + length)
                      return;
                   if ((p = strstr(pctmp, boundary)) != NULL) {
                      if (*(p - 1) == '-')
@@ -28581,9 +28614,9 @@ void decode_post(char *logbook, LOGBOOK *lbs, char *string, const char *boundary
                /* find next boundary */
                pctmp = string;
                do {
-                  while (*pctmp != '-' && pctmp < string + length)
+                  while (*pctmp != '-' && pctmp < pinit + length)
                      pctmp++;
-                  if (pctmp == string + length)
+                  if (pctmp == pinit + length)
                      return;
                   if ((p = strstr(pctmp, boundary)) != NULL) {
                      if (*(p - 1) == '-')
@@ -28768,10 +28801,29 @@ int process_http_request(const char *crequest, int i_conn) {
    if (!strchr(crequest, '\r'))
       return 0;
 
+   content_length = header_length = 0;
    strsize = strlen(crequest) + 1001;
+
+   /* extract header length */
+   if (strstr(crequest, "\r\n\r\n"))
+      header_length = strstr(crequest, "\r\n\r\n") - crequest + 4;
+   else if (strstr(crequest, "\r\r\n\r\r\n"))
+      header_length = strstr(crequest, "\r\r\n\r\r\n") - crequest + 6;
+   else {
+      show_error("Invalid POST header");
+      return 1;
+   }
+
+   /* extract content length */
+   if (strstr(crequest, "Content-Length:")) {
+      content_length = atoi(strstr(crequest, "Content-Length:") + 15);
+
+      strsize = content_length + header_length + 15;
+   }
+
    str = (char *)xmalloc(strsize);
    request = (char *)xmalloc(strsize);
-   strlcpy(request, crequest, strsize);
+   memcpy(request, crequest, strsize);
 
    if (get_verbose() < VERBOSE_DEBUG) {
       if (get_verbose() > 0) {
@@ -28789,7 +28841,6 @@ int process_http_request(const char *crequest, int i_conn) {
 
    /* initialize parametr array */
    initparam();
-   content_length = 0;
 
    /* extract cookies */
    if ((p = stristr(request, "Cookie:")) != NULL) {
@@ -29286,18 +29337,6 @@ int process_http_request(const char *crequest, int i_conn) {
          content_length = atoi(strstr(request, "Content-length:") + 15);
       if (content_length <= 0) {
          show_error("Invalid Content-Length in header");
-         xfree(str);
-         xfree(request);
-         return 1;
-      }
-
-      /* extract header length */
-      if (strstr(request, "\r\n\r\n"))
-         header_length = strstr(request, "\r\n\r\n") - request + 4;
-      else if (strstr(request, "\r\r\n\r\r\n"))
-         header_length = strstr(request, "\r\r\n\r\r\n") - request + 6;
-      else {
-         show_error("Invalid POST header");
          xfree(str);
          xfree(request);
          return 1;
