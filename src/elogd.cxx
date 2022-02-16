@@ -4555,9 +4555,9 @@ int el_retrieve(LOGBOOK *lbs, int message_id, char *date, char attr_list[MAX_N_A
             strlcpy(text, p, *textsize);
 
             /* strip CR at end */
-            if (text[strlen(text) - 1] == '\n') {
+            if (strlen(text) > 0 && text[strlen(text) - 1] == '\n') {
                text[strlen(text) - 1] = 0;
-               if (text[strlen(text) - 1] == '\r')
+               if (strlen(text) > 0 && text[strlen(text) - 1] == '\r')
                   text[strlen(text) - 1] = 0;
             }
 
@@ -28732,9 +28732,9 @@ void decode_post(char *logbook, LOGBOOK *lbs, char *string, const char *boundary
                   if (strstr(_mtext, boundary))
                      *strstr(_mtext, boundary) = 0;
                   ptmp = _mtext + (strlen(_mtext) - 1);
-                  while (*ptmp == '-')
+                  while (ptmp >= _mtext && *ptmp == '-' )
                      *ptmp-- = 0;
-                  while (*ptmp == '\n' || *ptmp == '\r')
+                  while (ptmp >= _mtext && (*ptmp == '\n' || *ptmp == '\r'))
                      *ptmp-- = 0;
                } else {
                   strlcpy(str, p, sizeof(str));
