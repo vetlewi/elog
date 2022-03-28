@@ -4666,7 +4666,7 @@ int el_submit_attachment(LOGBOOK *lbs, const char *afilename, const char *buffer
 
 void el_delete_attachment(LOGBOOK *lbs, char *file_name) {
    int i;
-   char str[MAX_PATH_LENGTH], subdir[MAX_PATH_LENGTH];
+   char str[2*MAX_PATH_LENGTH], subdir[MAX_PATH_LENGTH];
 
    strlcpy(str, lbs->data_dir, sizeof(str));
    generate_subdir_name(file_name, subdir, sizeof(subdir));
