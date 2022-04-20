@@ -95,6 +95,12 @@ add_executable(elogd
   ${CMAKE_SOURCE_DIR}/src/crypt.cxx
 )
 
+if (WIN32)
+target_sources(elog PRIVATE
+   ${CMAKE_SOURCE_DIR}/src/regex.c
+)
+endif()
+
 add_executable(elog
   ${CMAKE_SOURCE_DIR}/src/elog.cxx
   ${CMAKE_SOURCE_DIR}/src/crypt.cxx
