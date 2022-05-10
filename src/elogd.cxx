@@ -108,140 +108,77 @@ char attr_options_default[][MAX_N_LIST][NAME_LENGTH] = {{""},
 
 int attr_flags_default[] = {AF_REQUIRED, 0, 0, 0};
 
-struct {
+struct FILETYPE {
    char ext[32];
    char type[80];
 } filetype[] = {
+        {".AI",   "application/postscript"},
+        {".ASC",  "text/plain"},
+        {".BZ2",  "application/x-bzip2"},
+        {".CFG",  "text/plain"},
+        {".CHRT", "application/x-kchart"},
+        {".CONF", "text/plain"},
+        {".CSH",  "application/x-csh"},
+        {".CSS",  "text/css"},
+        {".DOC",  "application/msword"},
+        {".DVI",  "application/x-dvi"},
+        {".EPS",  "application/postscript"},
+        {".GIF",  "image/gif"},
+        {".GZ",   "application/x-gzip"},
+        {".HTM",  "text/html"},
+        {".HTML", "text/html"},
+        {".ICO",  "image/x-icon"},
+        {".JPEG", "image/jpeg"},
+        {".JPG",  "image/jpeg"},
+        {".JS",   "application/x-javascript"},
+        {".KPR",  "application/x-kpresenter"},
+        {".KSP",  "application/x-kspread"},
+        {".KWD",  "application/x-kword"},
+        {".MP3",  "audio/mpeg"},
+        {".OGG",  "application/x-ogg"},
+        {".PDF",  "application/pdf"},
+        {".PNG",  "image/png"},
+        {".PS",   "application/postscript"},
+        {".RAM",  "audio/x-pn-realaudio"},
+        {".RM",   "audio/x-pn-realaudio"},
+        {".RM",   "audio/x-pn-realaudio"},
+        {".RM",   "audio/x-pn-realaudio"},
+        {".RPM",  "application/x-rpm"},
+        {".RTF",  "application/rtf"},
+        {".SH",   "application/x-sh"},
+        {".SVG",  "image/svg+xml"},
+        {".TAR",  "application/x-tar"},
+        {".TCL",  "application/x-tcl"},
+        {".TEX",  "application/x-tex"},
+        {".TGZ",  "application/x-gzip"},
+        {".TIF",  "image/tiff"},
+        {".TIFF", "image/tiff"},
+        {".TXT",  "text/plain"},
+        {".WAV",  "audio/x-wav"},
+        {".XLS",  "application/x-msexcel"},
+        {".XML",  "text/xml"},
+        {".XSL",  "text/xml"},
+        {".ZIP",  "application/x-zip-compressed"},
+        /* Open XML file types */
+        {".DOCM", "application/vnd.ms-word.document.macroEnabled.12"},
+        {".DOCX", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
+        {".DOTM", "application/vnd.ms-word.template.macroEnabled.12"},
+        {".DOTX", "application/vnd.openxmlformats-officedocument.wordprocessingml.template"},
+        {".PPSM", "application/vnd.ms-powerpoint.slideshow.macroEnabled.12"},
+        {".PPSX", "application/vnd.openxmlformats-officedocument.presentationml.slideshow"},
+        {".PPTM", "application/vnd.ms-powerpoint.presentation.macroEnabled.12"},
+        {".PPTX", "application/vnd.openxmlformats-officedocument.presentationml.presentation"},
+        {".XLSB", "application/vnd.ms-excel.sheet.binary.macroEnabled.12"},
+        {".XLSM", "application/vnd.ms-excel.sheet.macroEnabled.12"},
+        {".XLSX", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
+        {".XPS",  "application/vnd.ms-xpsdocument"},
+        {"",      ""},
+};
 
-        {
-                ".AI",   "application/postscript"},
-        {
-                ".ASC",  "text/plain"},
-        {
-                ".BZ2",  "application/x-bzip2"},
-        {
-                ".CFG",  "text/plain"},
-        {
-                ".CHRT", "application/x-kchart"},
-        {
-                ".CONF", "text/plain"},
-        {
-                ".CSH",  "application/x-csh"},
-        {
-                ".CSS",  "text/css"},
-        {
-                ".DOC",  "application/msword"},
-        {
-                ".DVI",  "application/x-dvi"},
-        {
-                ".EPS",  "application/postscript"},
-        {
-                ".GIF",  "image/gif"},
-        {
-                ".GZ",   "application/x-gzip"},
-        {
-                ".HTM",  "text/html"},
-        {
-                ".HTML", "text/html"},
-        {
-                ".ICO",  "image/x-icon"},
-        {
-                ".JPEG", "image/jpeg"},
-        {
-                ".JPG",  "image/jpeg"},
-        {
-                ".JS",   "application/x-javascript"},
-        {
-                ".KPR",  "application/x-kpresenter"},
-        {
-                ".KSP",  "application/x-kspread"},
-        {
-                ".KWD",  "application/x-kword"},
-        {
-                ".MP3",  "audio/mpeg"},
-        {
-                ".OGG",  "application/x-ogg"},
-        {
-                ".PDF",  "application/pdf"},
-        {
-                ".PNG",  "image/png"},
-        {
-                ".PS",   "application/postscript"},
-        {
-                ".RAM",  "audio/x-pn-realaudio"},
-        {
-                ".RM",   "audio/x-pn-realaudio"},
-        {
-                ".RM",   "audio/x-pn-realaudio"},
-        {
-                ".RM",   "audio/x-pn-realaudio"},
-        {
-                ".RPM",  "application/x-rpm"},
-        {
-                ".RTF",  "application/rtf"},
-        {
-                ".SH",   "application/x-sh"},
-        {
-                ".SVG",  "image/svg+xml"},
-        {
-                ".TAR",  "application/x-tar"},
-        {
-                ".TCL",  "application/x-tcl"},
-        {
-                ".TEX",  "application/x-tex"},
-        {
-                ".TGZ",  "application/x-gzip"},
-        {
-                ".TIF",  "image/tiff"},
-        {
-                ".TIFF", "image/tiff"},
-        {
-                ".TXT",  "text/plain"},
-        {
-                ".WAV",  "audio/x-wav"},
-        {
-                ".XLS",  "application/x-msexcel"},
-        {
-                ".XML",  "text/xml"},
-        {
-                ".XSL",  "text/xml"},
-        {
-                ".ZIP",  "application/x-zip-compressed"},
-        {
-
-                /* Open XML file types */
-                ".DOCM", "application/vnd.ms-word.document.macroEnabled.12"},
-        {
-                ".DOCX", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
-        {
-                ".DOTM", "application/vnd.ms-word.template.macroEnabled.12"},
-        {
-                ".DOTX", "application/vnd.openxmlformats-officedocument.wordprocessingml.template"},
-        {
-                ".PPSM", "application/vnd.ms-powerpoint.slideshow.macroEnabled.12"},
-        {
-                ".PPSX", "application/vnd.openxmlformats-officedocument.presentationml.slideshow"},
-        {
-                ".PPTM", "application/vnd.ms-powerpoint.presentation.macroEnabled.12"},
-        {
-                ".PPTX", "application/vnd.openxmlformats-officedocument.presentationml.presentation"},
-        {
-                ".XLSB", "application/vnd.ms-excel.sheet.binary.macroEnabled.12"},
-        {
-                ".XLSM", "application/vnd.ms-excel.sheet.macroEnabled.12"},
-        {
-                ".XLSX", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
-        {
-                ".XPS",  "application/vnd.ms-xpsdocument"},
-        {
-
-                "",      ""},};
-
-struct {
+struct LANG_TABLE {
    char language[32];
    char abbrev[32];
 } lang_table[] = {
-
         {"brazilian",    "br"},
         {"bulgarian",    "bg"},
         {"czech",        "cz"},
