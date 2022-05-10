@@ -20130,7 +20130,6 @@ void show_elog_list(LOGBOOK *lbs, int past_n, int last_n, int page_n, BOOL defau
       /* supersede mode from direct parameter */
       if (isparam("mode"))
          strlcpy(mode, getparam("mode"), sizeof(mode));
-
    } else {
       /* for find result, get mode from find form */
       if (isparam("mode"))
@@ -20138,6 +20137,12 @@ void show_elog_list(LOGBOOK *lbs, int past_n, int last_n, int page_n, BOOL defau
       else
          strlcpy(mode, "Full", sizeof(mode));
    }
+
+   // strip any HTML
+   if (strchr(mode, '<'))
+      *strchr(mode, '<') = 0;
+   if (strchr(mode, '\"'))
+      *strchr(mode, '\"') = 0;
 
    /* set cookie if mode changed */
    mode_cookie[0] = 0;
