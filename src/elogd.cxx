@@ -13276,6 +13276,24 @@ int save_user_config(LOGBOOK *lbs, const char *user, BOOL new_user) {
       return 0;
    }
 
+   /* check for string lengths */
+   if (strlen(getparam("new_user_name")) > 40) {
+      sprintf(str, "%s %s", loc("Login name"), loc("is too long"));
+      show_error(str);
+      return 0;
+   }
+   if (strlen(getparam("new_full_name")) > 80) {
+      sprintf(str, "%s %s", loc("Full name"), loc("is too long"));
+      show_error(str);
+      return 0;
+   }
+   if (strlen(getparam("new_user_email")) > 80) {
+      sprintf(str, "%s %s", loc("Email address"), loc("is too long"));
+      show_error(str);
+      return 0;
+   }
+
+
    /* check for blank password if not external authentication */
    if (isparam("newpwd")) {
       strlcpy(str, getparam("newpwd"), sizeof(str));
@@ -25710,7 +25728,7 @@ int get_user_line(LOGBOOK *lbs, char *user, char *password, char *full_name, cha
 /* return value: 0:cannot access password file, 1: OK, 2: user not found */
 {
    int i, j;
-   char str[256];
+   char str[1024];
    PMXML_NODE user_node, node, subnode;
 
    if (password)
