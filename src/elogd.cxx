@@ -11455,10 +11455,17 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
 
       } else {
 
-         if (enc_selected == 1)
-            /* use hard wrapping only for plain text */
-            rsprintf("<textarea rows=%d cols=%d wrap=hard name=\"Text\">\n", height, width);
-         else
+         if (enc_selected == 1) {
+            /* use hard wrapping only for plain text if configured */
+            int hard_wrap = 1;
+            if (getcfg(lbs->name, "Hard wrap", str, sizeof(str)))
+               hard_wrap = atoi(str);
+
+            if (hard_wrap)
+               rsprintf("<textarea rows=%d cols=%d wrap=hard name=\"Text\">\n", height, width);
+            else
+               rsprintf("<textarea rows=%d cols=%d name=\"Text\">\n", height, width);
+         } else
             rsprintf
                     ("<textarea rows=%d cols=%d name=\"Text\" style=\"width:100%%;\">\n", height, width);
 

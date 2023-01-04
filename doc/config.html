@@ -2928,6 +2928,15 @@ Options Location = Main Building{a}, New Building{b}, Old Building{c}
       <b><code>New</code></b> menu item, in which case the system presents to the user
       a list of open draft messages to be continued.
    </li>
+   <li>
+      <b><code>Hard wrap = 0|1</code></b><br>
+      If entries are entered in plain text mode, the browser adds automatically a
+      CRLF at the end of each line where the text wraps. This ensures that the submitted
+      entry has the same line breaks as in the edit box. If this behaviour is not
+      wanted, the adding of hard wraps can be turned off by setting this value to <b>0</b>.
+      If the user then enters a very long line without hitting the newline key,
+      the long line is preserved which can make it hard to read.
+   </li>
 </ul>
 <p>
    <a name="themes" id="themes"></a>
