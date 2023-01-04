@@ -7,7 +7,7 @@ pipelines:
         name: Build on GCC 6.5
         image: gcc:6.5
         script:
-          - apt-get -qq update && apt-get -y -qq install cmake
+          - apt-get -qq update && apt-get -y --force-yes -qq install cmake
           - git submodule update --init
           - mkdir build; cd build
           - cmake ..
@@ -18,7 +18,7 @@ pipelines:
         image: gcc:latest
         script:
           - gcc --version
-          - apt-get -qq update && apt-get -y -qq install cmake
+          - apt-get -qq update && apt-get -y --force-yes -qq install cmake
           - git submodule update --init
           - mkdir build; cd build
           - cmake ..
