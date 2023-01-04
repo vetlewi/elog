@@ -475,6 +475,7 @@ td {
 
 .messagepre {
   font-family:'lucida console',courier,monospace;
+  white-space:pre-wrap;
 }
 
 /* frame around attachments */
