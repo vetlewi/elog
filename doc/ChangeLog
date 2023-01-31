@@ -1,3 +1,50 @@
+Version 3.1.5, released January 31st, 2023
+==========================================
+
+- Display different password recovery message
+- Added "white-space:pre-wrap" to plain text display
+- Added length check for new user names
+- Implemented "Hard wrap" option
+- Added optional address sanitizer flags
+- Switched to c++
+- Check for empty password in LDAP authentication
+- Fixed missing attribute in xhr request for dnd
+- Changed midas.psi.ch to elog.psi.ch
+- Don't show full path if file not found for security reasons
+- Disabled TLSv1 and TLSv1_1
+- won't compile if USE_LDAP = 1 unless -llber is included
+- Fixed buildrpm to contain packager
+- Fixed USEXXX vs. USE_XXX
+- Removed version info on 404 error
+- Increased max attachment size to 1 GByte
+- Overwrite PID file if it exists
+- Do not exit if problem with PID file
+- Fixed bug in return buffer memory allocation which caused crash for large message (>200000 chars)
+- Use different TLS methods for OpenSSL 1.0 and 1.1
+- Replaced deprecated TLSv1_2_method() by TLS_method()
+- Prevent attachment files from being overwritten
+- Fixed memory leak with ssl_con
+- Serve SVG files as attachments only to avoid XSS vulnerabilities
+- Check access to logbook before executing retrieve_url()
+- Removed keepalive from retrieve_url, added password check for uploading attachments
+- Implemented "Allow clone" configuration setting
+- Replaced non-portable strcasestr by stristr
+- Check for "Admin restrict edit time" also for multiple entries delete operation (via select)
+- Obey "Admin restrict edit time" also in delete operation
+- Apply "restrict edit time" also to multi-edits
+- Implemented "Admin restrict edit time"
+- Use ltime for XML export/import of date and datetime attributes
+- Added "Path" to list of forbidden attributes
+- Added options for KRB5, LDAP and PAM in CMake system
+- Fixed overlapping strlcpy(), seems to segfault under some MacOSX
+- Obey "Restrict edit time" also for submissions via elog tool
+- Re-arranged layout of subscribed logbooks to better fit the screen
+- Disable new user registration in case of PAM authentication.
+- Disable submit button after first click to avoid double submits
+- Toggle all logbook subscriptions does not touch "Active" checkbox. Thanks to SL.
+- Embed CSS in email
+- Replaced /tmp/elog-shell by unique temporary file to avoid problems if several elogd servers run on the same computer
+
 Version 3.1.4, released September 26th, 2018
 ============================================
 
