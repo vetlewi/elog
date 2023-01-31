@@ -14103,9 +14103,7 @@ void show_forgot_pwd_page(LOGBOOK *lbs) {
 
          if (strieq(name, login_name) || strieq(name, full_name) || strieq(name, user_email)) {
             if (user_email[0] == 0) {
-               sprintf(str, loc("No Email address registered with user name <i>\"%s\"</i>"), name);
-               strencode2(str2, str, sizeof(str2));
-               show_error(str2);
+               show_error(loc("A password recovery email has been sent if the user exists in the database"));
                return;
             }
 
@@ -14205,14 +14203,7 @@ void show_forgot_pwd_page(LOGBOOK *lbs) {
          }
       }
 
-      if (strchr(name, '@'))
-         sprintf(str, loc("Email address \"%s\" not registered"), name);
-      else
-         sprintf(str, loc("User name \"%s\" not registered"), name);
-
-      strencode2(str2, str, sizeof(str2));
-      show_error(str2);
-
+      show_error(loc("A password recovery email has been sent if the user exists in the database"));
       return;
    } else {
       /*---- header ----*/
