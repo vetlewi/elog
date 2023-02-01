@@ -57,7 +57,7 @@ void read_buf(char *filename, char **buf)
    size = lseek(fh, 0, SEEK_END);
    lseek(fh, 0, SEEK_SET);
 
-   *buf = malloc(size + 1);
+   *buf = (char *)malloc(size + 1);
    assert(*buf);
 
    i = read(fh, *buf, size);

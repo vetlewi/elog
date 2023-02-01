@@ -141,8 +141,6 @@ Date = Datum
 ID = ID
 Forgot password? = Wachtwoord vergeten?
 ELOG password recovery = ELOG Wachtwoord Herstel
-No Email address registered with user name <i>"%s"</i> = Voor gebruiker <i>"%s"</i> is geen e-mail adres geregistreerd
-Error sending Email via <i>"%s"</i> = Fout bij het versturen van e-mail via <i>"%s"</i>
 Forgot = vergeten
 User "%s" registered on host "%s" = Gebruiker "%s" is op computer "%s" geregistreerd
 Enter your user name or email address = Geef je gebruikersnaam of je email adres op
@@ -465,16 +463,11 @@ Your account has been activated = Je account is geactiveerd
 Please subscribe to logbooks if you want to receive automatic email notifications = Abonneer je op logboeken als je automatisch meldingen wilt ontvangen
 This is an automatically generated account recovery email for host %s = Dit is een automatisch gegenereerd bericht voor het herstellen van het account voor server %s
 Please click on following link to recover your account = Klik op de volgende link om je account te herstellen
-Email address "%s" not registered = Email adres "%s" is niet geregistreerd
-User name "%s" not registered = Gebruikersnaam "%s" is niet geregistreerd
-
-
 #
 #---- please translate following items and then remove this comment ----#
 #
 CSV (";" separated) + Text = 
 Error accessing password file = 
-Entry can only be deleted %1.2lg hours after creation = 
 Drop attachments here... = 
 Insert Timestamp = 
 Pending draft available = 
@@ -496,3 +489,7 @@ This will overwrite your current modifications. =
 Restore = 
 Are you sure to delete the attachment? = 
 Error sending Email via "%s" = 
+Please wait = 
+is too long = 
+Email address = 
+A password recovery email has been sent if the user exists in the database = 
