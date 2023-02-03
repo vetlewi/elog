@@ -448,12 +448,12 @@ int elog_conv(int num_msg, const struct pam_message **mess, struct pam_response 
 
    /* if we do not have enough space to allocate the response, we have an error
     * */
-   if((*resp = calloc(num_msg, sizeof(struct pam_response))) == NULL)
+   if((*resp = (pam_response*) calloc(num_msg, sizeof(struct pam_response))) == NULL)
       return (PAM_BUF_ERR);
 
    /* this is the password we got through the UI, this is put into the 
     * response, and given to pam_authenticate */
-   if(!(resptok = strdup(my_data))) {
+   if(!(resptok = strdup((const char *)my_data))) {
       free(resp);
       return (PAM_BUF_ERR);
    }

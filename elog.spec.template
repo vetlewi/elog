@@ -14,7 +14,7 @@
 # Build options :
 # Read: If neither macro exists, then add the default definition.
 %{?_with_krb5: %define _with_krb5 USE_KRB5=1}
-%{?_with_ldap: %define _with_ldap USE_LDAP=1}
+%{?_with_ldap: %define _with_ldap USE_LDAP=0}
 %{?_with_pam: %define _with_pam USE_PAM=1}
 %{?_with_ssl: %define _with_ssl USE_SSL=1}
 # Default build options are with SSL 
