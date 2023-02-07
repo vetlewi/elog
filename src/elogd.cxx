@@ -11470,7 +11470,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
                     ("<textarea rows=%d cols=%d name=\"Text\" style=\"width:100%%;\">\n", height, width);
 
          if (isparam("nsel")) {
-            rsprintf("- %s -\n", loc("keep original text"));
+            rsprintf("--- %s ---\n", loc("keep original text"));
          } else if (bedit) {
             if (!preset_text) {
 
@@ -22870,7 +22870,7 @@ int propagate_attrib(LOGBOOK *lbs, int message_id, char attrib[MAX_N_ATTR][NAME_
 
 int submit_elog_reply(LOGBOOK *lbs, int message_id, char attrib[MAX_N_ATTR][NAME_LENGTH], char *text) {
    int n_reply, i, status;
-   char str1[80], str2[80], att_file[MAX_ATTACHMENTS][256], reply_to[MAX_REPLY_TO * 10],
+   char att_file[MAX_ATTACHMENTS][256], reply_to[MAX_REPLY_TO * 10],
            list[MAX_N_ATTR][NAME_LENGTH];
 
    status = el_retrieve(lbs, message_id, NULL, attr_list, NULL, 0,
@@ -22878,9 +22878,8 @@ int submit_elog_reply(LOGBOOK *lbs, int message_id, char attrib[MAX_N_ATTR][NAME
    if (status != EL_SUCCESS)
       return status;
 
-   sprintf(str1, "- %s -", loc("keep original text"));
-   sprintf(str2, "<p>- %s -</p>", loc("keep original text"));
-   if (strcmp(text, str1) == 0 || strcmp(text, str2) == 0)
+   if ((text[0] == '-' && text[1] == '-' && text[2] == '-') ||
+       (text[3] == '-' && text[4] == '-' && text[5] == '-'))
       message_id = el_submit(lbs, message_id, TRUE, "<keep>", attr_list, attrib, lbs->n_attr, "<keep>",
                              "<keep>", "<keep>", "<keep>", att_file, TRUE, NULL, NULL);
    else
