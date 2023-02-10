@@ -2076,7 +2076,18 @@ void compose_email_header(LOGBOOK *lbs, const char *subject, char *from, char *t
             multipart_boundary[0] = 0;
       }
    }
-   strlcat(mail_text, "\n<EOH>", size);
+}
+
+/*-------------------------------------------------------------------*/
+
+int check_smtp_error(char *str, int expected, char *error, int error_size) {
+   if (atoi(str) != expected) {
+      if (error)
+         strlcpy(error, str + 4, error_size);
+      return 0;
+   }
+
+   return 1;
 }
 
 /*-------------------------------------------------------------------*/
@@ -2094,11 +2105,13 @@ void remove_all_chars(char* str, char c) {
 
 int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, char *error, int error_size) {
   struct smtp *smtp;
-  int rc, strsize, n, i, flag;
+  smtp_status_code rc;
+  smtp_flag flag;
+  int strsize, n, i;
   char *str;
   char list[MAX_N_EMAIL][NAME_LENGTH];
   strsize = MAX_CONTENT_LENGTH + 1000;
-  str = xmalloc(strsize);
+  str = reinterpret_cast<char *>(xmalloc(strsize));
 
   memset(error, 0, error_size);
 
@@ -2106,7 +2119,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   if (getcfg(lbs->name, "SMTP port", str, strsize))
       smtp_port = atoi(str);
 
-  flag = 0;
+  flag = SMTP_DEFULT_FLAG;
   if ( get_verbose() >= VERBOSE_INFO ){
     flag = SMTP_DEBUG;
     eprintf("Connecting to %s on port %d\n", smtp_host, smtp_port);
@@ -2117,6 +2130,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   if ( rc != SMTP_STATUS_OK ){
     snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
     eprintf(error);
+    write_logfile(lbs, error);
     xfree(str);
     return -1;
   }
@@ -2125,8 +2139,8 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
     int max_auth_len = 1024;
     char *uname;
     char *pwd;
-    uname = xmalloc(max_auth_len);
-    pwd = xmalloc(max_auth_len);
+    uname = reinterpret_cast<char *>(xmalloc(max_auth_len));
+    pwd = reinterpret_cast<char *>(xmalloc(max_auth_len));
 
     strncpy(uname, str, max_auth_len);
 
@@ -2148,6 +2162,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
     if ( rc != SMTP_STATUS_OK ){
       snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
       eprintf(error);
+      write_logfile(lbs, error);
       xfree(str);
       return -1;
     }
@@ -2166,6 +2181,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   if ( rc != SMTP_STATUS_OK ){
     snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
     eprintf(error);
+    write_logfile(lbs, error);
     xfree(str);
     return -1;
   }
@@ -2184,6 +2200,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
       if ( rc != SMTP_STATUS_OK ){
         snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
         eprintf(error);
+        write_logfile(lbs, error);
         xfree(str);
         return -1;
       }
@@ -2221,6 +2238,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   if ( rc != SMTP_STATUS_OK ){
     snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
     eprintf(error);
+    write_logfile(lbs, error);
     xfree(str);
     return -1;
   }
@@ -2239,6 +2257,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
     eprintf("SMTP rc=%d\n", rc);
     snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
     eprintf(error);
+    write_logfile(lbs, error);
     xfree(str);
     return -1;
   }
@@ -2248,25 +2267,16 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   if ( rc != SMTP_STATUS_OK ){
     snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
     eprintf(error);
+    write_logfile(lbs, error);
     xfree(str);
     return -1;
   }
 
+  snprintf(str, strsize, "Email successfully sent to %s", to);
+  write_logfile(lbs, str);
+
   xfree(str);
   return 1;
-}
-
-
-/*-------------------------------------------------------------------*/
-
-int check_smtp_error(char *str, int expected, char *error, int error_size) {
-   if (atoi(str) != expected) {
-      if (error)
-         strlcpy(error, str + 4, error_size);
-      return 0;
-   }
-
-   return 1;
 }
 
 /*-------------------------------------------------------------------*/
@@ -13558,7 +13568,7 @@ int save_user_config(LOGBOOK *lbs, const char *user, BOOL new_user) {
          mxml_add_node(node, "name", str);
       }
 #ifdef HAVE_PAM
-      getcfg(lbs->name, "Authentication", str, sizeof(str));
+                                                                                                                              getcfg(lbs->name, "Authentication", str, sizeof(str));
       if (!stristr(str, "PAM")) {
 #endif /* HAVE_PAM */
       do_crypt(new_pwd, str, sizeof(str));
