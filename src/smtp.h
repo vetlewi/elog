@@ -197,6 +197,11 @@ enum smtp_authentication_method{
  */
 enum smtp_flag{
   /**
+   * Default
+   */
+  SMTP_DEFULT_FLAG    = 0,
+
+  /**
    * Print client and server communication on stderr.
    */
   SMTP_DEBUG          = 1 << 0,
