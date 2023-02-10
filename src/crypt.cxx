@@ -98,7 +98,7 @@ static const uint32_t K[64] = {
    It is assumed that LEN % 64 == 0.  */
 static void sha256_process_block(const void *buffer, size_t len, struct sha256_ctx *ctx)
 {
-   const uint32_t *words = buffer;
+   const uint32_t *words = (const uint32_t *) buffer;
    size_t nwords = len / sizeof(uint32_t);
    uint32_t a = ctx->H[0];
    uint32_t b = ctx->H[1];
@@ -321,7 +321,7 @@ static const char sha256_rounds_prefix[] = "rounds=";
 #define ROUNDS_MAX 999999999
 
 /* Table with characters for base64 transformation.  */
-static const char b64t[64] = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+static const char b64t[] = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
 
 static char *sha256_crypt_r(const char *key, const char *salt, char *buffer, int buflen)
@@ -370,16 +370,16 @@ static char *sha256_crypt_r(const char *key, const char *salt, char *buffer, int
    salt_len = MIN(strcspn(salt, "$"), SALT_LEN_MAX);
    key_len = strlen(key);
 
-   if ((key - (char *) 0) % __alignof__(uint32_t) != 0) {
+   if ((reinterpret_cast<uintptr_t>(key)) % __alignof__(uint32_t) != 0) {
       char *tmp = (char *) alloca(key_len + __alignof__(uint32_t));
-      key = copied_key = memcpy(tmp + __alignof__(uint32_t)
-                                - (tmp - (char *) 0) % __alignof__(uint32_t), key, key_len);
+      key = copied_key = (char *) memcpy(tmp + __alignof__(uint32_t)
+                                - (reinterpret_cast<uintptr_t>(tmp)) % __alignof__(uint32_t), key, key_len);
    }
 
-   if ((salt - (char *) 0) % __alignof__(uint32_t) != 0) {
+   if ((reinterpret_cast<uintptr_t>(salt)) % __alignof__(uint32_t) != 0) {
       char *tmp = (char *) alloca(salt_len + __alignof__(uint32_t));
-      salt = copied_salt = memcpy(tmp + __alignof__(uint32_t)
-                                  - (tmp - (char *) 0) % __alignof__(uint32_t), salt, salt_len);
+      salt = copied_salt = (char *) memcpy(tmp + __alignof__(uint32_t)
+                                  - (reinterpret_cast<uintptr_t>(tmp)) % __alignof__(uint32_t), salt, salt_len);
    }
 
    /* Prepare for the real work.  */
@@ -438,7 +438,7 @@ static char *sha256_crypt_r(const char *key, const char *salt, char *buffer, int
    sha256_finish_ctx(&alt_ctx, temp_result);
 
    /* Create byte sequence P.  */
-   cp = p_bytes = alloca(key_len);
+   cp = p_bytes = (char *) alloca(key_len);
    for (cnt = key_len; cnt >= 32; cnt -= 32) {
       memcpy(cp, temp_result, 32);
       cp += 32;
@@ -456,7 +456,7 @@ static char *sha256_crypt_r(const char *key, const char *salt, char *buffer, int
    sha256_finish_ctx(&alt_ctx, temp_result);
 
    /* Create byte sequence S.  */
-   cp = s_bytes = alloca(salt_len);
+   cp = s_bytes = (char *) alloca(salt_len);
    for (cnt = salt_len; cnt >= 32; cnt -= 32) {
       memcpy(cp, temp_result, 32);
       cp += 32;

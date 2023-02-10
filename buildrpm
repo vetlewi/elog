@@ -63,8 +63,10 @@ mkdir $dir/logbooks/demo/2001
 # copy files to archive
 unalias cp
 cp -p src/*.c $dir/src
+cp -p src/*.cxx $dir/src
 cp -p src/*.h $dir/src
 cp -p mxml/*.c $dir/mxml
+cp -p mxml/*.cxx $dir/mxml
 cp -p mxml/*.h $dir/mxml
 cp -p Makefile $dir
 cp -p elogd.cfg.example $dir/elogd.cfg.example

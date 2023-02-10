@@ -34,6 +34,7 @@
 #endif
 
 #ifdef HAVE_LDAP
+#define LDAP_DEPRECATED 1
 #include <ldap.h>
 
 LDAP *ldap_ld;
@@ -258,8 +259,14 @@ int auth_verify_password_ldap(LOGBOOK *lbs, const char *user, const char *passwo
    
    ldap_ld = NULL;
    memset(&ldap_bindDN[0], 0, sizeof(ldap_bindDN));
-   
-   if(!ldap_init(lbs,error_str,error_size)) {
+
+   if (!strcmp(password, "")) {
+      strlcpy(error_str, "<b>LDAP authentication failed, no password provided</b>", error_size);
+      write_logfile(lbs, "LDAP authentication failed, no password provided");
+      return FALSE;
+   }
+
+   if (!ldap_init(lbs,error_str, error_size)) {
       strlcpy(error_str, "<b>LDAP initialization error</b><br>", error_size);
       strlcat(error_str, "<br>Please check your LDAP configuration.", error_size);
       return FALSE;
@@ -442,12 +449,12 @@ int elog_conv(int num_msg, const struct pam_message **mess, struct pam_response 
 
    /* if we do not have enough space to allocate the response, we have an error
     * */
-   if((*resp = calloc(num_msg, sizeof(struct pam_response))) == NULL)
+   if((*resp = (pam_response*) calloc(num_msg, sizeof(struct pam_response))) == NULL)
       return (PAM_BUF_ERR);
 
    /* this is the password we got through the UI, this is put into the 
     * response, and given to pam_authenticate */
-   if(!(resptok = strdup(my_data))) {
+   if(!(resptok = strdup((const char *)my_data))) {
       free(resp);
       return (PAM_BUF_ERR);
    }
@@ -584,7 +591,7 @@ int auth_verify_password(LOGBOOK * lbs, const char *user, const char *password, 
       // if user not in password file (external authentication!) and "LDAP register" is allowed (>0),
       // obtain user info from LDAP and add locally
       if (verified) {
-         if (get_user_line(lbs, user, NULL, NULL, NULL, NULL, NULL, NULL) == 2) {
+         if (get_user_line(lbs, (char *)user, NULL, NULL, NULL, NULL, NULL, NULL) == 2) {
             if (getcfg(lbs->name, "LDAP register", str, sizeof(str)) && atoi(str) > 0)
                ldap_adduser_file(lbs, user, password, error_str, error_size);
          }

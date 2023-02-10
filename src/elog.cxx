@@ -84,7 +84,7 @@ const char *git_revision()
 
 /*------------------------------------------------------------------*/
 
-char *map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+const char *map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 void base64_encode(unsigned char *s, unsigned char *d, int size)
 {
@@ -122,7 +122,7 @@ void base64_encode(unsigned char *s, unsigned char *d, int size)
 
 /*---- string comparison -------------------------------------------*/
 
-int equal_ustring(char *str1, char *str2)
+int equal_ustring(const char *str1, const char *str2)
 {
    if (str1 == NULL && str2 != NULL)
       return 0;
@@ -280,7 +280,7 @@ int elog_connect(char *host, int port)
    memcpy((char *) &(bind_addr.sin_addr), phe->h_addr, phe->h_length);
 
    /* connect to server */
-   status = connect(sock, (void *) &bind_addr, sizeof(bind_addr));
+   status = connect(sock, (const struct sockaddr *) &bind_addr, sizeof(bind_addr));
    if (status != 0) {
       printf("Cannot connect to host %s, port %d\n", host, port);
       return -1;
@@ -360,7 +360,7 @@ INT retrieve_elog(char *host, int port, char *subdir, int ssl, char *experiment,
 \********************************************************************/
 {
    int i, n, first, index, sock;
-   char str[256], encrypted_passwd[256], *ph, *ps;
+   char str[1024], encrypted_passwd[256], *ph, *ps;
 #ifdef HAVE_SSL
    SSL *ssl_con = NULL;
 #endif
@@ -525,7 +525,7 @@ INT retrieve_elog(char *host, int port, char *subdir, int ssl, char *experiment,
          if (strstr(response, "fail"))
             printf("Error: Invalid user name or password\n");
          else {
-            strncpy(str, strstr(response, "Location:") + 10, sizeof(str));
+            strncpy(str, strstr(response, "Location:") + 10, sizeof(str)-1);
             if (strchr(str, '?'))
                *strchr(str, '?') = 0;
             if (strchr(str, '\n'))
@@ -598,7 +598,8 @@ INT submit_elog(char *host, int port, int ssl, char *subdir, char *experiment,
 \********************************************************************/
 {
    int status, sock, i, n, header_length, content_length, index;
-   char host_name[256], boundary[80], str[80], encrypted_passwd[256], *p, *old_encoding;
+   char host_name[256], boundary[80], str[80], encrypted_passwd[256], *p;
+   const char *old_encoding;
    char old_attrib_name[MAX_N_ATTR+1][NAME_LENGTH], old_attrib[MAX_N_ATTR+1][NAME_LENGTH];
    struct hostent *phe;
 #ifdef HAVE_SSL
@@ -957,7 +958,7 @@ INT submit_elog(char *host, int port, int ssl, char *subdir, char *experiment,
          else if (strstr(response, "fail"))
             printf("Error: Invalid user name or password\n");
          else {
-            strncpy(str, strstr(response, "Location:") + 10, sizeof(str));
+            strncpy(str, strstr(response, "Location:") + 10, sizeof(str)-1);
             if (strchr(str, '?'))
                *strchr(str, '?') = 0;
             if (strchr(str, '\n'))
@@ -978,12 +979,12 @@ INT submit_elog(char *host, int port, int ssl, char *subdir, char *experiment,
       printf("Error: Missing or invalid password\n");
    else if (strstr(response, "Error: Attribute")) {
       if (strstr(response, "not existing")) {
-         strncpy(str, strstr(response, "Error: Attribute") + 27, sizeof(str));
+         strncpy(str, strstr(response, "Error: Attribute") + 27, sizeof(str)-1);
          if (strchr(str, '<'))
             *strchr(str, '<') = 0;
          printf("Error: Non existing attribute option \"%s\"\n", str);
       } else {
-         strncpy(str, strstr(response, "Error: Attribute") + 20, sizeof(str));
+         strncpy(str, strstr(response, "Error: Attribute") + 20, sizeof(str)-1);
          if (strchr(str, '<'))
             *strchr(str, '<') = 0;
          printf("Error: Missing required attribute \"%s\"\n", str);
@@ -1154,6 +1155,7 @@ int main(int argc, char *argv[])
 
       if (size > (INT) (sizeof(text) - 1)) {
          printf("Message file \"%s\" is too long (%zd bytes max).\n", textfile, sizeof(text));
+         close(fh);
          return 1;
       }
 
@@ -1161,6 +1163,7 @@ int main(int argc, char *argv[])
 
       if (i < size) {
          printf("Cannot fully read message from file %s.\n", textfile);
+         close(fh);
          return 1;
       }
 

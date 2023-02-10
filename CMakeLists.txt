@@ -19,12 +19,15 @@ set(SRVDIR   /usr/lib/systemd/system)
 include_directories(${CMAKE_SOURCE_DIR}/mxml)
 
 # default compiler flags
-if (!MSVC)
-  add_compile_options(-W -Wall -Wno-deprecated-declarations)
-endif()
 if (MSVC)
   add_compile_options(/D_CRT_SECURE_WARNINGS /wd4005 /wd4244 /wd4267 /wd4996 /nologo)
+else()
+  add_compile_options(-W -Wall -Wno-deprecated-declarations)
 endif()
+
+# optional address sanitizer, outcomment to turn on
+#add_compile_options(-fsanitize=address)
+#add_link_options(-fsanitize=address)
 
 # find git
 find_package(Git)
@@ -86,19 +89,24 @@ add_custom_target(git_revision_h
 endif()
 
 add_executable(elogd 
-  ${CMAKE_SOURCE_DIR}/src/elogd.c
-  ${CMAKE_SOURCE_DIR}/src/auth.c
-  ${CMAKE_SOURCE_DIR}/mxml/mxml.c
-  ${CMAKE_SOURCE_DIR}/mxml/strlcpy.c
-  ${CMAKE_SOURCE_DIR}/src/crypt.c
-  ${CMAKE_SOURCE_DIR}/src/regex.c
+  ${CMAKE_SOURCE_DIR}/src/elogd.cxx
+  ${CMAKE_SOURCE_DIR}/src/auth.cxx
+  ${CMAKE_SOURCE_DIR}/mxml/mxml.cxx
+  ${CMAKE_SOURCE_DIR}/mxml/strlcpy.cxx
+  ${CMAKE_SOURCE_DIR}/src/crypt.cxx
   ${CMAKE_SOURCE_DIR}/src/smtp.c
 )
 
+if (WIN32)
+target_sources(elog PRIVATE
+   ${CMAKE_SOURCE_DIR}/src/regex.c
+)
+endif()
+
 add_executable(elog
-  ${CMAKE_SOURCE_DIR}/src/elog.c
-  ${CMAKE_SOURCE_DIR}/src/crypt.c
-  ${CMAKE_SOURCE_DIR}/mxml/strlcpy.c
+  ${CMAKE_SOURCE_DIR}/src/elog.cxx
+  ${CMAKE_SOURCE_DIR}/src/crypt.cxx
+  ${CMAKE_SOURCE_DIR}/mxml/strlcpy.cxx
 )
 
 add_dependencies(elogd git_revision_h)
