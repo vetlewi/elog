@@ -2107,6 +2107,7 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
   struct smtp *smtp;
   smtp_status_code rc;
   smtp_flag flag;
+  smtp_connection_security sec_flag;
   int strsize, n, i;
   char *str;
   char list[MAX_N_EMAIL][NAME_LENGTH];
@@ -2125,7 +2126,12 @@ int sendmail2(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, c
     eprintf("Connecting to %s on port %d\n", smtp_host, smtp_port);
   }
 
-  rc = smtp_open(smtp_host, str, SMTP_SECURITY_STARTTLS, flag, NULL, &smtp);
+  if ( smtp_port == 25 || smtp_port == 587 )
+      sec_flag = SMTP_SECURITY_STARTTLS;
+   else
+      sec_flag = SMTP_SECURITY_TLS;
+
+  rc = smtp_open(smtp_host, str, sec_flag, flag, NULL, &smtp);
 
   if ( rc != SMTP_STATUS_OK ){
     snprintf(error, error_size, "SMTP failed: %s\n", smtp_status_code_errstr(rc));
