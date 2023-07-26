@@ -1,6 +1,6 @@
 # CMakeLists.txt for ELOG project
-project(ELOG)
 cmake_minimum_required(VERSION 3.0)
+project(ELOG)
 
 # compile options
 option(USE_SSL  "Use OpenSSL library for https" ON)
