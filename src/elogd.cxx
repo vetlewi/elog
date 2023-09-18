@@ -2820,7 +2820,7 @@ int parse_config_file(char *file_name)
 /* parse whole config file and store options in sorted list */
 {
    char *str, *buffer, *p, *pstr;
-   int index, i, j, fh, length;
+   int i, j, fh, length;
 
    str = (char *)xmalloc(20000);
 
@@ -2841,7 +2841,6 @@ int parse_config_file(char *file_name)
 
    /* search group */
    p = buffer;
-   index = 0;
    do {
       if (*p == '#' || *p == ';') {
          /* skip comment */
@@ -2923,7 +2922,6 @@ int parse_config_file(char *file_name)
          //      param_compare);
 
          n_lb_config++;
-         index++;
       }
 
       /* search for next line beginning */
@@ -17553,7 +17551,7 @@ void display_line(LOGBOOK *lbs, int message_id, int number, const char *mode, in
            file_name[MAX_PATH_LENGTH], *slist, *svalue, comment[256], param[80], subdir[256], attr[NAME_LENGTH];
    const char *nowrap;
    char display[NAME_LENGTH], attr_icon[80];
-   int i, j, n, i_line, index, colspan, n_attachments, line_len, thumb_status, max_line_len, n_lines,
+   int i, j, n, i_line, index, colspan, line_len, thumb_status, max_line_len, n_lines,
            max_n_lines;
    BOOL skip_comma;
    FILE *f;
@@ -18218,21 +18216,6 @@ void display_line(LOGBOOK *lbs, int message_id, int number, const char *mode, in
             rsputs(text);
 
          rsprintf("</td></tr>\n");
-      }
-
-      /* count number of attachments */
-      n_attachments = 0;
-      if (show_attachments) {
-         for (index = 0; index < MAX_ATTACHMENTS; index++) {
-            if (attachment[index][0]) {
-               /* check if attachment is inlined */
-               sprintf(str, "[img]elog:/%d[/img]", index + 1);
-               if (strieq(encoding, "ELCode") && stristr(text, str))
-                  continue;
-
-               n_attachments++;
-            }
-         }
       }
 
       for (index = 0; index < MAX_ATTACHMENTS; index++) {
@@ -23778,7 +23761,7 @@ void submit_elog_mirror(LOGBOOK *lbs) {
 /*------------------------------------------------------------------*/
 
 void copy_to(LOGBOOK *lbs, int src_id, const char *dest_logbook, int move, int orig_id) {
-   int size, i, j, n, n_done, n_done_reply, n_reply, index, status, fh, source_id, message_id,
+   int size, i, j, n, n_reply, index, status, fh, source_id, message_id,
            thumb_status, next_id = 0;
    char str[2048], str2[1024], file_name[MAX_PATH_LENGTH], thumb_name[MAX_PATH_LENGTH],
            *attrib, date[80], *text, msg_str[32], in_reply_to[80], subdir[256],
@@ -23804,7 +23787,7 @@ void copy_to(LOGBOOK *lbs, int src_id, const char *dest_logbook, int move, int o
    else
       n = isparam("nsel") ? atoi(getparam("nsel")) : 0;
 
-   n_done = n_done_reply = source_id = status = next_id = 0;
+   source_id = status = next_id = 0;
    for (index = 0; index < n; index++) {
       if (src_id)
          source_id = src_id;
@@ -24001,15 +23984,11 @@ void copy_to(LOGBOOK *lbs, int src_id, const char *dest_logbook, int move, int o
          return;
       }
 
-      n_done++;
-
       /* submit all replies */
       n_reply = strbreak(reply_to, (char (*)[1500]) list, MAX_N_ATTR, ",", FALSE);
       for (i = 0; i < n_reply; i++) {
          copy_to(lbs, atoi(list + i * NAME_LENGTH), dest_logbook, move, message_id);
       }
-
-      n_done_reply += n_reply;
 
       /* delete original message for move */
       next_id = source_id;
