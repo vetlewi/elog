@@ -8813,7 +8813,7 @@ void show_change_pwd_page(LOGBOOK *lbs) {
    if (old_pwd[0] || new_pwd[0]) {
       if (user[0]) {
 
-         if (stristr(auth, "Kerberos") || stristr(auth, "Webserver") || stristr(auth, "PAM")) {
+         if (stristr(auth, "Webserver") || stristr(auth, "PAM")) {
             if (strcmp(new_pwd, new_pwd2) != 0)
                wrong_pwd = 2;
          } else {
@@ -13883,7 +13883,7 @@ void show_config_page(LOGBOOK *lbs) {
    getcfg(lbs->name, "Authentication", auth, sizeof(auth));
 
    strencode2(str, user, sizeof(str));
-   if (stristr(auth, "Kerberos") || stristr(auth, "Webserver") || stristr(auth, "PAM"))
+   if (stristr(auth, "Webserver") || stristr(auth, "PAM"))
       rsprintf("<td><input type=text size=40 name=new_user_name value=\"%s\" readonly></td></tr>\n", str);
    else
       rsprintf("<td><input type=text size=40 name=new_user_name value=\"%s\"></td></tr>\n", str);
@@ -14209,7 +14209,7 @@ void show_forgot_pwd_page(LOGBOOK *lbs) {
       /*---- header ----*/
 
       getcfg(lbs->name, "Authentication", str, sizeof(str));
-      if (stristr(str, "Kerberos") || stristr(str, "Webserver") || stristr(str, "PAM")) {
+      if (stristr(str, "Webserver") || stristr(str, "PAM")) {
          show_error
                  ("This installation of ELOG uses site authentication\nwhere password recovery is not possible");
          return;
@@ -14277,7 +14277,7 @@ void show_new_user_page(LOGBOOK *lbs, char *user) {
    rsprintf("<tr><td nowrap>Email:</td>\n");
    rsprintf("<td colspan=2><input type=text size=40 name=new_user_email></tr>\n");
    getcfg(lbs->name, "Authentication", str, sizeof(str));
-   if (!stristr(str, "Kerberos") && !stristr(str, "Webserver") && !stristr(str, "PAM")) {
+   if (!stristr(str, "Webserver") && !stristr(str, "PAM")) {
       rsprintf("<tr><td nowrap>%s:</td>\n", loc("Password"));
       rsprintf("<td colspan=2><input type=password size=40 name=newpwd>\n");
 
@@ -29924,7 +29924,7 @@ void server_loop(void) {
    }
 #endif
 #ifndef HAVE_LDAP
-   /* check for Kerberos authentication */
+   /* check for LDAP authentication */
    /* NPA change */
    getcfg("global", "Authentication", str, sizeof(str));
    if (stristr(str, "LDAP")) {
