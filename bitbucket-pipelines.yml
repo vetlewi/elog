@@ -1,13 +1,13 @@
-# Build ELOG with GCC 6.5 and latest
-image: gcc:6.5
+# Build ELOG with GCC 10.2 and latest
+image: gcc:10.2
 
 pipelines:
   default:
     - step:
-        name: Build on GCC 6.5
-        image: gcc:6.5
+        name: Build on GCC 10.2
+        image: gcc:10.2
         script:
-          - apt-get -qq update && apt-get -y --force-yes -qq install cmake
+          - apt-get update && apt-get install -y imagemagick cmake
           - git submodule update --init
           - mkdir build; cd build
           - cmake ..
