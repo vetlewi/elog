@@ -27418,7 +27418,13 @@ void interprete(char *lbook, const char *path)
    getcfg(lbs->name, "Authentication", str, sizeof(str));
    if (stristr(str, "Webserver")) {
       if (http_user[0]) {
-         if (!sid_check(getparam("sid"), http_user)) { /*  if we don't have a sid yet, set it */
+         char user[256];
+         bool flag = sid_check(getparam("sid"), user);
+         if (flag && strcmp(http_user , user) != 0) {  /* user changed */
+            sid_remove(getparam("sid"));
+            flag=FALSE;
+         }
+         if (!flag) { /*  if we don't have a sid yet, set it */
             /* get a new session ID */
             sid_new(lbs, http_user, (char *) inet_ntoa(rem_addr), sid);
             /* set SID cookie */
