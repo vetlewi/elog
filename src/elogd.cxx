@@ -2264,7 +2264,7 @@ int sendmail(LOGBOOK *lbs, char *smtp_host, char *from, char *to, char *text, ch
    n = strbreak(to, list, MAX_N_EMAIL, ",", FALSE);
 
    for (i = 0; i < n; i++) {
-      if (list[i] == 0 || strchr(list[i], '@') == NULL)
+      if (list[i][0] == 0 || strchr(list[i], '@') == NULL)
          continue;
 
       snprintf(str, strsize - 1, "RCPT TO: <%s>\r\n", list[i]);
@@ -4446,23 +4446,18 @@ int el_retrieve(LOGBOOK *lbs, int message_id, char *date, char attr_list[MAX_N_A
       el_decode(message, "Encoding: ", encoding, 80);
 
    if (attachment) {
-      /* break apart attachements */
-      for (i = 0; i < MAX_ATTACHMENTS; i++)
-         if (attachment[i] != NULL)
-            attachment[i][0] = 0;
-
+      /* break apart attachments */
       for (i = 0; i < MAX_ATTACHMENTS; i++) {
-         if (attachment[i] != NULL) {
-            if (i == 0)
-               p = strtok(attachment_all, ",");
-            else
-               p = strtok(NULL, ",");
+         attachment[i][0] = 0;
+         if (i == 0)
+            p = strtok(attachment_all, ",");
+         else
+            p = strtok(nullptr, ",");
 
-            if (p != NULL)
-               strcpy(attachment[i], p);
-            else
-               break;
-         }
+         if (p != nullptr)
+            strcpy(attachment[i], p);
+         else
+            break;
       }
    }
 
