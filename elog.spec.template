@@ -110,7 +110,11 @@ each weblog can be totally different from the rest.
    -g elog -M -r elog 2>/dev/null || :
 
 %build
-make %{?_with_ssl} %{?_with_pam} %{?_with_ldap} %{?_with_krb5} CFLAGS="$RPM_OPT_FLAGS -O3 -funroll-loops -fomit-frame-pointer -W -Wall -Wno-deprecated-declarations -Wno-unused-result -Imxml"
+%if 0%{?rhel} == 7
+  make %{?_with_ssl} %{?_with_pam} %{?_with_ldap} %{?_with_krb5} CFLAGS="$RPM_OPT_FLAGS -O3 -funroll-loops -fomit-frame-pointer -W -Wall -Wno-deprecated-declarations -Wno-unused-result -Imxml -std=c++11"
+%else
+  make %{?_with_ssl} %{?_with_pam} %{?_with_ldap} %{?_with_krb5} CFLAGS="$RPM_OPT_FLAGS -O3 -funroll-loops -fomit-frame-pointer -W -Wall -Wno-deprecated-declarations -Wno-unused-result -Imxml"
+%endif
 sed "s#\@PREFIX\@#%{prefix}#g" elogd.init_template > elogd.init
 
 %install
