@@ -4447,6 +4447,10 @@ int el_retrieve(LOGBOOK *lbs, int message_id, char *date, char attr_list[MAX_N_A
 
    if (attachment) {
       /* break apart attachments */
+      for (i = 0; i < MAX_ATTACHMENTS; i++)
+         if (attachment[i] != NULL)
+            attachment[i][0] = 0;
+
       for (i = 0; i < MAX_ATTACHMENTS; i++) {
          attachment[i][0] = 0;
          if (i == 0)
