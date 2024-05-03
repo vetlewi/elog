@@ -28438,10 +28438,10 @@ void hexdump(void *p, int len)
 /*------------------------------------------------------------------*/
 
 void decode_post(char *logbook, LOGBOOK *lbs, char *string, const char *boundary, int length) {
-   int n_att, size, status, header_size;
+   int n_att;
    char *pinit, *p;
-   char *pctmp, *pbody;
-   char *buffer, *ptmp;
+   char *pctmp;
+   char *ptmp;
    char file_name[MAX_PATH_LENGTH], full_name[MAX_PATH_LENGTH], str[NAME_LENGTH+100], str2[NAME_LENGTH],
            line[NAME_LENGTH], item[NAME_LENGTH];
 
