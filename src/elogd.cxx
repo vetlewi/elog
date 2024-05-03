@@ -28587,6 +28587,10 @@ void decode_post(char *logbook, LOGBOOK *lbs, char *string, const char *boundary
                   /* check for URL */
                   if (stristr(file_name, "http://") || stristr(file_name, "https://")) {
 
+                     return;
+
+                     /*---- disabled for security reasons ----
+
                      // check for logbook access
                      if (getcfg(lbs->name, "Password file", str, sizeof(str))) {
                         if (!check_login(lbs, getparam("sid"))) {
@@ -28602,7 +28606,7 @@ void decode_post(char *logbook, LOGBOOK *lbs, char *string, const char *boundary
                         return;
                      }
 
-                     /* check for HTTP header */
+                     // check for HTTP header
                      pbody = strstr(buffer, "\r\n\r\n");
                      if (!pbody) {
                         show_error(loc("Invalid HTTP header"));
@@ -28612,7 +28616,7 @@ void decode_post(char *logbook, LOGBOOK *lbs, char *string, const char *boundary
                      pbody += 4;
                      header_size = pbody - buffer;
 
-                     /* check for file found */
+                     // check for file found
                      if (strchr(buffer, ' ')) {
                         status = atoi(strchr(buffer, ' ') + 1);
                         if (status != 200) {
@@ -28635,6 +28639,9 @@ void decode_post(char *logbook, LOGBOOK *lbs, char *string, const char *boundary
                      xfree(buffer);
                      sprintf(str, "attachment%d", n_att++);
                      setparam(str, full_name);
+
+                     ---- */
+
                   } else {
                      strencode2(str2, file_name, sizeof(str2));
                      sprintf(str, loc("Attachment file <b>\"%s\"</b> empty or not found"), str2);
