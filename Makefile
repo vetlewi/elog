@@ -142,8 +142,8 @@ auth.o: src/auth.cxx
 mxml.o: mxml/mxml.cxx mxml/mxml.h
 	$(CC) $(CFLAGS) -c -o mxml.o mxml/mxml.cxx
 
-strlcpy.o: mxml/strlcpy.cxx mxml/strlcpy.h
-	$(CC) $(CFLAGS) -c -o strlcpy.o mxml/strlcpy.cxx
+strlcpy.o: src/strlcpy.cxx src/strlcpy.h
+	$(CC) $(CFLAGS) -c -o strlcpy.o src/strlcpy.cxx
 
 elogd: src/elogd.cxx auth.o $(OBJS) $(GIT_REVISION)
 	$(CC) $(CFLAGS) -o elogd src/elogd.cxx auth.o $(OBJS) $(LIBS)
