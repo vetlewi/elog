@@ -42,7 +42,7 @@ pipelines:
           steps:
             - step:
                 name: Build on EL7
-                image: dokken/centos-7
+                image: mydumper/mydumper-builder-el7
                 # trigger: manual  # Uncomment to make this a manual deployment.
                 script:
                   - echo "Deploying to test environment"
@@ -59,7 +59,7 @@ pipelines:
                     - RPMS/*.rpm
             - step:
                 name: Build on EL8
-                image: dokken/centos-8
+                image: lj020326/centos8-systemd
                 # trigger: manual  # Uncomment to make this a manual deployment.
                 script:
                   - echo "Deploying to test environment"
