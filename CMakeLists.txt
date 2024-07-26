@@ -94,7 +94,7 @@ add_executable(elogd
   ${CMAKE_SOURCE_DIR}/src/elogd.cxx
   ${CMAKE_SOURCE_DIR}/src/auth.cxx
   ${CMAKE_SOURCE_DIR}/mxml/mxml.cxx
-  ${CMAKE_SOURCE_DIR}/mxml/strlcpy.cxx
+  ${CMAKE_SOURCE_DIR}/src/strlcpy.cxx
   ${CMAKE_SOURCE_DIR}/src/crypt.cxx
 )
 
@@ -107,7 +107,7 @@ endif()
 add_executable(elog
   ${CMAKE_SOURCE_DIR}/src/elog.cxx
   ${CMAKE_SOURCE_DIR}/src/crypt.cxx
-  ${CMAKE_SOURCE_DIR}/mxml/strlcpy.cxx
+  ${CMAKE_SOURCE_DIR}/src/strlcpy.cxx
 )
 
 add_dependencies(elogd git_revision_h)
