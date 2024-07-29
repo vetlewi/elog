@@ -3,7 +3,6 @@
 # This template allows you to validate your C++ application.
 # The workflow allows running tests and code linting on the default branch.
 
-
 image: gcc:latest
 
 
@@ -46,7 +45,7 @@ pipelines:
                 # trigger: manual  # Uncomment to make this a manual deployment.
                 script:
                   - echo "Deploying to test environment"
-                  - yum -y update && yum -y install rpm-build gcc gcc-c++ git openssl-devel krb5-devel pam-devel openldap-devel csh
+                  - yum -y update && yum -y install rpm-build gcc gcc-c++ git openssl-devel krb5-devel pam-devel openldap-devel csh which
                   - git submodule update --init
                   # git clone https://bitbucket.org/ritt/elog --recursive
                   - ./buildrpm 3.1.5 $(date +%Y%m%d) -krb5 -ldap -pam -ssl
@@ -63,7 +62,7 @@ pipelines:
                 # trigger: manual  # Uncomment to make this a manual deployment.
                 script:
                   - echo "Deploying to test environment"
-                  - yum -y update && yum -y install rpm-build gcc gcc-c++ git openssl-devel krb5-devel pam-devel openldap-devel csh
+                  - yum -y update && yum -y install rpm-build gcc gcc-c++ git openssl-devel krb5-devel pam-devel openldap-devel csh make cmake
                   - git submodule update --init
                   # git clone https://bitbucket.org/ritt/elog --recursive
                   - ./buildrpm 3.1.5 $(date +%Y%m%d) -krb5 -ldap -pam -ssl
