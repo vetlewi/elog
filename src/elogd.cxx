@@ -28768,8 +28768,8 @@ int process_http_request(const char *crequest, int i_conn) {
    }
 
    /* extract content length */
-   if (strstr(crequest, "Content-Length:")) {
-      content_length = atoi(strstr(crequest, "Content-Length:") + 15);
+   if (strcasestr(crequest, "Content-Length:")) {
+      content_length = atoi(strcasestr(crequest, "Content-Length:") + 15);
 
       strsize = content_length + header_length + 15;
    }
@@ -28944,7 +28944,7 @@ int process_http_request(const char *crequest, int i_conn) {
       keep_alive = TRUE;
 
    /* extract logbook */
-   if (strchr(request, '/') == NULL || strchr(request, '\r') == NULL || strstr(request, "HTTP") == NULL) {
+   if (strchr(request, '/') == NULL || strchr(request, '\r') == NULL || strcasestr(request, "HTTP") == NULL) {
       /* invalid request, make valid */
       strcpy(str, "GET / HTTP/1.0\r\n\r\n");
       xfree(str);
@@ -29265,12 +29265,12 @@ int process_http_request(const char *crequest, int i_conn) {
       /* extract path and commands */
       if (strchr(request, '\r'))
          *strchr(request, '\r') = 0;
-      if (!strstr(request, "HTTP/1")) {
+      if (!strcasestr(request, "HTTP/1")) {
          xfree(str);
          xfree(request);
          return 0;
       }
-      *(strstr(request, "HTTP/1") - 1) = 0;
+      *(strcasestr(request, "HTTP/1") - 1) = 0;
       /* strip logbook from path */
       strlcpy(str, request + 5, strsize);
       p = str;
@@ -29284,10 +29284,10 @@ int process_http_request(const char *crequest, int i_conn) {
    } else if (strncmp(request, "POST", 4) == 0) {
 
       /* extract content length */
-      if (strstr(request, "Content-Length:"))
-         content_length = atoi(strstr(request, "Content-Length:") + 15);
-      else if (strstr(request, "Content-length:"))
-         content_length = atoi(strstr(request, "Content-length:") + 15);
+      if (strcasestr(request, "Content-Length:"))
+         content_length = atoi(strcasestr(request, "Content-Length:") + 15);
+      else if (strcasestr(request, "Content-length:"))
+         content_length = atoi(strcasestr(request, "Content-length:") + 15);
       if (content_length <= 0) {
          show_error("Invalid Content-Length in header");
          xfree(str);
@@ -29296,8 +29296,8 @@ int process_http_request(const char *crequest, int i_conn) {
       }
 
       /* extract boundary */
-      if (strstr(request, "boundary=")) {
-         strlcpy(boundary, strstr(request, "boundary=") + 9, sizeof(boundary));
+      if (strcasestr(request, "boundary=")) {
+         strlcpy(boundary, strcasestr(request, "boundary=") + 9, sizeof(boundary));
          if (strchr(boundary, '\r'))
             *strchr(boundary, '\r') = 0;
       }
@@ -29355,10 +29355,8 @@ void send_return(int s, const char *net_buffer)
       }
 
       length = 0;
-      if ((keep_alive && strstr(return_buffer, "Content-Length") == NULL) || strstr(return_buffer,
-                                                                                    "Content-Length") >
-                                                                             strstr(return_buffer,
-                                                                                    "\r\n\r\n")) {
+      if ((keep_alive && strcasestr(return_buffer, "Content-Length") == NULL) ||
+         strcasestr(return_buffer, "Content-Length") > strstr(return_buffer, "\r\n\r\n")) {
 
          /*---- add content-length ----*/
 
@@ -29884,27 +29882,27 @@ void server_loop(void) {
    strlcpy(_identify_cmd, "identify", sizeof(_convert_cmd));
    sprintf(str, "%s -version", _convert_cmd);
    my_shell(str, str, sizeof(str));
-   image_magick_exist = (strstr(str, "ImageMagick") != NULL);
+   image_magick_exist = (strcasestr(str, "ImageMagick") != NULL);
    if (!image_magick_exist) {
       strlcpy(_convert_cmd, "/usr/bin/convert", sizeof(_convert_cmd));
       strlcpy(_identify_cmd, "/usr/bin/identify", sizeof(_convert_cmd));
       sprintf(str, "%s -version", _convert_cmd);
       my_shell(str, str, sizeof(str));
-      image_magick_exist = (strstr(str, "ImageMagick") != NULL);
+      image_magick_exist = (strcasestr(str, "ImageMagick") != NULL);
    }
    if (!image_magick_exist) {
       strlcpy(_convert_cmd, "/usr/local/bin/convert", sizeof(_convert_cmd));
       strlcpy(_identify_cmd, "/usr/local/bin/identify", sizeof(_convert_cmd));
       sprintf(str, "%s -version", _convert_cmd);
       my_shell(str, str, sizeof(str));
-      image_magick_exist = (strstr(str, "ImageMagick") != NULL);
+      image_magick_exist = (strcasestr(str, "ImageMagick") != NULL);
    }
    if (!image_magick_exist) {
       strlcpy(_convert_cmd, "/opt/local/bin/convert", sizeof(_convert_cmd));
       strlcpy(_identify_cmd, "/opt/local/bin/identify", sizeof(_convert_cmd));
       sprintf(str, "%s -version", _convert_cmd);
       my_shell(str, str, sizeof(str));
-      image_magick_exist = (strstr(str, "ImageMagick") != NULL);
+      image_magick_exist = (strcasestr(str, "ImageMagick") != NULL);
    }
 
    if (image_magick_exist)
@@ -30185,17 +30183,17 @@ void server_loop(void) {
                      if (header_length == 0) {
                         /* extract logbook */
                         strlcpy(str, net_buffer + 6, sizeof(str));
-                        if (strstr(str, "HTTP"))
-                           *(strstr(str, "HTTP") - 1) = 0;
+                        if (strcasestr(str, "HTTP"))
+                           *(strcasestr(str, "HTTP") - 1) = 0;
                         strlcpy(logbook, str, sizeof(logbook));
                         strlcpy(logbook_enc, str, sizeof(logbook));
                         url_decode(logbook);
 
                         /* extract content length */
-                        if (strstr(net_buffer, "Content-Length:"))
-                           content_length = atoi(strstr(net_buffer, "Content-Length:") + 15);
-                        else if (strstr(net_buffer, "Content-length:"))
-                           content_length = atoi(strstr(net_buffer, "Content-length:") + 15);
+                        if (strcasestr(net_buffer, "Content-Length:"))
+                           content_length = atoi(strcasestr(net_buffer, "Content-Length:") + 15);
+                        else if (strcasestr(net_buffer, "Content-length:"))
+                           content_length = atoi(strcasestr(net_buffer, "Content-length:") + 15);
 
                         /* check for valid content-length */
                         if (content_length < 0) {
@@ -30257,7 +30255,7 @@ void server_loop(void) {
                         break;
                      }
 
-                  } else if (strstr(net_buffer, "HEAD") != NULL) {
+                  } else if (strcasestr(net_buffer, "HEAD") != NULL) {
                      /* just return header */
                      rsprintf("HTTP/1.1 200 OK\r\n");
                      rsprintf("Server: ELOG HTTP %s-%s\r\n", VERSION, git_revision());
@@ -30266,7 +30264,7 @@ void server_loop(void) {
                      keep_alive = FALSE;
                      return_length = strlen_retbuf + 1;
                      break;
-                  } else if (strstr(net_buffer, "OPTIONS") != NULL) {
+                  } else if (strcasestr(net_buffer, "OPTIONS") != NULL) {
                      return_length = -1;
                      break;
                   } else {
