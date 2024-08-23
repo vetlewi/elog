@@ -28556,7 +28556,7 @@ void decode_post(char *logbook, LOGBOOK *lbs, char *string, const char *boundary
                      return;
                   }
                   /* replace non-ASCII characters */
-                  for (int i=0 ; i<strlen(file_name) ; i++)
+                  for (int i=0 ; i<(int)strlen(file_name) ; i++)
                      if (file_name[i] < ' ' || file_name[i] > 'z')
                         file_name[i] = '_';
                }
