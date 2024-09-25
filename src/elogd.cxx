@@ -4885,7 +4885,7 @@ int el_submit(LOGBOOK *lbs, int message_id, BOOL bedit, const char *date, char a
       snprintf(file_name, sizeof(file_name), "%c%c%02d%c%ca.log", date1[14], date1[15], i + 1, date1[5], date1[6]);
 
       generate_subdir_name(file_name, subdir, sizeof(subdir));
-      sprintf(str, "%s%s", dir, subdir);
+      snprintf(str, sizeof(str), "%s%s", dir, subdir);
       if (strlen(str) > 0 && str[strlen(str) - 1] == DIR_SEPARATOR)
          str[strlen(str) - 1] = 0;
 
@@ -4895,7 +4895,7 @@ int el_submit(LOGBOOK *lbs, int message_id, BOOL bedit, const char *date, char a
       mkdir(str, 0755);
 #endif
 
-      sprintf(str, "%s%s%s", dir, subdir, file_name);
+      snprintf(str, sizeof(str), "%s%s%s", dir, subdir, file_name);
       fh = open(str, O_CREAT | O_RDWR | O_BINARY, 0644);
       if (fh < 0) {
          xfree(message);
@@ -4945,35 +4945,35 @@ int el_submit(LOGBOOK *lbs, int message_id, BOOL bedit, const char *date, char a
 
    /* compose message */
 
-   sprintf(message, "$@MID@$: %d\n", message_id);
-   sprintf(message + strlen(message), "Date: %s\n", date1);
+   snprintf(message, TEXT_SIZE, "$@MID@$: %d\n", message_id);
+   snprintf(message + strlen(message), TEXT_SIZE - strlen(message), "Date: %s\n", date1);
 
    if (reply_to1[0])
-      sprintf(message + strlen(message), "Reply to: %s\n", reply_to1);
+      snprintf(message + strlen(message), TEXT_SIZE - strlen(message), "Reply to: %s\n", reply_to1);
 
    if (in_reply_to1[0])
-      sprintf(message + strlen(message), "In reply to: %s\n", in_reply_to1);
+      snprintf(message + strlen(message), TEXT_SIZE - strlen(message), "In reply to: %s\n", in_reply_to1);
 
    for (i = 0; i < n_attr; i++)
-      sprintf(message + strlen(message), "%s: %s\n", attr_name[i], attrib[i]);
+      snprintf(message + strlen(message), TEXT_SIZE - strlen(message), "%s: %s\n", attr_name[i], attrib[i]);
 
-   sprintf(message + strlen(message), "Attachment: ");
+   snprintf(message + strlen(message), TEXT_SIZE - strlen(message), "Attachment: ");
 
    if (afilename) {
-      sprintf(message + strlen(message), "%s", afilename[0]);
+      snprintf(message + strlen(message), TEXT_SIZE - strlen(message), "%s", afilename[0]);
       for (i = 1; i < MAX_ATTACHMENTS; i++)
          if (afilename[i][0])
-            sprintf(message + strlen(message), ",%s", afilename[i]);
+            snprintf(message + strlen(message), TEXT_SIZE - strlen(message), ",%s", afilename[i]);
    }
-   sprintf(message + strlen(message), "\n");
+   snprintf(message + strlen(message), TEXT_SIZE - strlen(message), "\n");
 
-   sprintf(message + strlen(message), "Encoding: %s\n", encoding1);
+   snprintf(message + strlen(message), TEXT_SIZE - strlen(message), "Encoding: %s\n", encoding1);
    if (locked_by1[0])
-      sprintf(message + strlen(message), "Locked by: %s\n", locked_by1);
+      snprintf(message + strlen(message), TEXT_SIZE - strlen(message), "Locked by: %s\n", locked_by1);
    if (draft && draft[0])
-      sprintf(message + strlen(message), "Draft: %s\n", draft);
+      snprintf(message + strlen(message), TEXT_SIZE - strlen(message), "Draft: %s\n", draft);
 
-   sprintf(message + strlen(message), "========================================\n");
+   snprintf(message + strlen(message), TEXT_SIZE - strlen(message), "========================================\n");
 
    if (strieq(text, "<keep>") && old_text)
       strlcat(message, old_text, TEXT_SIZE + 100);
@@ -5032,7 +5032,7 @@ int el_submit(LOGBOOK *lbs, int message_id, BOOL bedit, const char *date, char a
 
       if (reply_to[0])
          strcat(reply_to, ", ");
-      sprintf(reply_to + strlen(reply_to), "%d", message_id);
+      snprintf(reply_to + strlen(reply_to), MAX_REPLY_TO * 10 - strlen(reply_to), "%d", message_id);
 
       /* write modified message */
       el_submit(lbs, reply_id, TRUE, date, attr_list, attr, n_attr, message, in_reply_to, reply_to, enc, att,
@@ -5144,7 +5144,7 @@ int el_delete_message(LOGBOOK *lbs, int message_id, BOOL delete_attachments,
    }
 
    if (_logging_level > 1) {
-      sprintf(str, "DELETE entry #%d", message_id);
+      snprintf(str, sizeof(str), "DELETE entry #%d", message_id);
       write_logfile(lbs, str);
    }
 
@@ -9675,7 +9675,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
          }
       }
 
-      sprintf(str, "Preset on first reply %s", attr_list[index]);
+      snprintf(str, sizeof(str), "Preset on first reply %s", attr_list[index]);
       if ((i = getcfg(lbs->name, str, preset, sizeof(preset))) > 0 && breply) {
          if (orig_tag[0] == 0) {
             if (!breedit || (breedit && i == 2)) {      /* subst on reedit only if preset is under condition */
@@ -9696,7 +9696,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
          }
       }
 
-      sprintf(str, "Preset on reply %s", attr_list[index]);
+      snprintf(str, sizeof(str), "Preset on reply %s", attr_list[index]);
       if ((i = getcfg(lbs->name, str, preset, sizeof(preset))) > 0 && breply) {
 
          if (!breedit || (breedit && i == 2)) { /* subst on reedit only if preset is under condition */
@@ -9716,7 +9716,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
          }
       }
 
-      sprintf(str, "Preset on edit %s", attr_list[index]);
+      snprintf(str, sizeof(str), "Preset on edit %s", attr_list[index]);
       if ((i = getcfg(lbs->name, str, preset, sizeof(preset))) > 0 && bedit) {
 
          if (!breedit || (breedit && i == 2)) { /* subst on reedit only if preset is under condition */
@@ -9736,7 +9736,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
          }
       }
 
-      sprintf(str, "Preset on duplicate %s", attr_list[index]);
+      snprintf(str, sizeof(str), "Preset on duplicate %s", attr_list[index]);
       if ((i = getcfg(lbs->name, str, preset, sizeof(preset))) > 0 && bduplicate) {
 
          if (!breedit || (breedit && i == 2)) { /* subst on reedit only if preset is under condition */
@@ -9757,7 +9757,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
       }
 
       /* check for p<attribute> */
-      sprintf(str, "p%s", attr_list[index]);
+      snprintf(str, sizeof(str), "p%s", attr_list[index]);
       if (isparam(str))
          strlcpy(attrib[index], getparam(str), NAME_LENGTH);
    }
@@ -9775,7 +9775,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
       for (index = 0; index < lbs->n_attr; index++) {
 
          /* check for preset string */
-         sprintf(str, "Preset %s", attr_list[index]);
+         snprintf(str, sizeof(str), "Preset %s", attr_list[index]);
          if ((i = getcfg(lbs->name, str, preset, sizeof(preset))) > 0) {
 
             if ((!bedit && !breply && !bduplicate) ||   /* don't subst on edit or reply */
@@ -9796,7 +9796,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
             }
          }
 
-         sprintf(str, "Preset on reply %s", attr_list[index]);
+         snprintf(str, sizeof(str), "Preset on reply %s", attr_list[index]);
          if ((i = getcfg(lbs->name, str, preset, sizeof(preset))) > 0 && breply) {
 
             if (!breedit || (breedit && i == 2)) {      /* subst on reedit only if preset is under condition */
@@ -9816,7 +9816,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
             }
          }
 
-         sprintf(str, "Preset on duplicate %s", attr_list[index]);
+         snprintf(str, sizeof(str), "Preset on duplicate %s", attr_list[index]);
          if ((i = getcfg(lbs->name, str, preset, sizeof(preset))) > 0 && bduplicate) {
 
             if (!breedit || (breedit && i == 2)) {      /* subst on reedit only if preset is under condition */
@@ -9851,7 +9851,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
       }
 
       if (i >= MAX_REPLY_TO) {
-         sprintf(str, loc("Maximum number of replies (%d) exceeded"), MAX_REPLY_TO);
+         snprintf(str, sizeof(str), loc("Maximum number of replies (%d) exceeded"), MAX_REPLY_TO);
          show_error(str);
          xfree(text);
          return;
@@ -9871,7 +9871,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
    if (bedit && getcfg(lbs->name, "Restrict edit", str, sizeof(str)) && atoi(str) == 1) {
       if (!is_author(lbs, attrib, owner)) {
          strencode2(str2, owner, sizeof(str2));
-         sprintf(str, loc("Only user <b>%s</b> can edit this entry"), str2);
+         snprintf(str, sizeof(str), loc("Only user <b>%s</b> can edit this entry"), str2);
          show_error(str);
          xfree(text);
          return;
@@ -9882,7 +9882,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
    if (bedit) {
       if (isparam("nsel")) {
          for (i = n = 0; i < atoi(getparam("nsel")); i++) {
-            sprintf(str, "s%d", i);
+            snprintf(str, sizeof(str), "s%d", i);
             if (isparam(str)) {
                status = check_edit_time(lbs, atoi(getparam(str)));
                if (!status) {
@@ -9936,7 +9936,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
                     (char (*)[NAME_LENGTH]) svalue, i);
       strip_html(page_title);
    } else
-      sprintf(page_title, "ELOG %s", lbs->name);
+      snprintf(page_title, sizeof(page_title), "ELOG %s", lbs->name);
 
    show_html_header(lbs, FALSE, page_title, FALSE, FALSE, NULL, FALSE, 0, 200);
 
