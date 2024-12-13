@@ -4539,9 +4539,9 @@ int el_submit_attachment(LOGBOOK *lbs, const char *afilename, const char *buffer
                  tms.tm_mday, tms.tm_hour, tms.tm_min, tms.tm_sec, file_name);
       }
 
-      strlcpy(path_name, lbs->data_dir, sizeof(str));
+      strlcpy(path_name, lbs->data_dir, sizeof(path_name));
       generate_subdir_name(ext_file_name, subdir, sizeof(subdir));
-      strlcat(path_name, subdir, sizeof(str));
+      strlcat(path_name, subdir, sizeof(path_name));
       if (strlen(path_name) > 0 && path_name[strlen(path_name) - 1] == DIR_SEPARATOR)
          path_name[strlen(path_name) - 1] = 0;
 
@@ -4557,7 +4557,7 @@ int el_submit_attachment(LOGBOOK *lbs, const char *afilename, const char *buffer
       /* test if file exists */
       do {
          strlcpy(str, path_name, sizeof(str));
-         strlcat(str, ext_file_name, sizeof(path_name));
+         strlcat(str, ext_file_name, sizeof(str));
 
          fh = open(str, O_RDONLY, 0644);
          if (fh > 0) {
@@ -4576,7 +4576,7 @@ int el_submit_attachment(LOGBOOK *lbs, const char *afilename, const char *buffer
          strlcpy(full_name, ext_file_name, MAX_PATH_LENGTH);
 
       strlcpy(str, path_name, sizeof(str));
-      strlcat(str, ext_file_name, sizeof(path_name));
+      strlcat(str, ext_file_name, sizeof(str));
 
       /* save attachment */
       fh = open(str, O_CREAT | O_RDWR | O_BINARY, 0644);
