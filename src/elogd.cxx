@@ -7435,7 +7435,6 @@ void show_http_header(LOGBOOK *lbs, BOOL expires, const char *cookie, int code) 
    else
       rsprintf("HTTP/1.1 200 Document follows\r\n");
 
-   rsprintf("HTTP/1.1 200 Document follows\r\n");
    rsprintf("Server: ELOG HTTP %s-%s\r\n", VERSION, git_revision());
 
    if (getcfg("global", "charset", str, sizeof(str)))
