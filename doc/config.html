@@ -2338,17 +2338,15 @@ Options Location = Main Building{a}, New Building{b}, Old Building{c}
    PAM authentication
 </h2>
 <p>
-   PAM (Pluggable authentication modules) support has been implemented by Jan Christoph Terasa as a separate branch at
-   <a href="https://bitbucket.org/ritt/elog/branch/pam">https://bitbucket.org/ritt/elog/branch/pam</a>.
-
-<p>
-   To use PAM in elogd, do the following:
+   PAM (Pluggable authentication modules) support has been implemented by Jan Christoph Terasa. To use PAM in elogd,
+   do the following:
 </p>
 
 <ul>
    <li>
       Compile <b><code>elogd</code></b> with PAM support, by either setting <b><code>USE_PAM = 1</code></b> in the
-      <b><code>Makefile</code></b>, or by specifying it when invoking <b><code>make</code></b>
+      <b><code>Makefile</code></b>, or by specifying it when invoking <b><code>make</code></b>. If you compile
+      via CMake, set USE_PAM via ccmake.
    </li>
    <li>
       Enable PAM authentication in <b><code>elogd.cfg</code></b>:
