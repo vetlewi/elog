@@ -27565,7 +27565,7 @@ void interprete(char *lbook, const char *path)
 #ifdef HAVE_PAM
                                                                                                                            /* save new user */
    if (strieq(command, loc("Save")) && isparam("new_user_name") && !isparam("config")) {
-      save_user_config(NULL, getparam("new_user_name"), 1);
+      save_user_config(lbs, getparam("new_user_name"), 1);
       redirect(lbs, "");
       check_login(lbs, NULL);
       return;
