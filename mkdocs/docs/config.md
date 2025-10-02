@@ -318,7 +318,7 @@ show the logbooks from the other department. Prior to ELOG version
 different ports. Since 2.4.1, one can achieve the same behaviour using
 **`Top groups`**. The configuration could look like this:
 
-```
+``` text
 Group Linux PCs = Red Hat, Debian, Mandrake
 Group Windows PCs = 98, ME, NT, XP, CE
 Group CE = 1.0, 2.UL
@@ -462,7 +462,7 @@ Here are the available options, by broad categories:
   messages of for logbook queries. Here is a simple example of such a
   file:
 
-```
+``` text
 <h1>Welcome to the test logbook</h1>
 <ul>
   <li><a href="?cmd=new">Enter</a> a new message
@@ -491,7 +491,7 @@ Here are the available options, by broad categories:
   This optional page can be displayed when a new message was submitted
   in a logbook. Here is an example:
 
-```
+``` text
 <h1>You successfully submitted a message</h1>
 <a href="?cmd=Back">Back</a> to the logbook<p>
 <a href="?cmd=New">Enter</a> another message
@@ -592,7 +592,7 @@ Here are the available options, by broad categories:
   commands"** list. A typical example for the menu settings for this
   scenario are:
 
-```
+``` text
   Menu commands = List, New, Edit, Reply, Duplicate, Find, Config, Logout, Help
   Guest menu commands = List, Find, Login, Help
 ```
@@ -613,7 +613,7 @@ Here are the available options, by broad categories:
   to go back to the listing page and display the next *Routine* entry
   and all *Routine* entries:
 
-```
+``` text
 <small>
 &nbsp;<a href="?cmd=next&type=Routine">Next Routine entry</a>&nbsp;|
 &nbsp;<a href="../?Type=Routine">All Routine entries</a>
@@ -634,7 +634,7 @@ Here are the available options, by broad categories:
   attributes, including the word *text*, if one wants to display the
   entry body text for guests.
 
-```
+``` text
 <small>
 &nbsp;<a href="?mode=summary">Summary</a>&nbsp;|
 &nbsp;<a href="?mode=full">Full</a>&nbsp;|
@@ -841,7 +841,8 @@ Here are the available options, by broad categories:
   This list specifies a set of icons for an attribute. Some icons are
   contained in the *themes/default/icons* directory which can be used
   here like
-```
+  
+``` text
 Attributes = Author, Icon, Subject...
 IOptions Icon = icon1.gif, icon2.gif, icon3.gif, ...
 ```
@@ -1032,11 +1033,11 @@ IOptions Icon = icon1.gif, icon2.gif, icon3.gif, ...
   RSS title. With this option once can changed this behaviour. Following
   substitutions are possible:
 
-  - $<attribute\>**: The value of the attribute
-  - $logbook**: The name of the current logbook
-  - $entry time**: The message date and time, formatted via "*Time
+  - **$<attribute\>**: The value of the attribute
+  - **$logbook**: The name of the current logbook
+  - **$entry time**: The message date and time, formatted via "*Time
     format*"
-  - $message id**: The message ID
+  - **$message id**: The message ID
 
   A typical example would be\
 
@@ -1050,23 +1051,23 @@ IOptions Icon = icon1.gif, icon2.gif, icon3.gif, ...
   by some text. This text can contain arbitrary fixed text and following
   values:
 
-  - $<attribute\>**: The entered value of the attribute itself
-  - $host**: The host name where **`elogd`** is running
-  - $remote_host**: The host name of the host from with the entry was
+  - **$<attribute\>**: The entered value of the attribute itself
+  - **$host**: The host name where **`elogd`** is running
+  - **$remote_host**: The host name of the host from with the entry was
     submitted
-  - $short_name**: The login name (if password file is present)
-  - $long_name**: The full name from the password file for the
+  - **$short_name**: The login name (if password file is present)
+  - **$long_name**: The full name from the password file for the
     current user
-  - $user_email**: The email address from the password file for the
+  - **$user_email**: The email address from the password file for the
     current user
-  - $logbook**: The name of the current logbook
-  - $date**: The current date, formatted via "*Date format*"
-  - $utcdate**: The current UTC date (GMT) and time, formatted via
+  - **$logbook**: The name of the current logbook
+  - **$date**: The current date, formatted via "*Date format*"
+  - **$utcdate**: The current UTC date (GMT) and time, formatted via
     "*Date format*"
-  - $version**: The version of the ELOG server in the form x.y.z
-  - $revision**: The Subversion reversion of the ELOG server as an
+  - **$version**: The version of the ELOG server in the form x.y.z
+  - **$revision**: The Subversion reversion of the ELOG server as an
     integer number
-  - $shell(<command\>)**: <command\> gets passed to the operating
+  - **$shell(<command\>)**: <command\> gets passed to the operating
     system shell and the result is taken for substitution.
 
   Following example use this feature to add the remote host name to the
@@ -1078,7 +1079,7 @@ IOptions Icon = icon1.gif, icon2.gif, icon3.gif, ...
   Following example substitutes an attribute with the contents of a
   file:
 
-```
+``` text
 Subst Info = $shell(cat /tmp/filename)              (Unix)
 Subst Info = $shell(type c:\tmp\filename)           (Windows)
 ```
@@ -1094,7 +1095,7 @@ Subst Info = $shell(type c:\tmp\filename)           (Windows)
 
   results in automatically created attributes *"Number"* of the form
 
-```
+``` text
 XYZ-00001
 XYZ-00002
 XYZ-00003
@@ -1107,11 +1108,11 @@ XYZ-00003
   The statement
 
 
-`Subst Number = XYZ-%Y-%b-###
+`Subst Number = XYZ-%Y-%b-###`
 
   results in automatically created attributes *"Number"* of the form
 
-```
+``` text
 XYZ-2005-Oct-001
 XYZ-2005-Oct-002
 XYZ-2005-Oct-003
@@ -1119,7 +1120,7 @@ XYZ-2005-Oct-003
 
   and
 
-```
+``` text
 XYZ-2005-Nov-001
 XYZ-2005-Nov-002
 ```
@@ -1181,19 +1182,19 @@ XYZ-2005-Nov-002
 
   Values used for single message display page:
 
-  - <flags\>** Sum of following flags:
+  - **<flags\>** Sum of following flags:
     - **1**: Display attribute in same line as previous attribute
     - **2**: Display radio buttons or check boxes in separate lines (if
       applicable)
-  - <css_class_name\>**,<css_class_value\>** Cascading Style Sheet
+  - **<css_class_name\>**,<css_class_value\>** Cascading Style Sheet
     class names used for cells containing attribute name or value,
     respectively. The classes must be defined in the style sheet file
     (usually *themes/default/default.css*).
 
   Values used for new message entry form:
 
-  - <width\>** Width of the text entry field in characters
-  - <size\>** Maximum number of characters allowed.
+  - **<width\>** Width of the text entry field in characters
+  - **<size\>** Maximum number of characters allowed.
 
   Default is *"0, attribname, attribvalue, 80, 500"*. Trailing
   parameters can be ommitted, so specifying for example only the flags
@@ -1240,16 +1241,13 @@ XYZ-2005-Nov-002
   **`importnace`** is **`severe`** for example, you can specify
   following style:
 
-
-`Style importance severe = background-color:red`
-              
+`Style importance severe = background-color:red`              
 
   For possible formattings, please refer to some CSS documentation. You
   can change the colors, font styles and sizes. The style is then valid
   for the whole row of that entry.
   
   For empty attributes one can specify "", such as
-
 
 `Style importance "" = background-color:red`
               
@@ -1268,7 +1266,7 @@ Cell Style Status Under Process  = background-color:yellow
 
   for example produce following listing:
 
-  ![](img/cell_style.png){border="0"}
+  ![](img/cell_style.png)
 
 ### `Change <attribute> = <string>`
   Instead of subsituting an attribute, the original attribute can be
@@ -1411,7 +1409,7 @@ configuration option **`Preset text = ...`** can be used to copy some
 pre-defined forms into the message body, which can then be filled out.
 Consider following example:
 
-```
+``` text
 Attributes = Author, Type
 Options Type = Network check{1}, System check{2}
 
@@ -1423,7 +1421,7 @@ This causes two text files *network.txt* and *system.txt* to be copied
 into the message body when a new entry is made. The file *network.txt*
 could look like:
 
-```
+``` text
 Routers checked:  [ ]
 DHCP checked:     [ ]
 Comment: ...
@@ -1468,7 +1466,7 @@ in one option list cannot be used in another list. This can easily be
 avoided by using numbers for one condition and letters for the other
 condition, like in the following example:
 
-```
+``` text
 Attributes = PC Name, Operating System, Version, Location, Floor
 Options Operating System = Linux{1}, Windows{2}
 Options Location = Main Building{a}, New Building{b}, Old Building{c}
@@ -1529,7 +1527,7 @@ Following options can be used to control the behavior:
 
 This file contains user names and passwords in XML format, such as
 
-```
+``` text
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!-- created by MXML on Tue Nov 07 08:15:51 2006 -->
 <list>

@@ -821,7 +821,7 @@ show the logbooks from the other department. Prior to ELOG version
 2.4.1, one had to run two elogd servers in parallel, listening under
 different ports. Since 2.4.1, one can achieve the same behaviour using
 <strong><code>Top groups</code></strong>. The configuration could look like this:</p>
-<pre><code>Group Linux PCs = Red Hat, Debian, Mandrake
+<pre><code class="language-text">Group Linux PCs = Red Hat, Debian, Mandrake
 Group Windows PCs = 98, ME, NT, XP, CE
 Group CE = 1.0, 2.UL
 
@@ -941,7 +941,7 @@ section, the logbook option is used.</p>
   message list. This file can contain further links for new logbook
   messages of for logbook queries. Here is a simple example of such a
   file:</p>
-<pre><code>&lt;h1&gt;Welcome to the test logbook&lt;/h1&gt;
+<pre><code class="language-text">&lt;h1&gt;Welcome to the test logbook&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;?cmd=new&quot;&gt;Enter&lt;/a&gt; a new message
   `&lt;li&gt;&lt;a href=&quot;?cmd=find&quot;&gt;Search&lt;/a&gt; the logbook
@@ -962,7 +962,7 @@ section, the logbook option is used.</p>
 <h3 id="submit-page-file"><code>Submit Page = &lt;file&gt;</code></h3>
 <p>This optional page can be displayed when a new message was submitted
   in a logbook. Here is an example:</p>
-<pre><code>&lt;h1&gt;You successfully submitted a message&lt;/h1&gt;
+<pre><code class="language-text">&lt;h1&gt;You successfully submitted a message&lt;/h1&gt;
 &lt;a href=&quot;?cmd=Back&quot;&gt;Back&lt;/a&gt; to the logbook&lt;p&gt;
 &lt;a href=&quot;?cmd=New&quot;&gt;Enter&lt;/a&gt; another message
 </code></pre>
@@ -1049,7 +1049,7 @@ section, the logbook option is used.</p>
   password file), which then allowes full access via the <strong>"Menu
   commands"</strong> list. A typical example for the menu settings for this
   scenario are:</p>
-<pre><code>  Menu commands = List, New, Edit, Reply, Duplicate, Find, Config, Logout, Help
+<pre><code class="language-text">  Menu commands = List, New, Edit, Reply, Duplicate, Find, Config, Logout, Help
   Guest menu commands = List, Find, Login, Help
 </code></pre>
 <p>Note that the presence of this option opens user access also to the
@@ -1065,7 +1065,7 @@ section, the logbook option is used.</p>
   arbitrary text, images or links. One example would be following text
   to go back to the listing page and display the next <em>Routine</em> entry
   and all <em>Routine</em> entries:</p>
-<pre><code>&lt;small&gt;
+<pre><code class="language-text">&lt;small&gt;
 &amp;nbsp;&lt;a href=&quot;?cmd=next&amp;type=Routine&quot;&gt;Next Routine entry&lt;/a&gt;&amp;nbsp;|
 &amp;nbsp;&lt;a href=&quot;../?Type=Routine&quot;&gt;All Routine entries&lt;/a&gt;
 &lt;/small&gt;
@@ -1081,7 +1081,7 @@ section, the logbook option is used.</p>
   "Password file"). The <strong><code>list</code></strong> consists of comma separated
   attributes, including the word <em>text</em>, if one wants to display the
   entry body text for guests.</p>
-<pre><code>&lt;small&gt;
+<pre><code class="language-text">&lt;small&gt;
 &amp;nbsp;&lt;a href=&quot;?mode=summary&quot;&gt;Summary&lt;/a&gt;&amp;nbsp;|
 &amp;nbsp;&lt;a href=&quot;?mode=full&quot;&gt;Full&lt;/a&gt;&amp;nbsp;|
 &amp;nbsp;&lt;a href=&quot;?mode=threaded&quot;&gt;Threaded&lt;/a&gt;&amp;nbsp;|
@@ -1250,7 +1250,7 @@ section, the logbook option is used.</p>
 <p>This list specifies a set of icons for an attribute. Some icons are
   contained in the <em>themes/default/icons</em> directory which can be used
   here like</p>
-<pre><code>Attributes = Author, Icon, Subject...
+<pre><code class="language-text">Attributes = Author, Icon, Subject...
 IOptions Icon = icon1.gif, icon2.gif, icon3.gif, ...
 </code></pre>
 <p>New icons are welcome and should be sent back to the author to be
@@ -1401,11 +1401,11 @@ IOptions Icon = icon1.gif, icon2.gif, icon3.gif, ...
   RSS title. With this option once can changed this behaviour. Following
   substitutions are possible:</p>
 <ul>
-<li>$&lt;attribute&gt;**: The value of the attribute</li>
-<li>$logbook**: The name of the current logbook</li>
-<li>$entry time<em><em>: The message date and time, formatted via "</em>Time
+<li><strong>$&lt;attribute&gt;</strong>: The value of the attribute</li>
+<li><strong>$logbook</strong>: The name of the current logbook</li>
+<li><strong>$entry time</strong>: The message date and time, formatted via "<em>Time
     format</em>"</li>
-<li>$message id**: The message ID</li>
+<li><strong>$message id</strong>: The message ID</li>
 </ul>
 <p>A typical example would be\</p>
 <p><code>RSS Title = $subject, posted by $author on $entry time</code></p>
@@ -1416,23 +1416,23 @@ IOptions Icon = icon1.gif, icon2.gif, icon3.gif, ...
   by some text. This text can contain arbitrary fixed text and following
   values:</p>
 <ul>
-<li>$&lt;attribute&gt;**: The entered value of the attribute itself</li>
-<li>$host<strong>: The host name where </strong><code>elogd</code>** is running</li>
-<li>$remote_host**: The host name of the host from with the entry was
+<li><strong>$&lt;attribute&gt;</strong>: The entered value of the attribute itself</li>
+<li><strong>$host</strong>: The host name where <strong><code>elogd</code></strong> is running</li>
+<li><strong>$remote_host</strong>: The host name of the host from with the entry was
     submitted</li>
-<li>$short_name**: The login name (if password file is present)</li>
-<li>$long_name**: The full name from the password file for the
+<li><strong>$short_name</strong>: The login name (if password file is present)</li>
+<li><strong>$long_name</strong>: The full name from the password file for the
     current user</li>
-<li>$user_email**: The email address from the password file for the
+<li><strong>$user_email</strong>: The email address from the password file for the
     current user</li>
-<li>$logbook**: The name of the current logbook</li>
-<li>$date<em><em>: The current date, formatted via "</em>Date format</em>"</li>
-<li>$utcdate<em><em>: The current UTC date (GMT) and time, formatted via
-    "</em>Date format</em>"</li>
-<li>$version**: The version of the ELOG server in the form x.y.z</li>
-<li>$revision**: The Subversion reversion of the ELOG server as an
+<li><strong>$logbook</strong>: The name of the current logbook</li>
+<li><strong>$date</strong>: The current date, formatted via "<em>Date format</em>"</li>
+<li><strong>$utcdate</strong>: The current UTC date (GMT) and time, formatted via
+    "<em>Date format</em>"</li>
+<li><strong>$version</strong>: The version of the ELOG server in the form x.y.z</li>
+<li><strong>$revision</strong>: The Subversion reversion of the ELOG server as an
     integer number</li>
-<li>$shell(&lt;command&gt;)**: &lt;command&gt; gets passed to the operating
+<li><strong>$shell(&lt;command&gt;)</strong>: &lt;command&gt; gets passed to the operating
     system shell and the result is taken for substitution.</li>
 </ul>
 <p>Following example use this feature to add the remote host name to the
@@ -1440,7 +1440,7 @@ IOptions Icon = icon1.gif, icon2.gif, icon3.gif, ...
 <p><code>Subst Author = $author from $remote_host</code></p>
 <p>Following example substitutes an attribute with the contents of a
   file:</p>
-<pre><code>Subst Info = $shell(cat /tmp/filename)              (Unix)
+<pre><code class="language-text">Subst Info = $shell(cat /tmp/filename)              (Unix)
 Subst Info = $shell(type c:\tmp\filename)           (Windows)
 </code></pre>
 <p>A special option are automatically generated tags, which are
@@ -1450,7 +1450,7 @@ Subst Info = $shell(type c:\tmp\filename)           (Windows)
   digit, thus the statement</p>
 <p><code>Subst Number = XYZ-#####</code></p>
 <p>results in automatically created attributes <em>"Number"</em> of the form</p>
-<pre><code>XYZ-00001
+<pre><code class="language-text">XYZ-00001
 XYZ-00002
 XYZ-00003
 </code></pre>
@@ -1459,14 +1459,14 @@ XYZ-00003
   to create tags wich contain the current year, month and so on. Once
   the date part of the attribute changes, the index restarts from one.
   The statement</p>
-<p>`Subst Number = XYZ-%Y-%b-###</p>
+<p><code>Subst Number = XYZ-%Y-%b-###</code></p>
 <p>results in automatically created attributes <em>"Number"</em> of the form</p>
-<pre><code>XYZ-2005-Oct-001
+<pre><code class="language-text">XYZ-2005-Oct-001
 XYZ-2005-Oct-002
 XYZ-2005-Oct-003
 </code></pre>
 <p>and</p>
-<pre><code>XYZ-2005-Nov-001
+<pre><code class="language-text">XYZ-2005-Nov-001
 XYZ-2005-Nov-002
 </code></pre>
 <p>on the next month.</p>
@@ -1513,21 +1513,21 @@ XYZ-2005-Nov-002
   defined in the comma-separated list:</p>
 <p>Values used for single message display page:</p>
 <ul>
-<li>&lt;flags&gt;** Sum of following flags:<ul>
+<li><strong>&lt;flags&gt;</strong> Sum of following flags:<ul>
 <li><strong>1</strong>: Display attribute in same line as previous attribute</li>
 <li><strong>2</strong>: Display radio buttons or check boxes in separate lines (if
   applicable)</li>
 </ul>
 </li>
-<li>&lt;css_class_name&gt;<strong>,&lt;css_class_value&gt;</strong> Cascading Style Sheet
+<li><strong>&lt;css_class_name&gt;</strong>,&lt;css_class_value&gt;<em><em> Cascading Style Sheet
     class names used for cells containing attribute name or value,
     respectively. The classes must be defined in the style sheet file
-    (usually <em>themes/default/default.css</em>).</li>
+    (usually </em>themes/default/default.css</em>).</li>
 </ul>
 <p>Values used for new message entry form:</p>
 <ul>
-<li>&lt;width&gt;** Width of the text entry field in characters</li>
-<li>&lt;size&gt;** Maximum number of characters allowed.</li>
+<li><strong>&lt;width&gt;</strong> Width of the text entry field in characters</li>
+<li><strong>&lt;size&gt;</strong> Maximum number of characters allowed.</li>
 </ul>
 <p>Default is <em>"0, attribname, attribvalue, 80, 500"</em>. Trailing
   parameters can be ommitted, so specifying for example only the flags
@@ -1569,7 +1569,7 @@ XYZ-2005-Nov-002
   called <strong><code>importnace</code></strong> and you want to highlight all entries where
   <strong><code>importnace</code></strong> is <strong><code>severe</code></strong> for example, you can specify
   following style:</p>
-<p><code>Style importance severe = background-color:red</code></p>
+<p><code>Style importance severe = background-color:red</code>              </p>
 <p>For possible formattings, please refer to some CSS documentation. You
   can change the colors, font styles and sizes. The style is then valid
   for the whole row of that entry.</p>
@@ -1585,7 +1585,7 @@ Cell Style Status Not Fixed  = background-color:red
 Cell Style Status Under Process  = background-color:yellow
 </code></pre>
 <p>for example produce following listing:</p>
-<p><img alt="" src="../img/cell_style.png" />{border="0"}</p>
+<p><img alt="" src="../img/cell_style.png" /></p>
 <h3 id="change-attribute-string"><code>Change &lt;attribute&gt; = &lt;string&gt;</code></h3>
 <p>Instead of subsituting an attribute, the original attribute can be
   kept and just the output formatting can be changed. This can be very
@@ -1694,7 +1694,7 @@ possibility is the definition of forms. Depending on an attribute, the
 configuration option <strong><code>Preset text = ...</code></strong> can be used to copy some
 pre-defined forms into the message body, which can then be filled out.
 Consider following example:</p>
-<pre><code>Attributes = Author, Type
+<pre><code class="language-text">Attributes = Author, Type
 Options Type = Network check{1}, System check{2}
 
 {1} Preset text = network.txt
@@ -1703,7 +1703,7 @@ Options Type = Network check{1}, System check{2}
 <p>This causes two text files <em>network.txt</em> and <em>system.txt</em> to be copied
 into the message body when a new entry is made. The file <em>network.txt</em>
 could look like:</p>
-<pre><code>Routers checked:  [ ]
+<pre><code class="language-text">Routers checked:  [ ]
 DHCP checked:     [ ]
 Comment: ...
 </code></pre>
@@ -1738,7 +1738,7 @@ only requiremnt is that conditions are uniquie, meaning that a condition
 in one option list cannot be used in another list. This can easily be
 avoided by using numbers for one condition and letters for the other
 condition, like in the following example:</p>
-<pre><code>Attributes = PC Name, Operating System, Version, Location, Floor
+<pre><code class="language-text">Attributes = PC Name, Operating System, Version, Location, Floor
 Options Operating System = Linux{1}, Windows{2}
 Options Location = Main Building{a}, New Building{b}, Old Building{c}
 {1} Options Version = 2.2, 2.4, 2.6
@@ -1783,7 +1783,7 @@ browser.</p>
 <h3 id="admin-user-user-list"><code>Admin user = &lt;user list&gt;</code></h3>
 <h3 id="login-user-user-list"><code>Login user = &lt;user list&gt;</code></h3>
 <p>This file contains user names and passwords in XML format, such as</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+<pre><code class="language-text">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
 &lt;!-- created by MXML on Tue Nov 07 08:15:51 2006 --&gt;
 &lt;list&gt;
   &lt;user&gt;

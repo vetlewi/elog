@@ -11,20 +11,17 @@ Feature| Votes
 Implement groups of users| 8             
 Password expiration| 2     
 Account expiration|1
-Make attributes which whould be displayd selectable in \"Find\" page|1
+Make attributes which whould be displayed selectable in "Find" page|1
 Convert elog text files into XML files and comma separated files with elconv|1
 Implement multi-line attributes|8
 Derive attribute options from list of entries of another logbook|1
 Specify date format explicitly for substitutions, like $entry date{%Y}|2
 Change attributes of whole thread, like mark a thread "open" or "closed"|4
 Automatic unlocking of entries after a specific time period|1
-Implement PAM authentification under Linux (Which includes LDAP & AFS & Kerberos & ...)|13
 Implement attributes which are math results from others, like *att3=att1+att2*|3
 Show sums of numeric attributes|2
 Let each user choose its language separately|1
 Implement multiple selection boxes|1
-Boolean operators for queries, like "attrib1=a AND not attrib2=b"|1
-Implement "sybolik-link" logbooks such that a (virtual) logbook can "point" to a "real" logbook.<br>This is useful to have people always submit to the same logbook, when the real logbook<br>changes from time to time.|1
 Select individual columns for display and printing|2
 "Incremental" options. Have fixed set of global options, and in each<br>logbook add or remove some of those with<br>**+Options = ...** or **-Options = ...**|1
 "Include" statement for config file.|2
