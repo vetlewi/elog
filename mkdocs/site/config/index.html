@@ -1,0 +1,2666 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Config file - ELOG Electronic Logbook</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Config file";
+        var mkdocs_page_input_path = "config.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> ELOG Electronic Logbook
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../userguide/">User guide</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../adminguide/">Admin guide</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Config file</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#global-options">Global options</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#port-port">Port = &lt;port&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ssl-0-1">SSL = &lt;0 | 1&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#interface-interface">Interface = &lt;interface&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#resource-dir-directory">Resource dir = &lt;directory&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#logbook-dir-directory">Logbook dir = &lt;directory&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#language-name">Language = &lt;name&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#charset-name">charset = &lt;name&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#logbook-tabs-01">Logbook Tabs = [0|1]</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#main-tab-string">Main Tab = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#main-tab-url-string">Main Tab URL = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#welcome-title-html-code">Welcome Title = &lt;html code&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#page-title-string">Page title = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#list-page-title-string">List page title = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#selection-page-file">Selection page = &lt;file&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#guest-selection-page-file">Guest Selection page = &lt;file&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#protect-selection-page-0-1">Protect Selection page = 0 | 1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#expand-selection-page-0-1">Expand Selection page = 0 | 1'</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#smtp-host-hostdomain">SMTP host = &lt;host.domain&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#smtp-username-username">SMTP username = &lt;username&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#smtp-port-port">SMTP port = &lt;port&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#logfile-file">Logfile = &lt;file&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#logging-level-1-2-3">Logging level = 1 | 2 | 3</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#url-httpshostdomainportsubdir">URL = &lt;http[s]://host.domain[:port]/[subdir/]&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#relative-redirection-01">Relative redirection = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#resolve-host-names-01">Resolve host names = 0|1</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#groups-of-logbooks">Groups of logbooks</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#top-groups">Top groups</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#individual-logbook-options">Individual logbook options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#general-options">General options</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#data-dir-directory">Data dir = &lt;directory&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#subdir-directory">Subdir = &lt;directory&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#comment-comment">Comment = &lt;comment&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#theme-theme">Theme = &lt;theme&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#css-filename">CSS = &lt;filename&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#title-image-string">Title image = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#title-image-url-url">Title image URL = &lt;URL&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#time-format-string">Time format = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#time-format-attribute-string">Time format &lt;attribute&gt; = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#date-format-string">Date format = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#date-format-attribute-string">Date format &lt;attribute&gt; = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#welcome-page-file">Welcome Page = &lt;file&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#start-page-command">Start page = &lt;command&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#submit-page-file">Submit Page = &lt;file&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#message-comment-comment">Message comment = &lt;comment&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#reply-comment-comment">Reply comment = &lt;comment&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#attachment-comment-comment">Attachment comment = &lt;comment&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#menu-commands-list">Menu commands = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#copy-to-logbook-list">Copy to = &lt;logbook list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#move-to-logbook-list">Move to = &lt;logbook list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#list-menu-commands-list">List Menu commands = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#guest-menu-commands-list">Guest Menu commands = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#guest-list-menu-commands-list">Guest List Menu commands = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#menu-text-file">Menu text = &lt;file&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#list-menu-text-file">List Menu text = &lt;file&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#filter-menu-text-file">Filter Menu text = &lt;file&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#guest-display-list">Guest Display = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#top-text-file-string">Top text = &lt;file&gt; | &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#bottom-text-file-string">Bottom text = &lt;file&gt; | &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#bottom-text-login-file-string">Bottom text login = &lt;file&gt; | &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#help-url-url">Help URL = &lt;URL&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#message-width-number">Message Width = &lt;number&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#message-height-number">Message Height = &lt;number&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#admin-textarea-colsrows">Admin textarea = &lt;cols&gt;,&lt;rows&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#display-mode-fullsummarythreaded">Display mode = [full|summary|threaded]</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#entries-per-page-number">Entries per page = &lt;number&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#restrict-edit-time-hours">Restrict edit time = &lt;hours&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#admin-restrict-edit-time-hours">Admin restrict edit time = &lt;hours&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#max-content-length-bytes">Max content length = &lt;bytes&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fonts-list">Fonts = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#all-display-limit-n">All display limit = &lt;n&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#thumbnail-size-size">Thumbnail size = &lt;size&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#thumbnail-options-options">Thumbnail options = &lt;options&gt;</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#attributes">Attributes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#attributes-list">Attributes = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#options-attribute-list">Options &lt;attribute&gt; = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#extendable-options-list">Extendable options = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#roptions-attribute-list">ROptions &lt;attribute&gt; = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#moptions-attribute-list">MOptions &lt;attribute&gt; = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ioptions-attribute-list">IOptions &lt;attribute&gt; = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#comment-attribute-comment">Comment &lt;attribute&gt; = &lt;comment&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tooltip-attribute-comment">Tooltip &lt;attribute&gt; = &lt;comment&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tooltip-attribute-attribute-option-comment">Tooltip &lt;attribute&gt; &lt;attribute option&gt; = &lt;comment&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#icon-comment-icon-comment">Icon comment &lt;icon&gt; = &lt;comment&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#options-attribute-boolean">Options &lt;attribute&gt; = boolean</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#preset-attribute-string">Preset &lt;attribute&gt; = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#preset-text-string-or-file">Preset text = &lt;string&gt; or &lt;file&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#preset-on-edit-attribute-string">Preset on edit &lt;attribute&gt; = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#preset-on-reply-attribute-string">Preset on reply &lt;attribute&gt; = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#preset-on-first-reply-attribute-string">Preset on first reply &lt;attribute&gt; = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#preset-on-duplicate-attribute-string">Preset on duplicate &lt;attribute&gt; = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#locked-attributes-list">Locked Attributes = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fixed-attributes-edit-list">Fixed Attributes Edit = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fixed-attributes-reply-list">Fixed Attributes Reply = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#required-attributes-list">Required Attributes = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#show-attributes-list">Show Attributes = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#show-attributes-edit-list">Show Attributes Edit = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#propagate-attributes-list">Propagate Attributes = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#page-title-string_1">Page title = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#edit-page-title-string">Edit Page title = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#list-display-list">List display = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#guest-list-display-list">Guest List display = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#link-display-list">Link display = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#thread-display-string">Thread display = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#thread-icon-attribute">Thread icon = &lt;attribute&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rss-title-string">RSS Title = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rss-entries-n">RSS Entries = &lt;n&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#subst-attribute-string">Subst &lt;attribute&gt; = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#remove-on-reply-list">Remove on reply = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#quote-on-reply-0-1">Quote on reply = 0 | 1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#reply-string-string">Reply string = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#subst-on-reply-attribute-string">Subst on reply &lt;attribute &gt; = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#subst-on-edit-attribute-string">Subst on edit &lt;attribute &gt; = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#quick-filter-list">Quick filter = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#last-default-n">Last default = &lt;n&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#format-attribute-flagscss_class_namecss_class_valuewidthsize">Format &lt;attribute&gt; = &lt;flags&gt;,&lt;css_class_name&gt;,&lt;css_class_value&gt;,&lt;width&gt;,&lt;size&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#type-attribute-date-datetime-numeric-userlist-useremail-muserlist-museremail">Type &lt;attribute&gt; = date | datetime | numeric | userlist | useremail | muserlist | museremail</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#style-attribute-value-style">Style &lt;attribute&gt; &lt;value&gt; = &lt;style&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cell-style-attribute-value-style">Cell Style &lt;attribute&gt; &lt;value&gt; = &lt;style&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#change-attribute-string">Change &lt;attribute&gt; = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#list-change-attribute-string">List Change &lt;attribute&gt; = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#execute-new-edit-delete-command">Execute new | edit | delete = &lt;command&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#last-submission-string">Last submission = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#id-display-string">ID display = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#prepend-on-reply-string">Prepend on reply = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#append-on-reply-string">Append on reply = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#prepend-on-edit-string">Prepend on edit = &lt;string&gt;**</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#append-on-edit-string">Append on edit = &lt;string&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sort-attributes-list">Sort Attributes = &lt;list&gt;</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conditional-attributes">Conditional attributes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#show-attributes-edit-list_1">Show Attributes Edit = &lt;list&gt;</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#multiple-conditions">Multiple conditions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conditions-in-the-list-display">Conditions in the list display</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#list-conditions-1">List conditions = 1</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#access-control">Access control</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#password-file">Password file</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#password-file-file">Password file = &lt;file&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#login-expiration-hours">Login expiration = &lt;hours&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#admin-user-user-list">Admin user = &lt;user list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#login-user-user-list">Login user = &lt;user list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#self-register-01234">Self register = 0|1|2|3|4</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#allow-password-change-01">Allow password change = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#allow-command-user-list">Allow &lt;command&gt; = &lt;user list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#deny-command-user-list">Deny &lt;command&gt; = &lt;user list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hosts-allow-list">Hosts allow = &lt;list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hosts-deny-list">Hosts deny = &lt;list&gt;</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#kerberos-authentication">Kerberos authentication</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#authentication-methods">Authentication = &lt;method(s)&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#kerberos-realm-realm">Kerberos Realm = &lt;realm&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#authentication-webserver">Authentication = Webserver</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ldap-authentication">LDAP authentication</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pam-authentication">PAM authentication</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#email-notification">EMail notification</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#email-type-normal-routine">Email type "Normal routine" = ...</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#flags">Flags</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#show-text-01">Show text = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#enable-attachments-01">Enable attachments = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#show-attachments-01">Show attachments = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#preview-attachments-01">Preview attachments = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#summary-lines-x">Summary lines = x</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#summary-line-length-x">Summary line length = x</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#attachment-lines-x">Attachment lines = x</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#reverse-sort-01">Reverse sort = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#search-all-logbooks-012">Search all logbooks = 0|1|2</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#enable-browsing-01">Enable browsing = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#filtered-browsing-01">Filtered browsing = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#default-encoding-012">Default encoding = 0|1|2</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#allowed-encoding-n">Allowed encoding = &lt;n&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#allow-html-01">Allow HTML = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#suppress-default-0123">Suppress default = 0|1|2|3</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#suppress-email-on-edit-0123">Suppress Email on edit = 0|1|2|3</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#resubmit-default-012">Resubmit default = 0|1|2</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#resubmit-replies-01">Resubmit replies = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#display-email-recipients-01">Display Email recipients = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#email-format-n">Email Format = &lt;n&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#email-encoding-n">Email Encoding = &lt;n&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#max-email-attachment-size-n">Max email attachment size = &lt;n&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#back-to-main-01">Back to main = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#logout-to-main-01">Logout to main = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#logout-to-url-url">Logout to URL = &lt;URL&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#list-after-submit-01">List after submit = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#restrict-edit-01">Restrict edit = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#expand-default-0123">Expand default = 0|1|2|3</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hidden-01">Hidden = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hide-comments-01">Hide Comments = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#use-lock-01">Use Lock = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#show-top-groups-01">Show top groups = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fix-text-01">Fix text = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#case-sensitive-search-01">Case sensitive search = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mode-commands-01">Mode commands = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#suppress-execute-default-01">Suppress execute default = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#preserve-ids-01">Preserve IDs = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#collapse-to-last-01">Collapse to last = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sort-attribute-options-attribute-01">Sort Attribute Options &lt;attribute&gt; = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#allow-branching-01">Allow branching = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#enable-smileys-01">Enable Smileys = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#refresh-seconds">Refresh = &lt;seconds&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#show-last-default-days">Show last default = &lt;days&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#save-drafts-01">Save drafts = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#autosave-seconds">Autosave = &lt;seconds&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#list-drafts-01">List drafts = 0|1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hard-wrap-01">Hard wrap = 0|1</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#themes">Themes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mirroring">Mirroring</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#mirror-server-url-list">Mirror server = &lt;URL-list&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mirror-config-0-1">Mirror config = 0 | 1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mirror-cron-minute-hour-day-month-weekday">Mirror cron = Minute Hour Day Month Weekday</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mirror-user-name">Mirror user = &lt;name&gt;</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mirror-simulate-0-1">Mirror simulate = 0 | 1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mirror-exclude-0-1">Mirror exclude = 0 | 1</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../faq/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../forum/">Forum</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../wishlist/">Wishlist</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../contrib/">Contributions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../demo/">Demo</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../download/">Download</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">ELOG Electronic Logbook</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Config file</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="elog-syntax-of-elogdcfg">ELOG - Syntax of elogd.cfg</h1>
+<p><em>Global and individual logbook options for an ELOG server</em></p>
+<hr />
+<p>The configuration file <strong><code>elogd.cfg</code></strong> contains entries which define the
+structure of logbooks and the behaviour of <strong><code>elogd</code></strong>. The file has a
+simple ASCII format. Each logbook is defined by a <strong><code>[&lt;name&gt;]</code></strong> section
+where <name> is the name of the logbook. The <strong><code>[global]</code></strong> section is
+used for settings common to all logbooks. Each line contains a setting
+name, followed by an equal sign and the value for this setting. Lines
+starting with ";" are treated as comments.</p>
+<p>Here is a simple example, which define two logbooks, "<em>Linux</em>" and
+"<em>PC</em>":</p>
+<pre><code class="language-text">[global]
+SMTP host = mailsend.your.domain
+
+[Linux]
+Theme = default
+Comment = General linux tips and tricks
+Attributes = Author, Type, Category, Subject
+Options Type = Routine, Software Installation, Problem Fixed, Configuration, Other
+Options Category = General, Hardware, Software, Network, Account, Other
+Options Author = Stefan, Linus, unknown
+Required Attributes = Author
+
+[PC]
+Comment = Database PC installations
+Attributes = Location, OS, Owner
+Options Location = Building1, Building2
+Options OS = Linux, Windows ME, Windows 2000
+Required Attributes = Location, Owner
+Email All = name@address, othername@otheraddress
+Use Mail Subject = Location
+</code></pre>
+<h2 id="global-options">Global options</h2>
+<p>The notation of the following options is such that items enclosed by
+<strong>"&lt;"</strong> and <strong>"&gt;"</strong> should be replaced by a specific string. If a
+value contains blanks (like a complete sentence), it should <strong>not</strong> be
+enclosed in quotation marks.</p>
+<p>If a setting has a number of possible options, they are shown in the
+form <strong><code>option1|option2|...</code></strong>, meaning that one of the options (without
+any vertical bar) should be used. The following options are specific to
+the <strong><code>[global]</code></strong> section:</p>
+<h3 id="port-port"><code>Port = &lt;port&gt;</code></h3>
+<p>Specifies the TCP port under which the server is listening. Default is
+80. Can be superseeded via the '-p' command line flag.</p>
+<h3 id="ssl-0-1"><code>SSL = &lt;0 | 1&gt;</code></h3>
+<p>Turn on Secure Socket Layer transport. If SSL is on, one can connect via
+<strong><code>https://...</code></strong> to the elogd daemon. If the <strong><code>URL =</code></strong> directive is
+used, make sure to use <strong><code>https://...</code></strong> instead of <strong><code>http://...</code></strong>
+there. The ELOG distribution contains a simple self-signed certificate
+in the <strong><code>ssl</code></strong> subdirectory. One can replace this certificate and key
+with a real ceritficate to avoid browser pop-up windows warning about
+the self-signed certificate. The default for this option is <strong><code>0</code></strong>.</p>
+<h3 id="interface-interface"><code>Interface = &lt;interface&gt;</code></h3>
+<p>Specified network interface to listen at. Can be used if several network
+cards are in a computer, or if one wants to restrict access to the local
+host only, in which case one can use 127.0.0.1 as the interface.</p>
+<h3 id="resource-dir-directory"><code>Resource dir = &lt;directory&gt;</code></h3>
+<p>Specifies the root directory for ELOG resources like help files, themes
+and icons. Can be overwritten with the <strong><code>-s</code></strong> flag when starting
+elogd. If not specified, use the directory where the configuration file
+<strong><code>elogd.cfg</code></strong> resides. <em>Changing this option requires a restart of the
+elogd server</em>.</p>
+<h3 id="logbook-dir-directory"><code>Logbook dir = &lt;directory&gt;</code></h3>
+<p>Specifies the root directory for logbooks. Can be overwritten with the
+<strong><code>-d</code></strong> flag when starting elogd. If not specified, use the directory
+where the configuration file <strong><code>elogd.cfg</code></strong> resides. Each logbook data
+is stored in a separate directory under this root directory specified by
+the <strong><code>Subdir</code></strong> option. <em>Changing this option requires a restart of the
+elogd server</em>. This directory also contains any password file and user
+HTML file.</p>
+<h3 id="language-name"><code>Language = &lt;name&gt;</code></h3>
+<p>The language setting determines the language of the <strong><code>elogd</code></strong> output.
+Not affected by this setting are the configuration file options and the
+commands specified with the optional <strong><code>Menu commands</code></strong> and
+<strong><code>List menu commands</code></strong>, which have to be specified in English and are
+translated automatically by elogd. The attribute names are unaffected by
+the language setting and have to be translated manually.</p>
+<p>If a language name is given (currently "<em>german</em>", "<em>french</em>",
+"<em>spanish</em>", "<em>dutch</em>", "<em>brazilian</em>" are supported
+out-of-the-box), the system searches for a file named
+<strong>eloglang.&lt;name&gt;</strong> containing string translations from English into
+that language. <em>If you create a new translation file, please send it
+back to the author to be included in future distributions</em>.\
+\
+The online help for <strong><code>elogd</code></strong> is contained in the file
+<strong>eloghelp_<em>xx</em>.html</strong> where <em>xx</em> are the first two letters of the
+language (like "<em>en</em>", "<em>ge</em>" and "<em>fr</em>"). For new languages, a
+new file of that type must be created as well.</p>
+<h3 id="charset-name"><code>charset = &lt;name&gt;</code></h3>
+<p>Specifies the charset of the pages produced by <strong><code>elogd</code></strong>. Can be used
+to switch to Russian or Asian fonts.</p>
+<h3 id="logbook-tabs-01"><code>Logbook Tabs = [0|1]</code></h3>
+<p>This flag controls the display of "<em>tabs</em>" on top of the logbook page
+which allow to quickly switch between logbooks. Default is <strong><code>1</code></strong></p>
+<h3 id="main-tab-string"><code>Main Tab = &lt;string&gt;</code></h3>
+<p>If this option is present, an additional first tab is displayed which
+takes you back to the main logbook selection page. The <strong><code>string</code></strong> is
+used for the contents of the tab.</p>
+<h3 id="main-tab-url-string"><code>Main Tab URL = &lt;string&gt;</code></h3>
+<p>Normally the main tab brings one back to the logbook selection page. In
+case one wants to specify a different destination, such as a special web
+page outside of elog, one can use this statement to specify a full URL.</p>
+<h3 id="welcome-title-html-code"><code>Welcome Title = &lt;html code&gt;</code></h3>
+<p>This optional HTML code gets displayed in the title of the logbook
+selection page. It can contain images via <strong><code>&lt;img src="welcome.gif"&gt;</code></strong>.
+These images must be stored in the resource directory or in the theme
+directory.</p>
+<p>The following line is an example Welcome Title:</p>
+<p><code>Welcome title = &lt;img src="welcome.jpg"&gt;&lt;p&gt;&lt;font size=5 color=white&gt;Welcome to our Elog&lt;/font&gt;</code></p>
+<p>This displays an image and a text below.</p>
+<h3 id="page-title-string"><code>Page title = &lt;string&gt;</code></h3>
+<p>The string specified here is used for the title of individual logbook
+pages. It is also used by most browsers for bookmark names. &lt;string&gt;
+can contain substitutions like \$&lt;attribute&gt; where &lt;attribute&gt; gets
+replaced by the attribute string from each message. The option
+<strong><code>Page title</code></strong> in the <strong><code>[global]</code></strong> section is used for the logbook
+selection page.</p>
+<h3 id="list-page-title-string"><code>List page title = &lt;string&gt;</code></h3>
+<p>The same for the summary or find result page. This may include
+substitutions as well, although attribute substitutions make no sense
+here, since the summary page may contain many messages with different
+attributes.</p>
+<h3 id="selection-page-file"><code>Selection page = &lt;file&gt;</code></h3>
+<p>When this option is present, a user defined file is displayed instead of
+the logbook selection page. This file must be stored in the resource
+directory. Alternatively, an absolute path can be used if the file name
+starts with a <strong><code>"/"</code></strong> (Unix) or <strong><code>""</code></strong> or <strong><code>"x:"</code></strong> (Windows).
+It can be completely customized in order to contain logos etc. As a
+template, the standard selection page produced by <strong><code>elogd</code></strong> can be
+used.</p>
+<h3 id="guest-selection-page-file"><code>Guest Selection page = &lt;file&gt;</code></h3>
+<p>The same for installations which have a global password file. This means
+that the logbook selection page is also password protected. It might be
+however that some logbooks have guest access, in which case guest access
+to the selection page should be allowed as well (maybe with only a
+subset of the available logbooks). In that case this options can be
+used, to show a list of logbooks with guest access.</p>
+<h3 id="protect-selection-page-0-1"><code>Protect Selection page = 0 | 1</code></h3>
+<p>Normally, one can see the logbook selection page without having to log
+in. If one wants to require a login for the selection page, this switch
+can be set to <strong><code>1</code></strong>. Default is <strong><code>0</code></strong>. It is necessary to put the
+<strong><code>Password file = ...</code></strong> into the <em>[global]</em> section of the config
+file for this to work.</p>
+<h3 id="expand-selection-page-0-1"><code>Expand Selection page = 0 | 1</code>'</h3>
+<p>If this option is not present or set to one, the logbook selection page
+is expanded (all logbooks are shown if groups of logbooks are present).
+If this option is zero, only the group names are displayed. If one
+clicks on a group, its logbooks are shown. Using this option set to zero
+only makes sense if one has a large number of logbooks which would not
+fit on a single browser window, so collapsing makes sense. Default is
+<strong><code>1</code></strong>.</p>
+<h3 id="smtp-host-hostdomain"><code>SMTP host = &lt;host.domain&gt;</code></h3>
+<p>This defines the SMTP host needed to send automatic email notifications.
+The host name you can get from your email program or your local system
+administrator.</p>
+<h3 id="smtp-username-username"><code>SMTP username = &lt;username&gt;</code></h3>
+<p>Some SMTP server require username/passowrd authentication. This option
+specifies the SMTP user name, while the option <strong><code>SMTP password</code></strong> can
+be created or modified via the <strong><code>-t</code></strong> switch when starting elogd. This
+is necessary since the password is encrypted. To set your SMPT password,
+enter on the command line:</p>
+<p><code>elogd -t &lt;your password&gt;</code></p>
+<h3 id="smtp-port-port"><code>SMTP port = &lt;port&gt;</code></h3>
+<p>This defines the port under which the SMTP server is listening. The
+default is 25, but some newer servers use port 587.</p>
+<h3 id="logfile-file"><code>Logfile = &lt;file&gt;</code></h3>
+<p>This option specifies a filename which logs all login/logout activities
+and successful user connections for logbooks with user level access. The
+the <strong><code>logging level</code></strong> (see below) is larger than 1, also read and
+write accesses can be logged.</p>
+<h3 id="logging-level-1-2-3"><code>Logging level = 1 | 2 | 3</code></h3>
+<p>Specifies the logging level. The higher this value, the more information
+is logged. Default is <strong>2</strong>:</p>
+<ul>
+<li><strong>1:</strong> Log only logins and logouts</li>
+<li><strong>2:</strong> Log also write accesses</li>
+<li><strong>3:</strong> Log also read accesses</li>
+</ul>
+<h3 id="url-httpshostdomainportsubdir"><code>URL = &lt;http[s]://host.domain[:port]/[subdir/]&gt;</code></h3>
+<p>If one of the three cases is true:</p>
+<ul>
+<li><strong><code>elogd</code></strong> runs with <em>SSL</em> enabled</li>
+<li><strong><code>elogd</code></strong> runs under a proxy</li>
+<li>The automatic email notifications contains the wrong URL</li>
+</ul>
+<p>then the URL under which <strong><code>elogd</code></strong> is running has to be specified
+manually with this statement. The URL has to contain the port number if
+not the standard port 80 is used or 433 for SSL, and it has to contain
+the directory if used under a proxy like</p>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>Condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>URL = http://host.domain:8080/</code></td>
+<td>if running on port 8080</td>
+</tr>
+<tr>
+<td><code>URL = https://host.domain/</code></td>
+<td>if SSL is enabled (SSL = 1)</td>
+</tr>
+<tr>
+<td><code>URL = http://host.domain/subdir/</code></td>
+<td>if running under a proxy</td>
+</tr>
+</tbody>
+</table>
+<p>This URL is then used for any redirection. For example if one submits a
+new entry, the URL in the browser reads
+<strong>...&lt;logbook&gt;/?cmd=Submit&amp;...</strong>, containing all the attributes etc.
+After the submit this page gets redirected to
+<strong>...&lt;logbook&gt;/&lt;ID&gt;</strong>, where &lt;ID&gt; is the ID of the new entry. For
+the redirection via the HTTP "Location:" statement, an absolute URL is
+required. Since elogd cannot figure out the complete URL under which it
+is running when accessed through an Apache proxy, this statement is
+necessary to tell elogd the complete URL.</p>
+<h3 id="relative-redirection-01"><code>Relative redirection = 0|1</code></h3>
+<p>Under some circumstances, absolute redirection via a complete URL may
+not work. If you access elogd through two different ways
+simulataneously, for example directly and via a stunnel connection, a
+single absolute URL cannot be used, because one connection starts with
+<strong>http://</strong>, and the other with <strong>https://</strong>. Another case is when the
+elogd server has a dynamic IP address, which changes from time to time.
+Setting <strong><code>Relative redirection = 1</code></strong>, relative redirection is used.
+This uses the current URL from the browser, whatever it is, and only
+specifies the last part of the URL. It should noted however that
+relative redirections are not allowed in the HTTP standard, but most
+browsers support it anyhow. Problems have been reported with the Safari
+browser. So this option should only be used when it is really needed.</p>
+<pre><code class="language-text">Usr = &lt;name&gt;
+Grp = &lt;name&gt;
+</code></pre>
+<p>The user and group to run the elogd daemon under when started by root.</p>
+<h3 id="resolve-host-names-01"><code>Resolve host names = 0|1</code></h3>
+<p>Resolve remote host names if set to <strong>1</strong>. If set to <strong>0</strong>, which is the
+default, only IP numbers are stored in any log file. If the
+<strong><code>hosts allow/deny</code></strong> options are used with host names, this setting
+must be set to <strong>1</strong>. If turned on, the DNS server is contacted on each
+HTTP request to elog, which can slow down the server considerably for
+slow DNS servers.</p>
+<h2 id="groups-of-logbooks">Groups of logbooks</h2>
+<p>If installations have very many logbooks, it can be hard to navigate
+between them. To make things more structured, it is possible to build a
+hierarchy of logbooks. A logbook group can contain any number of
+logbooks as well as other logbook groups. The hierarchy is defined with
+the the option</p>
+<p><strong><code>Group &lt;group name&gt; = &lt;Logbook1&gt;, &lt;Logbook2&gt;, &lt;other group&gt;</code></strong></p>
+<p>in the <strong><code>[global]</code></strong> section of the configuration file.</p>
+<p>To define following logbook hierarchy:</p>
+<p><img alt="" src="../img/hierarchy.gif" /></p>
+<p>one would use following statements:</p>
+<pre><code class="language-text">[global]
+Group Linux PCs = Red Hat, Debian, Mandrake
+Group Windows PCs = 98, ME, NT, XP, CE
+Group CE = 1.0, 2.0
+</code></pre>
+<p>The logbook tabs would then look like this:</p>
+<p><img alt="" src="../img/tabs.gif" /></p>
+<p>Where the selected group or logbook becomes blue. The lower
+groups/logbooks change according to the selected upper group. Please
+note that a logbook can be contained in more than one group, but then it
+should not be the first logbook in those groups. The colors of the tabs
+and the title bar can be specified in the CSS file.</p>
+<h2 id="top-groups">Top groups</h2>
+<p>Sometimes groups of logbooks should be completely separate. Imagine two
+groups of logbooks, one for the engineering department and one for the
+administration department. These groups should have different
+administrators, and the logbook tabs at the top of the screen should not
+show the logbooks from the other department. Prior to ELOG version
+2.4.1, one had to run two elogd servers in parallel, listening under
+different ports. Since 2.4.1, one can achieve the same behaviour using
+<strong><code>Top groups</code></strong>. The configuration could look like this:</p>
+<pre><code>Group Linux PCs = Red Hat, Debian, Mandrake
+Group Windows PCs = 98, ME, NT, XP, CE
+Group CE = 1.0, 2.UL
+
+Top group engineering = Linux PCs, Windows PCs
+Top group administration = Employees, Purchases
+
+[global engineering]
+Password file = engineers.pwd
+Admin user = stefan
+
+[global administration]
+Password file = admin.pwd
+Admin user = bill
+</code></pre>
+<p>Note that there can be a <strong><code>[global]</code></strong> section for each top level group
+of logbooks. The rule is that a configuration setting in an individual
+logbook section overrides a setting in the <strong><code>[global &lt;top group&gt;]</code></strong>
+setting, which by itsel overrides a setting in the <strong><code>[global]</code></strong>
+section. This way one can define settings for all top level groups (such
+as the SMTP host) in the <strong><code>[global]</code></strong> section, and define different
+password files and administrators in the individual top level group
+sections.</p>
+<p>If top groups are used, the root of the elogd server is not accessible
+any more. Presume that elogd is accessible normally under
+<strong><code>http://your.host:8080/</code></strong>, this URL becomes invalid for top groups,
+to avoid the case that one group can "see" the logbooks of the other
+groups. Instead, one has to append the top group name to the URL, such
+as <strong><code>http://your.host:8080/engineering</code></strong> or
+<strong><code>http://your.host:8080/administration</code></strong>. If someone does not know the
+top group name, one cannot see the list of logbooks there, so the groups
+become completely independent of each other. If this feature is not
+wanted, it can be disabled by setting <strong><code>Show top groups = 1</code></strong>.</p>
+<h2 id="individual-logbook-options">Individual logbook options</h2>
+<p>For each logbook, there is a section with the logbook name in square
+brackets, so that each logbook can have different options. If an option
+is not present in a logbook section, then the system tries to locate
+that option in the <strong><code>[global]</code></strong> section. Thus if the following options
+are placed in the <strong><code>[global]</code></strong> section, they are defaults for all
+logbooks. If they are present in the <strong><code>[global]</code></strong> and in the logbook
+section, the logbook option is used.</p>
+<p>Here are the available options, by broad categories:</p>
+<h2 id="general-options">General options</h2>
+<h3 id="data-dir-directory"><code>Data dir = &lt;directory&gt;</code></h3>
+<p>This option is obsolete from version 2.2.5 on and should not be used.
+  Use <strong><code>Subdir = ...</code></strong> instead.</p>
+<h3 id="subdir-directory"><code>Subdir = &lt;directory&gt;</code></h3>
+<p>Each logbook has a separate directory where the logbook entries are
+  stored, which is controlled by this statement. If the directory does
+  not exist, it is created autmatically by the <strong><code>elogd</code></strong> program. The
+  subdirectory is relative to the logbook root directory specified with
+  the <strong><code>Logbook dir = ...</code></strong> option. So if
+  <strong><code>Logbook dir = /usr/local/elog/logbooks</code></strong> and <strong><code>Subdir = Demo</code></strong>
+  then the logbook data is stored in
+  <strong><code>/user/local/elog/logbooks/Demo</code></strong>. If the <strong><code>Logbook dir = ...</code></strong>
+  option is not specified, then <strong><code>logbooks</code></strong> is used. If the
+  subdirectory starts with a "/" ("\" under Windows), then it is
+  used as an absolute path independent of the logbook dir. To see which
+  directories are used, start <strong><code>elogd</code></strong> with the "-v" flag.</p>
+<h3 id="comment-comment"><code>Comment = &lt;comment&gt;</code></h3>
+<p>The comment is displayed on the logbook selection list. The selection
+  list is displayed if more than one logbook is defined on a host and no
+  logbook is explicitly specified in the URL.</p>
+<h3 id="theme-theme"><code>Theme = &lt;theme&gt;</code></h3>
+<p>A theme determines which layout and colors are used for a logbook,
+  similar to <em>skins</em> in other programs. The <em>theme</em> option points to a
+  subdirectory under the <em>"themes"</em> directory which resides in the
+  resource directory. It contains all files for that theme. The format
+  of these files is described under the <em>Themes</em> section.</p>
+<h3 id="css-filename"><code>CSS = &lt;filename&gt;</code></h3>
+<p>A given theme can contain several Cascading Style Sheets (CSS). This
+  can be usefule if several logbooks use the same images and icons, but
+  differnt colors. By default, the CSS <em>elog.css</em> is used. This
+  statement adds an additional CSS, which can overwrite settings from
+  <em>elog.css</em>. If different CSS'es should be used for different output
+  media, this can be accomplished with a comma- separated list in the
+  form <strong><code>CSS = &lt;file1&gt;&amp;&lt;media1&gt;,&lt;file2&gt;&amp;&lt;media2&gt;</code></strong>. This will then be
+  translated into separate style sheet statements for the different
+  media. For example a statement
+  <strong><code>CSS = default.css&amp;screen,print.css&amp;print</code></strong> will result in the HTML
+  statements:</p>
+<pre><code class="language-text">        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;default.css&quot; media=&quot;screen&quot;&gt;
+        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;print.css&quot; media=&quot;print&quot;&gt;
+</code></pre>
+<h3 id="title-image-string"><code>Title image = &lt;string&gt;</code></h3>
+<p>HTML code for the icon in the upper right corner. By default,
+  following code is used:</p>
+<p>&lt;img border=0 src="elog.gif" alt="ELOG logo"&gt;</p>
+<p>This code can be replaced by <strong><code>&lt;string&gt;</code></strong> to display a different
+  icon file, or to display some text. The icon image has to be present
+  in the theme directory, which is usually
+  <strong><code>&lt;elog root&gt;/themes/default</code></strong>.</p>
+<h3 id="title-image-url-url"><code>Title image URL = &lt;URL&gt;</code></h3>
+<p>The ELOG icon at the right upper corner usually points to the ELOG
+  home page. This URL can be changed to point to a corporate page for
+  example with this option. The icon can be changed by replacing the
+  <strong><code>elog.gif</code></strong> icon in the theme directory. This option should only be
+  used if the <strong><code>Title image</code></strong> option is not used.</p>
+<h3 id="time-format-string"><code>Time format = &lt;string&gt;</code></h3>
+<p>This option determines how the date and time of a logbook entry is
+  displayed. The format of the string is the same as the C function
+  <a href="../strftime.txt">strftime</a>, so a string of <strong>%A, %B %d, %Y, %H:%M</strong>
+  yields in a display of <strong>Thursday, November 15, 2001, 12:35</strong> for
+  example.</p>
+<h3 id="time-format-attribute-string"><code>Time format &lt;attribute&gt; = &lt;string&gt;</code></h3>
+<p>Same, but just for an individual attribute.</p>
+<h3 id="date-format-string"><code>Date format = &lt;string&gt;</code></h3>
+<p>This option determines how the date is displayed from attributes which
+  are of type "date". The format of the string is the same as the C
+  function <a href="../strftime.txt">strftime</a>, so a string of <strong>%A, %B %d, %Y</strong>
+  yields in a display of <strong>Thursday, November 15, 2001</strong> for example.</p>
+<h3 id="date-format-attribute-string"><code>Date format &lt;attribute&gt; = &lt;string&gt;</code></h3>
+<p>Same, but just for an individual attribute.</p>
+<h3 id="welcome-page-file"><code>Welcome Page = &lt;file&gt;</code></h3>
+<p>By default, the list with the last twenty entries of a logbook is
+  displayed when the logbook is selected. This can be overridden with
+  this option, which causes a HTML file to be shown instead of the
+  message list. This file can contain further links for new logbook
+  messages of for logbook queries. Here is a simple example of such a
+  file:</p>
+<pre><code>&lt;h1&gt;Welcome to the test logbook&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;?cmd=new&quot;&gt;Enter&lt;/a&gt; a new message
+  `&lt;li&gt;&lt;a href=&quot;?cmd=find&quot;&gt;Search&lt;/a&gt; the logbook
+&lt;/ul&gt;
+</code></pre>
+<p>The file must be present in the resource directory. Alternatively, an
+  absolute path can be used if the file name starts with a <strong><code>"/"</code></strong>
+  (Unix) or <strong><code>""</code></strong> or <strong><code>"x:"</code></strong> (Windows).</p>
+<h3 id="start-page-command"><code>Start page = &lt;command&gt;</code></h3>
+<p>This option can be used to display a different start page.
+  <strong><code>command</code></strong> can be either <em>0?cmd=Last</em> to display the last message,
+  or any other ELog menu command in the form <strong><code>?cmd=xxx</code></strong>. To start
+  with the search page, one uses</p>
+<p><code>Start page = ?cmd=Find</code></p>
+<p>Please note that if another language than English is selected via the
+  <strong>Language = xxx</strong> option, the commands have to be in that language as
+  well (like <em>"Start page = 0?cmd=Letzter"</em> for German).</p>
+<h3 id="submit-page-file"><code>Submit Page = &lt;file&gt;</code></h3>
+<p>This optional page can be displayed when a new message was submitted
+  in a logbook. Here is an example:</p>
+<pre><code>&lt;h1&gt;You successfully submitted a message&lt;/h1&gt;
+&lt;a href=&quot;?cmd=Back&quot;&gt;Back&lt;/a&gt; to the logbook&lt;p&gt;
+&lt;a href=&quot;?cmd=New&quot;&gt;Enter&lt;/a&gt; another message
+</code></pre>
+<p>The file must be present in the logbook directory. Alternatively, an
+  absolute path can be used if the file name starts with a <strong><code>"/"</code></strong>
+  (Unix) or <strong><code>""</code></strong> or <strong><code>"x:"</code></strong> (Windows).</p>
+<h3 id="message-comment-comment"><code>Message comment = &lt;comment&gt;</code></h3>
+<p>This optional comment is displayed on top of the text entry field when
+  submitting a new message. It can contain a sentence like "<em>Please
+  enter your message here</em>:".</p>
+<h3 id="reply-comment-comment"><code>Reply comment = &lt;comment&gt;</code></h3>
+<p>This optional comment is displayed on top of the text entry field when
+  replying to an exiting entry. It can contain a sentence like "<em>Please
+  enter your reply here</em>:".</p>
+<h3 id="attachment-comment-comment"><code>Attachment comment = &lt;comment&gt;</code></h3>
+<p>This optional comment is displayed on top of the attachment sumbission
+  section when entering a new message. It can contain a sentence like
+  "<em>Please upload your attachments here</em>:".</p>
+<h3 id="menu-commands-list"><code>Menu commands = &lt;list&gt;</code></h3>
+<p>This option specifies the menu commands displayed on top of a single
+  logbook page. For certain installations, it can be useful to disable
+  some commands. Following commands are possible:</p>
+<ul>
+<li><strong>New</strong> - Enter new logbook entry</li>
+<li><strong>Edit</strong> - Edit current logbook entry</li>
+<li><strong>Delete</strong> - Delete current logbook entry</li>
+<li><strong>Reply</strong> - Submit a reply to current entry</li>
+<li><strong>Duplicate</strong> - Duplicate the current entry with the possibility to
+    change some values</li>
+<li><strong>Download</strong> - Download a message in ASCII format</li>
+<li><strong>Find</strong> - Search entries in logbooks</li>
+<li><strong>Last day</strong> - Display entries from last day</li>
+<li><strong>Move to</strong> - Move entry to other logbook</li>
+<li><strong>Copy to</strong> - Copy entry to other logbook</li>
+<li><strong>Config</strong> - Edit elogd.cfg (if <strong>no</strong> "<em>Password file</em>" is given)</li>
+<li><strong>Config</strong> - Modify/Add user accounts (if "<em>Password file</em>" is
+    given)</li>
+<li><strong>Admin</strong> - Edit elogd.cfg (if "<em>Password file</em>" is given)</li>
+<li><strong>Login</strong> - Login with user name and password (if "<em>Password
+    file</em>" is given)</li>
+<li><strong>Import</strong> - Show CSV (comma-separated-values) import page</li>
+<li><strong>Logout</strong> - Logout current user (if "<em>Password file</em>" is given)</li>
+<li><strong>Help</strong> - General help</li>
+</ul>
+<p>The commands are always in English, independent of the
+  <strong><code>language = ...</code></strong> setting, and are automatically translated into
+  the specified language.</p>
+<p>If this option is not present, following default is used:</p>
+<p><code>Menu commands = List, New, Edit, Delete, Reply, Duplicate, Find, Config, Help</code></p>
+<h3 id="copy-to-logbook-list"><code>Copy to = &lt;logbook list&gt;</code></h3>
+<h3 id="move-to-logbook-list"><code>Move to = &lt;logbook list&gt;</code></h3>
+<p>The commands <strong><code>Copy to</code></strong> and <strong><code>Move to</code></strong> make it possible to copy
+  or move a logbook entry from one logbook to another. By default, all
+  logbooks except the current logbook are shown as a possible
+  destination. With the configurations options
+  <strong><code>Copy to = &lt;logbook list&gt;</code></strong> and <strong><code>Move to = &lt;logbook list&gt;</code></strong> it
+  is possible to specify a list of destination logbooks, separated by
+  commata. This can make sense if only certain logbooks make sense as
+  destinations. The flag <strong><code>Preserve IDs</code></strong> can be used to keep the
+  entry ID in the destination logbook.</p>
+<h3 id="list-menu-commands-list"><code>List Menu commands = &lt;list&gt;</code></h3>
+<p>This option specifies the menu commands displayed on top of the
+  listing page. Although all commands from a above are possible, only
+  the commands
+  <strong><code>New, Find, Select, Import, Config, Admin, Change password, Logout</code></strong>
+  and <strong><code>Help</code></strong> make sense. The command <strong><code>Select</code></strong> can be used to
+  select multiple messages for deletion or for moving to other logbooks.
+  Once the <strong><code>Select</code></strong> command is clicked, check boxes appear in front
+  of all entries which let the user select one or more entries. A new
+  menu bar shows up with a <strong><code>Delete</code></strong> and optionally a
+  <strong><code>Coyp to ...</code></strong> and <strong><code>Move to ...</code></strong> button, if these commands are
+  present in the <strong><code>Menu commands</code></strong> list. Pressing one of these buttons
+  deletes, copies or moves all selected logbook entries.</p>
+<h3 id="guest-menu-commands-list"><code>Guest Menu commands = &lt;list&gt;</code></h3>
+<p>This option specifies the menu commands for guest logins. A guest
+  login happens if a password file is used, but someone accesses the
+  logbook for the first time, which means that no username/password is
+  given. In that case the commands from the guest menu are displayed,
+  which usually contain a subset of the normal commands. A typical
+  scenario is a logbook which only has commands to read the logbook on
+  the guest menu, but no commands to write/edit entries. Instead, the
+  <strong>login</strong> command is given in the guest menu, with which one can login
+  as a real user (username and password have to match those from the
+  password file), which then allowes full access via the <strong>"Menu
+  commands"</strong> list. A typical example for the menu settings for this
+  scenario are:</p>
+<pre><code>  Menu commands = List, New, Edit, Reply, Duplicate, Find, Config, Logout, Help
+  Guest menu commands = List, Find, Login, Help
+</code></pre>
+<p>Note that the presence of this option opens user access also to the
+  find result or elog listing page, which usually contains some config
+  command. So it is useful to combine the <strong><code>Guest menu commands</code></strong>
+  option with the following <strong><code>Guest List Menu commands</code></strong> option to
+  restrict the access to the find result page as well.</p>
+<h3 id="guest-list-menu-commands-list"><code>Guest List Menu commands = &lt;list&gt;</code></h3>
+<p>Same as <strong>Guest Menu commands</strong> but for the find result page.</p>
+<h3 id="menu-text-file"><code>Menu text = &lt;file&gt;</code></h3>
+<p>If this option is present, and additional menu row above the message
+  gets displayed with the contents of &lt;file&gt;. This file can contain
+  arbitrary text, images or links. One example would be following text
+  to go back to the listing page and display the next <em>Routine</em> entry
+  and all <em>Routine</em> entries:</p>
+<pre><code>&lt;small&gt;
+&amp;nbsp;&lt;a href=&quot;?cmd=next&amp;type=Routine&quot;&gt;Next Routine entry&lt;/a&gt;&amp;nbsp;|
+&amp;nbsp;&lt;a href=&quot;../?Type=Routine&quot;&gt;All Routine entries&lt;/a&gt;
+&lt;/small&gt;
+</code></pre>
+<h3 id="list-menu-text-file"><code>List Menu text = &lt;file&gt;</code></h3>
+<p>The same for the list page.</p>
+<h3 id="filter-menu-text-file"><code>Filter Menu text = &lt;file&gt;</code></h3>
+<p>The same for the filter line in the list page.</p>
+<h3 id="guest-display-list"><code>Guest Display = &lt;list&gt;</code></h3>
+<p>This option specifies which attributes are displayed on guest access.
+  It is possible to display only a subset of all attributes for guest
+  access, but the full list if someone is logged in (using the option
+  "Password file"). The <strong><code>list</code></strong> consists of comma separated
+  attributes, including the word <em>text</em>, if one wants to display the
+  entry body text for guests.</p>
+<pre><code>&lt;small&gt;
+&amp;nbsp;&lt;a href=&quot;?mode=summary&quot;&gt;Summary&lt;/a&gt;&amp;nbsp;|
+&amp;nbsp;&lt;a href=&quot;?mode=full&quot;&gt;Full&lt;/a&gt;&amp;nbsp;|
+&amp;nbsp;&lt;a href=&quot;?mode=threaded&quot;&gt;Threaded&lt;/a&gt;&amp;nbsp;|
+&lt;/small&gt;
+</code></pre>
+<h3 id="top-text-file-string"><code>Top text = &lt;file&gt; | &lt;string&gt;</code></h3>
+<p>The text of this option gets displayed at the top of every Elog page.
+  It can be a string or a filename which gets displayed. Might be useful
+  to display company logos etc. If a file is specified, it must be
+  present in the logbook directory. Alternatively, an absolute path can
+  be used if the file name starts with a <strong><code>"/"</code></strong> (Unix) or <strong><code>""</code></strong>
+  or <strong><code>"x:"</code></strong> (Windows).</p>
+<h3 id="bottom-text-file-string"><code>Bottom text = &lt;file&gt; | &lt;string&gt;</code></h3>
+<p>The text of this option gets displayed at the bottom of every Elog
+  page instead of the little Elog home page link. It can be a string or
+  a file. It can contain for example a link back to the main logbook
+  selection page like:</p>
+<p><code>&lt;center&gt;&lt;a href="/"&gt;Main page&lt;/a&gt;&lt;/center&gt;</code></p>
+<p>Or it can contain other useful links. If a file is specified, it must
+  be present in the logbook directory. Alternatively, an absolute path
+  can be used if the file name starts with a <strong><code>"/"</code></strong> (Unix) or
+  <strong><code>""</code></strong> or <strong><code>"x:"</code></strong> (Windows).</p>
+<h3 id="bottom-text-login-file-string"><code>Bottom text login = &lt;file&gt; | &lt;string&gt;</code></h3>
+<p>The same as <strong><code>Bottom text</code></strong> but for the login page. This allows to
+  display a different text at the bottom of the login page. It can also
+  be used to execute some JavaScript.</p>
+<h3 id="help-url-url"><code>Help URL = &lt;URL&gt;</code></h3>
+<p>This URL is used for the Help button. By default, the file
+  <strong>eloghelp_xx.html</strong> is returned with the contents of the help page.
+  Edit this file directly to add site-specific help for all logbooks.
+  Alternatively, use the <strong><code>Help URL</code></strong> option to specify different help
+  pages for different logbooks. It can point to a site-specific help
+  page via <strong><code>http://...</code></strong> or to a local file like
+  <strong><code>file://c:/tmp/config.html</code></strong>, or to the name of an HTML file which
+  must be present in the resource directory.</p>
+<h3 id="message-width-number"><code>Message Width = &lt;number&gt;</code></h3>
+<p>This value sets the number of characters per line of the main message
+  entry field. The default value is 76 (78 for replies), and can be
+  increased for installations which need a larger window size (like
+  pasting log files etc.). If both <strong><code>Message Width</code></strong> and
+  <strong><code>Message Height</code></strong> are not given, some JavaScript code is used which
+  automatically resizes the message window dynamically to fit optimally
+  into the browser window.</p>
+<h3 id="message-height-number"><code>Message Height = &lt;number&gt;</code></h3>
+<p>This value sets the number of lines of the main message entry field.
+  The default value is 20, and can be changed for installations which
+  need a different window size. If both <strong><code>Message Width</code></strong> and
+  <strong><code>Message Height</code></strong> are not given, some JavaScript code is used which
+  automatically resizes the message window dynamically to fit optimally
+  into the browser window.</p>
+<h3 id="admin-textarea-colsrows"><code>Admin textarea = &lt;cols&gt;,&lt;rows&gt;</code></h3>
+<p>This defines the textarea size for the admin page. Default is
+  <strong>80,40</strong>.</p>
+<h3 id="display-mode-fullsummarythreaded"><code>Display mode = [full|summary|threaded]</code></h3>
+<p>Default mode for search display. On the find entry form, the
+  checkboxes are set accordingly. The "Last xxx" page uses this
+  setting directly.</p>
+<h3 id="entries-per-page-number"><code>Entries per page = &lt;number&gt;</code></h3>
+<p>Number of logbook entries displayed per page in a search result. The
+  default is 20.</p>
+<h3 id="restrict-edit-time-hours"><code>Restrict edit time = &lt;hours&gt;</code></h3>
+<p>If this option is set, a new message can only be edited a certain
+  number of hours after its creation. This can be useful if one wants to
+  ensure that old entries cannot be modified. Hours can also be
+  fractional, like 0.5 for 30 min.</p>
+<h3 id="admin-restrict-edit-time-hours"><code>Admin restrict edit time = &lt;hours&gt;</code></h3>
+<p>Same option for admin users. This can be useful if normal users are
+  not allowed to change entries after "restrict edit time", but an
+  admin user should be allowed to do so. Setting this to zero disables
+  any restriction for admin users and they can edit entries forever.</p>
+<h3 id="max-content-length-bytes"><code>Max content length = &lt;bytes&gt;</code></h3>
+<p>This option restricts the size of attachments. When very large
+  (&gt;100MB) attachments are uploaded, the elogd server can be busy with
+  this upload for a longer time and not respond to other requests during
+  that time. To avoid this, the maximum size of attachments can be
+  restricted. The server will then refuse to accept larger attachments.
+  The default is 10485760 (= 10 MB). This option has to be placed into
+  the [global] section and the elogd server has to be restarted after
+  a change.</p>
+<h3 id="fonts-list"><code>Fonts = &lt;list&gt;</code></h3>
+<p>List of fonts (comma separated) to be shown in the font drop-down box
+  of the entry edit form. Default is</p>
+<p><code>Fonts = Arial, Comic Sans MS, Courier New, Tahoma, Times New Roman, Verdana</code></p>
+<p>On Unix systems some of these fonts might not be installed, in which
+  case they can be replaced by others like <strong>Serif</strong>, <strong>Sans-serif</strong>,
+  <strong>Helvetica</strong>.</p>
+<h3 id="all-display-limit-n"><code>All display limit = &lt;n&gt;</code></h3>
+<p>If a logbook contains many entries, the list gets divided into pages,
+  with some page navigation for the next, previous, a specific page and
+  all pages. If the logbook contains a large number of entries (&gt;500),
+  the display of all thes entries can take very long and might slow down
+  the elogd server, especially if the entries are not displayed in
+  "summary" mode but in "full" mode. Therefore the "All" link
+  should not be used in the page navigation for large logbooks. The
+  number of entries from when on the "All" link gets hidden can be
+  specified with this number, the default value is <strong><code>500</code></strong>.</p>
+<h3 id="thumbnail-size-size"><code>Thumbnail size = &lt;size&gt;</code></h3>
+<p>This option determines the default thumbnail size. To make the
+  automatic generation of thumbnails working, the ImageMagick package
+  has to be installed. Refer to the <a href="../adminguide/#installing-imagemagick">admin
+  guide</a> for installation instructions.
+  The thumbnail size <strong><code>size</code></strong> gets passed to the <strong><code>-thumbnail</code></strong>
+  option of the conversion. A value of <strong><code>300</code></strong> converts all pictures
+  to thumbnails 300 pixels wide. A value of <strong><code>300&gt;</code></strong> converts all
+  pictures to thumbnails 300 pixels wide if they are larger than 300
+  pixels initially, and leaves them untouched if they are smaller. A
+  value of <strong><code>10%</code></strong> converts all pictures to 10% of their original
+  size. If the thumbnail size option is missing, the thumbnails will be
+  created with the original image size, and can then be resized and
+  rotated interactively with the image manipulation buttons:</p>
+<p><img alt="" src="../img/thumbnail.png" /></p>
+<p>Setting <strong><code>Thumbnail size = 0</code></strong> turns off the thumbnail creation.</p>
+<h3 id="thumbnail-options-options"><code>Thumbnail options = &lt;options&gt;</code></h3>
+<p>With this option one can pass additional parameters to the ImageMagick
+  package. They are passes 1:1 to the <strong>convert</strong> program. Commonly used
+  is the <strong>-density</strong> option to increase the image quality when
+  converting from PDF or EPS files.</p>
+<h2 id="attributes">Attributes</h2>
+<h3 id="attributes-list"><code>Attributes = &lt;list&gt;</code></h3>
+<p>Define a number of attributes for the logbook, separated by commata. A
+  maximum of 100 attributes can be defined. Typical values are
+  "<em>Author</em>", "<em>Subject</em>" or "<em>Type</em>". Following values are not
+  allowed:</p>
+<ul>
+<li>Text</li>
+<li>Date</li>
+<li>Encoding</li>
+<li>Reply to</li>
+<li>In reply to</li>
+<li>Locked by</li>
+<li>Attachment</li>
+<li>Path</li>
+</ul>
+<p>since these are used internally by elog.</p>
+<h3 id="options-attribute-list"><code>Options &lt;attribute&gt; = &lt;list&gt;</code></h3>
+<p>Usually, an text field is used for an attribute, where the user can
+  fill in text of up to 100 characters. If instead a drop-down box with
+  preset items is better for a given attribute, these items can be
+  defined with this statement. Up to 100 items can be defined, separated
+  by commas. To add an option including a comma, encose it in quotations
+  marks like</p>
+<p><code>Options town = San Francisco, "Paris, Texas", "Paris, France"</code></p>
+<h3 id="extendable-options-list"><code>Extendable options = &lt;list&gt;</code></h3>
+<p>When using the <strong><code>Options &lt;attribute&gt;</code></strong> to specify a list of possible
+  options, this list is fixed. Sometimes it is desirable to extend the
+  list when a new entry in a logbook is made and a certain option is
+  missing on the list. By adding the attribute name to the
+  <strong><code>Extandable options</code></strong> list, a button appears next to the attribute
+  in the message entry form which lets you add new options to the list.
+  The elogd.cfg configuration file is then automatically updated. When a
+  new logbook entry gets made, the new option automatically appears in
+  the drop-down box for that attribute.</p>
+<h3 id="roptions-attribute-list"><code>ROptions &lt;attribute&gt; = &lt;list&gt;</code></h3>
+<p>Same as <strong><code>Options</code></strong> above, but using radio buttons instead of a
+  drop-down box.</p>
+<h3 id="moptions-attribute-list"><code>MOptions &lt;attribute&gt; = &lt;list&gt;</code></h3>
+<p>This list allows for "<em>Multiple Options</em>", meaning that an attribute
+  can have several values simultaneously. When entering an entry with
+  MOptions, each value from the list is represented by a checkbox.
+  Unlike with normal options, multiple checkboxes can be checked for an
+  entry. The attribue value then becomes</p>
+<p><code>&lt;value1&gt; | &lt;value2&gt; | ...</code></p>
+<p>In the "<em>find</em>" page only one of these values can be specified,
+  which is then treated as a substring in the search filter.</p>
+<h3 id="ioptions-attribute-list"><code>IOptions &lt;attribute&gt; = &lt;list&gt;</code></h3>
+<p>This list specifies a set of icons for an attribute. Some icons are
+  contained in the <em>themes/default/icons</em> directory which can be used
+  here like</p>
+<pre><code>Attributes = Author, Icon, Subject...
+IOptions Icon = icon1.gif, icon2.gif, icon3.gif, ...
+</code></pre>
+<p>New icons are welcome and should be sent back to the author to be
+  incorporated in the next version.</p>
+<h3 id="comment-attribute-comment"><code>Comment &lt;attribute&gt; = &lt;comment&gt;</code></h3>
+<p>Optional comment which is displayed below the attribute name in the
+  entry form. Can be used to explain the attribute somehow.</p>
+<h3 id="tooltip-attribute-comment"><code>Tooltip &lt;attribute&gt; = &lt;comment&gt;</code></h3>
+<p>Same as <strong><code>Comment &lt;attribute&gt;</code></strong>, except that the comment gets
+  displayed as a tooltip (tiny pup-up window) when the user moves the
+  mouse cursor over the attribute name in the entry form.</p>
+<h3 id="tooltip-attribute-attribute-option-comment"><code>Tooltip &lt;attribute&gt; &lt;attribute option&gt; = &lt;comment&gt;</code></h3>
+<p>Same as <strong><code>Tooltip &lt;attribute&gt;</code></strong>, but for option values of a
+  <strong><code>MOptions</code></strong> attribute. Using this option, a different tooltip can
+  be shown above each check box of an optional value for an attribute.
+  Please note that attributes or options with spaces should <strong>not</strong> be
+  enclosed with quotes.</p>
+<h3 id="icon-comment-icon-comment"><code>Icon comment &lt;icon&gt; = &lt;comment&gt;</code></h3>
+<p>Icons may contain a comment, which is then used in email notifications
+  instead of the icon file name. One has to add a separate icon comment
+  for each icon file.</p>
+<h3 id="options-attribute-boolean"><code>Options &lt;attribute&gt; = boolean</code></h3>
+<p>If an attribute is marked "<em>boolean</em>" this way, a checkbox is
+  displayed for this attribute.</p>
+<h3 id="preset-attribute-string"><code>Preset &lt;attribute&gt; = &lt;string&gt;</code></h3>
+<p>This option uses a preset string for an attribute. The string can
+  contain subsitutions like the ones described under the "<em>Subst
+  &lt;attribute&gt;</em>" command. One possible application is to use the login
+  name for the author field like:</p>
+<p><code>Preset Author = $long_name</code></p>
+<p>If the attribute should be locked at the Web submission, use the
+  "<em>Locked Attributes = ...</em>" option. If a preset value is given for
+  an attribute which has an options list, the preset value is selected
+  in the drop down box by default.</p>
+<h3 id="preset-text-string-or-file"><code>Preset text = &lt;string&gt; or &lt;file&gt;</code></h3>
+<p>This preset value is used for the main body text. It can be a string
+  or a file, which must be present in the logbook directory.
+  Alternatively, an absolute path can be used if the file name starts
+  with a <strong><code>"/"</code></strong> (Unix) or <strong><code>""</code></strong> or <strong><code>"x:"</code></strong> (Windows).</p>
+<h3 id="preset-on-edit-attribute-string"><code>Preset on edit &lt;attribute&gt; = &lt;string&gt;</code></h3>
+<p>Same as <strong><code>Preset &lt;attribute&gt;</code></strong>, but evaluated when editing existing
+  entries.</p>
+<h3 id="preset-on-reply-attribute-string"><code>Preset on reply &lt;attribute&gt; = &lt;string&gt;</code></h3>
+<p>Same as <strong><code>Preset &lt;attribute&gt;</code></strong>, but evaluated for replies.</p>
+<h3 id="preset-on-first-reply-attribute-string"><code>Preset on first reply &lt;attribute&gt; = &lt;string&gt;</code></h3>
+<p>While <strong><code>Preset on reply &lt;attribute&gt;</code></strong>, is evaluated for any replies,
+  this one is only executed for the first reply to an entry. It can be
+  useful for example to so do something like this:</p>
+<p><code>Preset on first reply Subject = Re: $Subject</code></p>
+<p>So the "Re:" only gets added once, and you don't get long chains of
+  "Re: Re: Re: ....".</p>
+<h3 id="preset-on-duplicate-attribute-string"><code>Preset on duplicate &lt;attribute&gt; = &lt;string&gt;</code></h3>
+<p>Same as <strong><code>Preset &lt;attribute&gt;</code></strong>, but evaluated for duplicted entries.</p>
+<h3 id="locked-attributes-list"><code>Locked Attributes = &lt;list&gt;</code></h3>
+<p>The attributes specified here cannot be modified when a new entry is
+  submitted. This makes only sense for preset attributes.</p>
+<h3 id="fixed-attributes-edit-list"><code>Fixed Attributes Edit = &lt;list&gt;</code></h3>
+<p>The attributes specified here cannot be modified when an existing
+  entry is modified via the <strong><code>Edit</code></strong> button. This feature can be
+  useful to preserve the original author of the message, when using the
+  <strong><code>Preset Author = $long_name</code></strong> option as described above.</p>
+<h3 id="fixed-attributes-reply-list"><code>Fixed Attributes Reply = &lt;list&gt;</code></h3>
+<p>The attributes specified here cannot be modified when an existing
+  entry is replied on via the <strong><code>Reply</code></strong> button. This feature can be
+  useful to preserve the original subject of a message for example.</p>
+<h3 id="required-attributes-list"><code>Required Attributes = &lt;list&gt;</code></h3>
+<p>The attributes specified here are required when a new entry is
+  submitted. The attribute names are marked with * on the entry form.</p>
+<h3 id="show-attributes-list"><code>Show Attributes = &lt;list&gt;</code></h3>
+<p>Attributes present in this list are shown in the single entry page.
+  Omitting attributes can make sense for attributes which are
+  automatically derived from other attributes via the
+  <strong><code>Change &lt;attribute&gt;</code></strong> command.</p>
+<h3 id="show-attributes-edit-list"><code>Show Attributes Edit = &lt;list&gt;</code></h3>
+<p>The same as <strong><code>Show Attributes</code></strong>, but for the entry form.</p>
+<h3 id="propagate-attributes-list"><code>Propagate Attributes = &lt;list&gt;</code></h3>
+<p>With this option, changed in an attribute are autmatically propagated
+  to all entries of a thread. This can be useful if one has an attribute
+  "problem status" for example with the options "open", "under
+  investigation", "fixed". A thread related to a specific problem can
+  then have several replies. If the problem gets fixed, a new reply can
+  be made with the attribute "problem status" being "fixed", and
+  then the propagation causes all entries of this thread to become
+  "fixed".</p>
+<h3 id="page-title-string_1"><code>Page title = &lt;string&gt;</code></h3>
+<p>The string specified here is used for the title of the web page. It is
+  also used by most browsers for bookmark names. The string can contain
+  substitutions as described unter the "<em>Subst &lt;attribute&gt;</em>" option.</p>
+<h3 id="edit-page-title-string"><code>Edit Page title = &lt;string&gt;</code></h3>
+<p>The string specified here is used for the title of the entry form. It
+  is also used by most browsers for bookmark names. The string can
+  contain substitutions as described unter the "<em>Subst &lt;attribute&gt;</em>"
+  option.</p>
+<h3 id="list-display-list"><code>List display = &lt;list&gt;</code></h3>
+<p>Specified the display and order of items in a message listing page or
+  a search result page. In addition to all attributes, following items
+  can be specified:</p>
+<ul>
+<li><strong><code>ID</code></strong> for the entry ID</li>
+<li><strong><code>Date</code></strong> for the entry date/time</li>
+<li><strong><code>Edit</code></strong> to display a column with an edit icon to directly edit
+    and entry</li>
+<li><strong><code>Delete</code></strong> to display a column with a delete icon to directly
+    delete and entry</li>
+</ul>
+<p>The restriction to certain attributes can be helpful if many
+  attributes are defined in a logbook, which usually makes the table too
+  big to fit in the browser. The default is\</p>
+<p><code>List display = ID, Date, &lt;all attributs&gt;</code></p>
+<p>Which displays the message number, date, and all attributes. The
+  display of the message body is controlled by the <strong><code>Display mode</code></strong>
+  and <strong><code>Summary lines</code></strong> options. If a search goes over "all
+  logbooks", an additional colums with the logbook name of each entry
+  is added in front.</p>
+<h3 id="guest-list-display-list"><code>Guest List display = &lt;list&gt;</code></h3>
+<p>Same as <strong><code>List display</code></strong>, but for guest access (user level access
+  with password, but not logged in). Please see also
+  <strong><code>Guest display</code></strong>. In addition to <strong><code>List display</code></strong>, one can
+  optionally specify <strong><code>Text</code></strong> as an attribute here. Without that
+  attribute, the summary text of the entry body is not shown. This makes
+  it possible to show the text for registered users and hide it for
+  guest access.</p>
+<h3 id="link-display-list"><code>Link display = &lt;list&gt;</code></h3>
+<p>Normally, each column in the display list contains a link to the
+  individual entry. If this is not desired, the list of attributes with
+  links can be restricted to only a subset with this option.</p>
+<h3 id="thread-display-string"><code>Thread display = &lt;string&gt;</code></h3>
+<p>Optional way to specify the line contents in the threaded search
+  result. Following substitutions are possible:</p>
+<ul>
+<li>$&lt;attribute&gt;**: The value of the attribute</li>
+<li>$logbook**: The name of the current logbook</li>
+<li>$entry time<em><em>: The message date and time, formatted via "</em>Time
+    format</em>"</li>
+<li>$message id**: The message ID</li>
+</ul>
+<p>A typical example would be</p>
+<p><code>Thread display = $subject, posted by $author on $entry time</code></p>
+<h3 id="thread-icon-attribute"><code>Thread icon = &lt;attribute&gt;</code></h3>
+<p>If a logbook uses some icons for an attribute, these icons can be
+  displayed in the search result page instead of the default icons
+  contained in the themes directory.</p>
+<h3 id="rss-title-string"><code>RSS Title = &lt;string&gt;</code></h3>
+<p>ELOG supports so-called <em>RSS feeds</em>. Once can subscribe to new logbook
+  entries with RSS readers such as Mozilla Firefox. Once new entries are
+  submitted to the logbook, the become visible in the subscripition. By
+  default, all attributes of the last 15 logbook entries are used as the
+  RSS title. With this option once can changed this behaviour. Following
+  substitutions are possible:</p>
+<ul>
+<li>$&lt;attribute&gt;**: The value of the attribute</li>
+<li>$logbook**: The name of the current logbook</li>
+<li>$entry time<em><em>: The message date and time, formatted via "</em>Time
+    format</em>"</li>
+<li>$message id**: The message ID</li>
+</ul>
+<p>A typical example would be\</p>
+<p><code>RSS Title = $subject, posted by $author on $entry time</code></p>
+<h3 id="rss-entries-n"><code>RSS Entries = &lt;n&gt;</code></h3>
+<p>Number of entries to be shown in the RSS feed. Default is 15.</p>
+<h3 id="subst-attribute-string"><code>Subst &lt;attribute&gt; = &lt;string&gt;</code></h3>
+<p>When submitting logbook entries, attribute values can be substituted
+  by some text. This text can contain arbitrary fixed text and following
+  values:</p>
+<ul>
+<li>$&lt;attribute&gt;**: The entered value of the attribute itself</li>
+<li>$host<strong>: The host name where </strong><code>elogd</code>** is running</li>
+<li>$remote_host**: The host name of the host from with the entry was
+    submitted</li>
+<li>$short_name**: The login name (if password file is present)</li>
+<li>$long_name**: The full name from the password file for the
+    current user</li>
+<li>$user_email**: The email address from the password file for the
+    current user</li>
+<li>$logbook**: The name of the current logbook</li>
+<li>$date<em><em>: The current date, formatted via "</em>Date format</em>"</li>
+<li>$utcdate<em><em>: The current UTC date (GMT) and time, formatted via
+    "</em>Date format</em>"</li>
+<li>$version**: The version of the ELOG server in the form x.y.z</li>
+<li>$revision**: The Subversion reversion of the ELOG server as an
+    integer number</li>
+<li>$shell(&lt;command&gt;)**: &lt;command&gt; gets passed to the operating
+    system shell and the result is taken for substitution.</li>
+</ul>
+<p>Following example use this feature to add the remote host name to the
+  author:\</p>
+<p><code>Subst Author = $author from $remote_host</code></p>
+<p>Following example substitutes an attribute with the contents of a
+  file:</p>
+<pre><code>Subst Info = $shell(cat /tmp/filename)              (Unix)
+Subst Info = $shell(type c:\tmp\filename)           (Windows)
+</code></pre>
+<p>A special option are automatically generated tags, which are
+  automatically incremented for each new message. This is achieved by
+  putting #'s into the substitution string, which is used as a
+  placeholder for the incrementing index. Each "#" stands for one
+  digit, thus the statement</p>
+<p><code>Subst Number = XYZ-#####</code></p>
+<p>results in automatically created attributes <em>"Number"</em> of the form</p>
+<pre><code>XYZ-00001
+XYZ-00002
+XYZ-00003
+</code></pre>
+<p>and so on. In addition to the #'s one may specify format specifiers
+  which are passed to the <a href="../strftime.txt">strftime</a> function. This allows
+  to create tags wich contain the current year, month and so on. Once
+  the date part of the attribute changes, the index restarts from one.
+  The statement</p>
+<p>`Subst Number = XYZ-%Y-%b-###</p>
+<p>results in automatically created attributes <em>"Number"</em> of the form</p>
+<pre><code>XYZ-2005-Oct-001
+XYZ-2005-Oct-002
+XYZ-2005-Oct-003
+</code></pre>
+<p>and</p>
+<pre><code>XYZ-2005-Nov-001
+XYZ-2005-Nov-002
+</code></pre>
+<p>on the next month.</p>
+<h3 id="remove-on-reply-list"><code>Remove on reply = &lt;list&gt;</code></h3>
+<p>This option clears one or more (separated by commata) attribute values
+  from a logbook entry when creating a reply to that entry. This can
+  make sense for example for the author, since the author of a reply can
+  be different from the original author.</p>
+<h3 id="quote-on-reply-0-1"><code>Quote on reply = 0 | 1</code></h3>
+<p>This flag controls if the original text is quoted in a reply. Default
+  is <strong>1</strong></p>
+<h3 id="reply-string-string"><code>Reply string = &lt;string&gt;</code></h3>
+<p>String used to mark original message lines. Default is <strong><code>"&gt; "</code></strong>. Can
+  be empty string ("") if no message marking is desired.</p>
+<h3 id="subst-on-reply-attribute-string"><code>Subst on reply &lt;attribute &gt; = &lt;string&gt;</code></h3>
+<p>Substitution of attributes for replies. This option can be used to
+  replace the current subject with a "Re: &lt;old subject&gt;":\</p>
+<p><code>Subst on reply subject = Re: $subject</code></p>
+<p>Note that this option works only for the first reply. So a
+  reply-to-a-reply would still have <strong>Re: &lt;old subject&gt;</strong> and not
+  <strong>Re: Re: &lt;old subject&gt;</strong>. If you want the substitution for all
+  replies, please use <strong><code>Preset on reply</code></strong> instead.</p>
+<h3 id="subst-on-edit-attribute-string"><code>Subst on edit &lt;attribute &gt; = &lt;string&gt;</code></h3>
+<p>Substitution of attributes for edited messages. This option can be
+  used to replace the author by the current author for example:\</p>
+<p><code>Subst on edit author = $full_name</code></p>
+<h3 id="quick-filter-list"><code>Quick filter = &lt;list&gt;</code></h3>
+<p>Specifies list of comma separated attributes for which a drop-down
+  filter is displayed in the search result page. By selecting a value
+  from that drop-down box, only entries with that value are displayed.
+  In addition to all attributes defined in the <strong><code>Attributes =</code></strong> list,
+  the attribute <strong><code>Date</code></strong> and the option <strong><code>Subtext</code></strong> can be listed
+  here. Using the <strong><code>Date</code></strong> filter, the last day, week, month and so on
+  can be displayed. The <strong><code>Subtext</code></strong> filter works on the entry body
+  text.</p>
+<h3 id="last-default-n"><code>Last default = &lt;n&gt;</code></h3>
+<p>Some logbooks are very big and searching through all entries with a
+  quick filter can be time consuming. This option sets a default value
+  for the <strong><code>Date</code></strong> quick filter, so that by default only the &lt;n&gt;
+  last days are displayed. &lt;n&gt; has to match one of the entries of the
+  data quick filter options, which are 1, 3, 7, 31, 92, 182, 364.</p>
+<h3 id="format-attribute-flagscss_class_namecss_class_valuewidthsize"><code>Format &lt;attribute&gt; = &lt;flags&gt;,&lt;css_class_name&gt;,&lt;css_class_value&gt;,&lt;width&gt;,&lt;size&gt;</code></h3>
+<p>Optional formatting parameters for attributes. Following items can be
+  defined in the comma-separated list:</p>
+<p>Values used for single message display page:</p>
+<ul>
+<li>&lt;flags&gt;** Sum of following flags:<ul>
+<li><strong>1</strong>: Display attribute in same line as previous attribute</li>
+<li><strong>2</strong>: Display radio buttons or check boxes in separate lines (if
+  applicable)</li>
+</ul>
+</li>
+<li>&lt;css_class_name&gt;<strong>,&lt;css_class_value&gt;</strong> Cascading Style Sheet
+    class names used for cells containing attribute name or value,
+    respectively. The classes must be defined in the style sheet file
+    (usually <em>themes/default/default.css</em>).</li>
+</ul>
+<p>Values used for new message entry form:</p>
+<ul>
+<li>&lt;width&gt;** Width of the text entry field in characters</li>
+<li>&lt;size&gt;** Maximum number of characters allowed.</li>
+</ul>
+<p>Default is <em>"0, attribname, attribvalue, 80, 500"</em>. Trailing
+  parameters can be ommitted, so specifying for example only the flags
+  is possible.</p>
+<h3 id="type-attribute-date-datetime-numeric-userlist-useremail-muserlist-museremail"><code>Type &lt;attribute&gt; = date | datetime | numeric | userlist | useremail | muserlist | museremail</code></h3>
+<p>A normal attribute can contain strings of any type. With this option,
+  attributes can be forced to be numeric or to be a date/time, or to
+  consist of a list of all users from the password file. When new
+  logbook entries are made, numeric attributes are checked to contain
+  only digits. Note that JavaScript has to be enabled to do this.</p>
+<p>Attributes of type <strong><code>date</code></strong> are treated as a date. Their format for
+  display can be controlled by the <strong><code>Date format</code></strong> option. Upon entry,
+  drop-down boxes are displayed which let the user select the day, month
+  and year. Alternatively, a pop-up date picker using a calendar can be
+  displayed if JavaScript is enabled. Date attributes are saved
+  internally as seconds since 1.1.1970, and can therefore be sorted
+  propoerly by clicking on the header of a logbook entry list. On the
+  find page, dates can be searched for via a start and end date. If date
+  attributes are used in a quick filter (see above), a drop-down quick
+  filter box is displayed which lets the user select "last day",
+  "last week", "next week", and so on. The <strong><code>datetime</code></strong> type
+  combines a date and time in HH:MM. The output of this combination is
+  controlled by the <strong><code>Time format</code></strong> option.</p>
+<p>If the attribute type is <strong><code>userlist</code></strong>, a drop-down box is displayed
+  which contains all user names from the current password file. This can
+  be useful for example in a bug tracking system, where a new entry gets
+  assigned to an individual. The type <strong><code>useremail</code></strong> is similar, just a
+  list of email addresses of all registered users. This can be used to
+  send email notification to assigned people by using this attribute in
+  an <strong><code>Email all = &lt;attribute&gt;</code></strong> statement. The type <strong><code>muserlist</code></strong>
+  and <strong><code>museremail</code></strong> are the same that <strong><code>userlist</code></strong> and
+  <strong><code>useremail</code></strong>, except that several user names or user emails can be
+  selected at once using check boxes.</p>
+<h3 id="style-attribute-value-style"><code>Style &lt;attribute&gt; &lt;value&gt; = &lt;style&gt;</code></h3>
+<p>Optional formatting of logbok entries in list mode. For some logbooks
+  it might be useful to display different entries in a different color
+  for example. To achieve this, a CSS style sheet can be attached to an
+  entry based on the value of an attribute. If you have an attribute
+  called <strong><code>importnace</code></strong> and you want to highlight all entries where
+  <strong><code>importnace</code></strong> is <strong><code>severe</code></strong> for example, you can specify
+  following style:</p>
+<p><code>Style importance severe = background-color:red</code></p>
+<p>For possible formattings, please refer to some CSS documentation. You
+  can change the colors, font styles and sizes. The style is then valid
+  for the whole row of that entry.</p>
+<p>For empty attributes one can specify "", such as</p>
+<p><code>Style importance "" = background-color:red</code></p>
+<h3 id="cell-style-attribute-value-style"><code>Cell Style &lt;attribute&gt; &lt;value&gt; = &lt;style&gt;</code></h3>
+<p>Same as above, but only for a specific cell containing &lt;attribute&gt;.
+  Following options</p>
+<pre><code class="language-text">Attributes = Author, Status
+Options Status = Fixed, Under Process, Not Fixed
+Cell Style Status Fixed  = background-color:green
+Cell Style Status Not Fixed  = background-color:red
+Cell Style Status Under Process  = background-color:yellow
+</code></pre>
+<p>for example produce following listing:</p>
+<p><img alt="" src="../img/cell_style.png" />{border="0"}</p>
+<h3 id="change-attribute-string"><code>Change &lt;attribute&gt; = &lt;string&gt;</code></h3>
+<p>Instead of subsituting an attribute, the original attribute can be
+  kept and just the output formatting can be changed. This can be very
+  handy for constructing HTML links out of attributes. Presume that a
+  company has a telephone book reachable under</p>
+<p><code>http://any.company.com/telbook.cgi?search=&lt;name&gt;</code></p>
+<p>where &lt;name&gt; has to be replaced by a search string. Now one can
+  construct an automatic telephonebook lookup with following options:\</p>
+<pre><code class="language-text">Attributes = Name, Telephone, ...
+Change Telephone = &lt;a href=&quot;http://any.company.com/telbook.cgi?search=$Name&quot;&gt;$Name's telephone number&lt;/a&gt;
+</code></pre>
+<p>The attribute <strong><code>Telephone</code></strong> is now automatically constructed from
+  the attribute <strong><code>Name</code></strong> and consists of a link to the company's
+  telephonebook. The advantage of this system is if the URL of the
+  telephonebook changes one day, only one statement in the config file
+  has to be changed, while otherways (like with the
+  <strong><code>Subst Telephone = ...</code></strong> option) all entries would have to be
+  changed manually.</p>
+<h3 id="list-change-attribute-string"><code>List Change &lt;attribute&gt; = &lt;string&gt;</code></h3>
+<p>Same option for the list display.</p>
+<h3 id="execute-new-edit-delete-command"><code>Execute new | edit | delete = &lt;command&gt;</code></h3>
+<p>It is possible to execute a shell command on the server side after a
+  new message has been submitted, edited or deleted. This feature has
+  been used in the past for SMS notifications over a telephone system
+  and for synchrnonization of the ELOG database with an external SQL
+  database. The <strong><code>&lt;command&gt;</code></strong> can contain substitutions similar to the
+  <strong><code>Subst</code></strong> command. In addition the list of all attachments can be
+  referred to via <strong><code>$&lt;attachments&gt;</code></strong>. The text body of the entry can
+  be referred to with <strong><code>$text</code></strong>. It should be noted that only the
+  first 1500 characters of the text can be used, in order not to exceed
+  the limits of the shell. Following (Unix) command writes a
+  notification into some file:</p>
+<p><code>Execute new = echo "New message wiht ID $message id of type $type from $long_name on $remote_host" &gt;&gt; /tmp/elog.log</code></p>
+<p>It should be noted that this feature can impose a security problem. If
+  someone can edit the elogd.cfg through the <strong><code>Config</code></strong> command of
+  elogd, that person can put malicious code into elogd.cfg and execute
+  it. This is even more severe if elogd runs with root privileges. To
+  avoid such problems, the execute facility is disabled in elogd by
+  default and has to be enabled explicitly with the "-x" command line
+  flag. The administrator has to ensure then of course that only trusted
+  people can edit elogd.cfg.</p>
+<h3 id="last-submission-string"><code>Last submission = &lt;string&gt;</code></h3>
+<p>This option determines what gets displayed on the logbook selection
+  page in the <em>Last submission</em> colum. The default string is
+  <strong><code>$entry time by $author</code></strong>. If a logbook does not contain an
+  <strong><code>author</code></strong> attribute, another string can be chosen.</p>
+<h3 id="id-display-string"><code>ID display = &lt;string&gt;</code></h3>
+<p>This option determines the display of the entry ID. In some
+  applications, the entry ID can be used as a tag, containing more than
+  just the ID number. For example</p>
+<p><code>ID display = TAG-$message id</code></p>
+<p>would display the entry ID as "TAG-1","TAG-2", ... and so on.</p>
+<h3 id="prepend-on-reply-string"><code>Prepend on reply = &lt;string&gt;</code></h3>
+<p>With this option a string can be placed on top of a reply. Using
+  string substition, this can be useful for adding the author and the
+  date of a reply, like</p>
+<p><code>Prepend on reply = Added $date by $long_name\n\n</code></p>
+<p>where "\n" causes a line break.</p>
+<h3 id="append-on-reply-string"><code>Append on reply = &lt;string&gt;</code></h3>
+<p>Same as before, but gets added after the previous entry.</p>
+<h3 id="prepend-on-edit-string"><code>Prepend on edit = &lt;string&gt;</code>**</h3>
+<h3 id="append-on-edit-string"><code>Append on edit = &lt;string&gt;</code></h3>
+<p>Same as before, but for editing entries.</p>
+<h3 id="sort-attributes-list"><code>Sort Attributes = &lt;list&gt;</code></h3>
+<p>For the list display, the entries are normally sorted by their ID.
+  Alternatively, one can specify one or more (separated by commata)
+  attributes, which are used for sorting. The first attribute in the
+  list has the highest priority. Only if two entries have the same value
+  in the first sort attribute, they are sorted according to the second
+  sort attribute and so on. To the list of attributes one can add
+  <strong>ID</strong>, <strong>Date</strong> and <strong>logbook</strong>, although <strong>ID</strong> makes only sense
+  together with other attributes, since it is sorted as the primary key
+  anyhow.</p>
+<h2 id="conditional-attributes">Conditional attributes</h2>
+<p>When entering data into a elog form, it might be helpful to change the
+options of the attributes depending on the value of other attributes.
+Let's assume you have a logbook containing entries for different
+computers with different operating systems. Your elogd.cfg file starts
+like that:</p>
+<pre><code class="language-text">Attributes = PC Name, Operating System, Version
+Options Operating System = Linux, Windows
+</code></pre>
+<p>For the operating system version, you would like a list, but this list
+has to be different for Linux and Windows. This can be achieved with
+<em>conditional attributes</em>. Simply write following configuration:</p>
+<pre><code class="language-text">Attributes = PC Name, Operating System, Version
+Options Operating System = Linux{1}, Windows{2}
+{1} Options Version = 2.2, 2.4, 2.6
+{2} Options Version = ME, 2k, NT, XP
+</code></pre>
+<p>If you enter a new entry into that logbook, the drop-down list for
+<strong><code>Version</code></strong> changes automatically depending on the
+<strong><code>Operating System</code></strong>. Note that you have to enable Java Script for
+this to work. Without Java Script, a separate button appears in the line
+of the Operating System which has to be pressed to make the Version list
+change.</p>
+<p>The number {1} and {2} in the configuration file are called
+<em>conditions</em>. Depending on these conditions, certain other lines can be
+activated. So if the Operating System <em>Linux</em> is selected, condition {1}
+is true, which selects the line starting with {1} to select the options
+<em>2.2, 2.4, 2.6</em>.</p>
+<p>This technique offers various other possibilities, since any
+configuration option can be made conditional by adding a <strong><code>{&lt;n&gt;}</code></strong> in
+front of that line where &lt;n&gt; is an arbitrary number. One often used
+possibility is the definition of forms. Depending on an attribute, the
+configuration option <strong><code>Preset text = ...</code></strong> can be used to copy some
+pre-defined forms into the message body, which can then be filled out.
+Consider following example:</p>
+<pre><code>Attributes = Author, Type
+Options Type = Network check{1}, System check{2}
+
+{1} Preset text = network.txt
+{2} Preset text = system.txt
+</code></pre>
+<p>This causes two text files <em>network.txt</em> and <em>system.txt</em> to be copied
+into the message body when a new entry is made. The file <em>network.txt</em>
+could look like:</p>
+<pre><code>Routers checked:  [ ]
+DHCP checked:     [ ]
+Comment: ...
+</code></pre>
+<p>This works like a pre-defined form, the user puts X's between the "[]" 
+when that item has been checked. Other possibilities are
+pre-defined shift sheets in environments where elog is uses as a shift
+logbook. The shift sheet could contain the names of the shift crew, some
+check-list for standard tasks etc.</p>
+<p>Another use of conditional attributes is in conjunction with the option
+<strong><code>Message comment</code></strong>. Depending on some attribute values, different
+message comments can be displayed to tell the user what to enter exactly
+in the message body for that attribute value.</p>
+<h3 id="show-attributes-edit-list_1"><code>Show Attributes Edit = &lt;list&gt;</code></h3>
+<p>When using conditional attributes, it might be necessary to omit certain
+attributes under certain conditions, to make the input mask shorter and
+maybe change the order of the attributes. With this option, a subset of
+all attributes can be specified which get displayed on the single entry
+page in the same order as they are specified here. This option mainly
+makes sense when used with conditions, such as:</p>
+<pre><code class="language-text">Attributes = PC Name, Operating System, Version, Distribution
+Options Operating System = Linux{1}, Windows{2}
+{1} Show Attributes Edit = Operating System, Distribution, PC Name
+{2} Show Attributes Edit = Operating System, PC Name, Version
+</code></pre>
+<p>The above statements cause the atrribute <strong><code>Version</code></strong> to be only
+visible when "Windows" is selected, and <strong><code>Distribution</code></strong> to be only
+visible when "Linux" is selected. If "Windows" is selected, the PC
+name is shown before the version.</p>
+<h2 id="multiple-conditions">Multiple conditions</h2>
+<p>It is possible to define conditions in more than one options list. The
+only requiremnt is that conditions are uniquie, meaning that a condition
+in one option list cannot be used in another list. This can easily be
+avoided by using numbers for one condition and letters for the other
+condition, like in the following example:</p>
+<pre><code>Attributes = PC Name, Operating System, Version, Location, Floor
+Options Operating System = Linux{1}, Windows{2}
+Options Location = Main Building{a}, New Building{b}, Old Building{c}
+{1} Options Version = 2.2, 2.4, 2.6
+{2} Options Version = ME, 2k, NT, XP
+{a} Options Floor = Ground, First, Second
+{b,c} Options Floor = Ground, First
+</code></pre>
+<p>It is possible to specify an OR of several conditions like in the case
+{b,c}. This is also possible over several conditions, like {1,a} would
+mean <em>"The PC has Linux or is in the Main Building"</em>. To specify a AND
+between conditions, a "&amp;" is used. The condition</p>
+<p><code>{1&amp;a} ...</code></p>
+<p>specifies for example the condition "Linux AND Main Building". If
+several lines with condition combinations are true, the upper one is
+used.</p>
+<h2 id="conditions-in-the-list-display">Conditions in the list display</h2>
+<p>Conditional attributes are usually only used for change items in the
+entry form. It might however be desirable to have conditional attibutes
+also working in the list display (the page where several entries are
+shown on a single page). The value of one attribute can then for example
+change which other attributes gets displayed via the <strong><code>list display</code></strong>
+option. To enable the evaluation of conditional attributes for the list
+display, on uses the option</p>
+<h3 id="list-conditions-1"><code>List conditions = 1</code></h3>
+<p>It should be noted that this option can cause a significant performance
+degradation if many conditional attributes are defines, so it should
+only be turned on when it is really needed.</p>
+<h2 id="access-control">Access control</h2>
+<p><strong>Note: Starting with version 2.9.0, the password level access using the
+options <em>Read password</em>, <em>Write password</em> and <em>Admin password</em> is not
+supported any more. Please use the user level access as described
+below.</strong></p>
+<h2 id="password-file">Password file</h2>
+<p>Access control is done on a user level with a password file. When a user
+logs in, a session ID is created and placed as a "cookie" in the
+browser. Using this cookie, the user can workin on the logbook until the
+cookie expires. For this it is necessary that cookies are enabled in the
+browser.</p>
+<p>Following options can be used to control the behavior:</p>
+<h3 id="password-file-file"><code>Password file = &lt;file&gt;</code></h3>
+<h3 id="login-expiration-hours"><code>Login expiration = &lt;hours&gt;</code></h3>
+<h3 id="admin-user-user-list"><code>Admin user = &lt;user list&gt;</code></h3>
+<h3 id="login-user-user-list"><code>Login user = &lt;user list&gt;</code></h3>
+<p>This file contains user names and passwords in XML format, such as</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+&lt;!-- created by MXML on Tue Nov 07 08:15:51 2006 --&gt;
+&lt;list&gt;
+  &lt;user&gt;
+    &lt;name&gt;stefan&lt;/name&gt;
+    &lt;password encoding=&quot;SHA256&quot;&gt;Ebx/a.9tFFQ/iUW3mU8GbnPpCVk74jFt56CmiJXVwdm&lt;/password&gt;
+    &lt;full_name&gt;Stefan Ritt&lt;/full_name&gt;
+    &lt;last_logout&gt;Tue Oct 17 12:59:47 2006&lt;/last_logout&gt;
+    &lt;last_activity&gt;Tue Nov 07 08:15:51 2006&lt;/last_activity&gt;
+    &lt;email&gt;stefan.ritt@psi.ch&lt;/email&gt;
+    &lt;email_notify&gt;
+      &lt;logbook&gt;demo&lt;/logbook&gt;
+    &lt;/email_notify&gt;
+  &lt;/user&gt;
+  &lt;user&gt;
+    &lt;name&gt;midas&lt;/name&gt;
+    &lt;password encoding=&quot;SHA256&quot;&gt;t56CmiJXVwdmEbx/a.9tFFQ/iUW3mU8GbnPpCVk74jF&lt;/password&gt;
+    &lt;full_name&gt;Midas User&lt;/full_name&gt;
+    &lt;last_logout&gt;0&lt;/last_logout&gt;
+    &lt;last_activity&gt;0&lt;/last_activity&gt;
+    &lt;email&gt;midas@psi.ch&lt;/email&gt;
+    &lt;email_notify&gt;
+      &lt;logbook&gt;demo&lt;/logbook&gt;
+    &lt;/email_notify&gt;
+  &lt;/user&gt;
+&lt;/list&gt;
+</code></pre>
+<p>The passwords are encoded. New users can either be created by hitting
+<strong>Register as new user</strong> on the login page if <strong><code>Self register = 1</code></strong> in
+the configuration file, or by the admin user in the <strong>Config</strong> page by
+pressing <strong>New user</strong>. The password file resides in the same directory
+as the logbooks. When a user is logged it, the entry for this user can
+be modified via the <strong>Config</strong> command.</p>
+<p>To start a new password file, follow these steps:</p>
+<ul>
+<li>Specify a password file name with <strong><code>Password file = &lt;file&gt;</code></strong> in the
+  configuration file</li>
+<li>Connect to the logbook. You will be presented with the new user page.
+  Enter the user login name, full name, email and password, then click
+  on the "Save" button.</li>
+<li>Add <strong><code>Admin user = &lt;user&gt;</code></strong> into the configuration file, using your
+  login name from above</li>
+<li>If you now enter the "Config" page, you can add other users</li>
+<li>Remove the self registration option if you like</li>
+</ul>
+<p>The presence of a password file requires all users to "<em>log in</em>" using
+their name and password, except when a guest login is allowed via the
+<strong>"Guest menu commands"</strong> option. An additional advantage of this
+method is that the user name can be used as an attribute value for
+creating logbook entries. For example, the following line could be added
+to the configuration file to fill in the <em>Author</em> and the <em>Email</em>
+attributes with the current user name and email:</p>
+<p><code>Attributes = Author, Email, ...</code>
+<code>Subst Author = $long_name from $remote_host</code>
+<code>Subst Email = $user_email</code></p>
+<p>Thus the author name is not user-input anymore, ensuring the entry
+always contains the actual user name. For a full listing of
+substitutions, see the "<em>Subst &lt;attrib&gt;</em>" option.</p>
+<p>The user name and password are stored as cookies on the user side. The
+expiration is controlled by the <strong><code>Remember me</code></strong> checkbox during the
+login. If unchecked, the cookies expire after the current browser
+session. If checked, they expire after 31 days by default, which can be
+changed with the <strong><code>Login expiration</code></strong> option, giving the expiration
+time in hours. Setting this to 24 for example, makes the password expire
+after one day. If presistent cookies are not desired, the
+<strong><code>Login expiration</code></strong> option can be set to zero, in which case the
+<strong><code>Remember me</code></strong> checkbox is not displayed.</p>
+<p>The <strong><code>Admin user = &lt;user list&gt;</code></strong> is a list of one or more user names,
+which have admin rights. They see a button <strong><code>Change elogd.cfg</code></strong> on the
+config page by which they can edit elogd.cfg through the web. They can
+also modify other users on the <strong><code>Config</code></strong> page, change their passwords
+or remove them. In addition, the admin user(s) can delete or edit
+entries from other users if <strong><code>Restrict edit = 1</code></strong>.</p>
+<p>The <strong><code>Login user = &lt;user list&gt;</code></strong> is a list of users who can log in to
+a specific logbook. This option can be used with a global password file.
+If a <strong><code>Password file</code></strong> is present under the <strong><code>[global]</code></strong> section,
+the registered users in that password file can log in to all logbooks.
+It might be required that only certain users can log in to certain
+logbooks. This can be achieved with the <strong><code>Login user</code></strong> option, places
+in each individual logbook section in the configuration file. Only those
+users listed in this statement can log in to the logbook where the
+statement is defined. This method has the advantage over the option of
+definining individual password files for individual logbooks that only
+one central password file exists. So if a user changes her/his password,
+this becomes then valid for all logbooks. If there would be individual
+logbook password files, one would have to change the password in all
+logbooks individually.</p>
+<h3 id="self-register-01234"><code>Self register = 0|1|2|3|4</code></h3>
+<p>With this option it is possible for new users to self-register an user
+account. At the login page, a link is displayed <strong>"Register as a new
+user"</strong> which leads the user to a configuration page where one can
+enter the account name, full name and email address. A flag allows for
+automatic email notification on new entries on the logbook. These
+settings can later be changed with the <strong>Config</strong> menu command.</p>
+<p>Setting this option to <strong>0</strong> disables self registration. With option
+<strong>1</strong>, users can silently register, while setting it to <strong>2</strong> causes
+elogd to send an email notification to the admin user(s). The option
+<strong>3</strong> is used to <em>only</em> send an email notification to the admin
+users(s), which then can validate the account and commit it by hitting
+the URL given in the email notification. Setting this to <strong>4</strong> causes
+and email notification to be sent to the user, which then can validate
+the account herself/himself proving to have a working email account.</p>
+<h3 id="allow-password-change-01"><code>Allow password change = 0|1</code></h3>
+<p>Enables or disabled the ability for users to change their password. If
+disabled, the <em>"Forgot password?</em> link in the login page is ommitted as
+well. The admin user(s) can always change passwords.</p>
+<h3 id="allow-command-user-list"><code>Allow &lt;command&gt; = &lt;user list&gt;</code></h3>
+<p>Commands can be restricted to certain login names (separated by commas).
+For each command in the list defined with the "<em>Menu commands</em>"
+option, a list of user names can be specified, which are allowed to
+execute that command. If the allow option is not present, all users may
+execute that command by default.</p>
+<h3 id="deny-command-user-list"><code>Deny &lt;command&gt; = &lt;user list&gt;</code></h3>
+<p>Used to deny a certain command to a list of users. This can be used to
+deny a guest user to enter new messages or modify a message.</p>
+<h3 id="hosts-allow-list"><code>Hosts allow = &lt;list&gt;</code></h3>
+<h3 id="hosts-deny-list"><code>Hosts deny = &lt;list&gt;</code></h3>
+<p>These two settings can be used to restrict the access to the logbook to
+certain computers. It is similar to the UNIX <em>hosts.allow</em> and
+<em>hosts.deny</em> files. The list can consist of individual host names or IP
+numbers, subnet masks like <strong><code>123.213.</code></strong> (note the trailing '.') or
+<strong><code>.mit.edu</code></strong>, or the word <strong><code>All</code></strong>. The following rules are applied:</p>
+<ul>
+<li>Access will be granted when a host matches a pattern in "<em>hosts
+  allow</em>".</li>
+<li>Otherwise, access will be denied when a host matches a pattern in
+  "<em>hosts deny</em>".</li>
+<li>Otherwise, access will be granted.</li>
+</ul>
+<p>These rules are applied <em>before</em> any password is checked. To debug
+problems, start <strong><code>elogd</code></strong> with the "-v" flag, in which case the rule
+checking is printed on the screen.</p>
+<p>The global option <strong><code>Logfile = &lt;filename&gt;</code></strong> can be specified to log all
+user login/logout activities plus all successful user connections.</p>
+<p>If any of the password statements are in the <strong><code>[global]</code></strong> area of the
+configuration files, they are used for all logbooks. If one logs in at
+one logbook, access is automaticlly granted to all logbooks. If the
+password statements are in the individual logbook sections, one has to
+log in to each logbook separately.</p>
+<h2 id="kerberos-authentication">Kerberos authentication</h2>
+<p>Starting from version 2.9.0, site authentication has been implemented in
+elog using the <a href="http://web.mit.edu/kerberos/">Kerberos</a> authentication
+scheme. This widely used system is also used in MS Windows Domain
+Controllers, and can be used for site logins, meaning that the same
+credentials can be used on all computers of a site.</p>
+<p>To use that authetication, Kerberos has to be installed on the server
+running the elogd daemon. Please read the Kerberos documentation how to
+do this or talk to your site administrator. There are packages for
+Linux, Windows and Mac OSX. If you compile the elogd program yourself,
+make sure to have the flag **<code>HAVE_KRB5</code>&gt; defined in the compilation
+process. To configure elogd to use Kerberos, use following options:</p>
+<h3 id="authentication-methods"><code>Authentication = &lt;method(s)&gt;</code></h3>
+<h3 id="kerberos-realm-realm"><code>Kerberos Realm = &lt;realm&gt;</code></h3>
+<p>where &lt;method(s)&gt; can be <strong><code>File</code></strong> or <strong><code>Kerberos</code></strong> or both such as
+in <strong><code>Kerberos, File</code></strong>. If the authentication option contains
+<strong>Kerberos</strong>, the user credentials are authenticated using the default
+Kerberos Realm. This is typically obtained from the file
+<strong><code>c:\windows\krb5.ini</code></strong> (Windows) or <strong><code>/etc/krb5.conf</code></strong> (Linux). If
+another than the default realm should be used, this can be overwritten
+with the <strong><code>Kerberos Realm</code></strong> option.</p>
+<p>When Kerberos authentication is used, the password file is still used to
+store additional user information such as the full name and the email
+address, but the authentication is done via the Kerberos server.</p>
+<p>If both authentications <strong><code>Kerberos, File</code></strong> are enabled, the
+credentials are first authenticated via the Kerberos server, and - if
+not successful - via the password file. This allows combined elog
+installations with centralized and local elog accounts. If the Kerberos
+authentication was successful, the password in the password file is
+overwritten with the encrypted Kerberos password. This allows the system
+to work even if the Kerberos server is temporarily not accessible.</p>
+<p>If the password is changed via the "Change Password" button on the
+config page, the system tries to change the password in the Kerberos
+database. On some installation it has been found that this does not
+work, in which case you have to change your password by other means
+(such as via the Windows login if you use a Windows Domain).</p>
+<p>Beside the Kerberos authentication, elogd version 3.0 and higher can be
+configured to accept a authentication done by the webserver.</p>
+<h3 id="authentication-webserver"><code>Authentication = Webserver</code></h3>
+<p>You can also combine it with other authentication methods as shown for
+Kerberos.</p>
+<p>Elogd is then accepting the username set in the Request-Header
+"X-Forwarded-User" as already logged in.\
+To make this work, you need to configure the webserver correctly, as
+describe in the adminguide.</p>
+<h2 id="ldap-authentication">LDAP authentication</h2>
+<p>LDAP (lightweight Directory Access Protocol) has been implemented by
+vykozlov in a separate branch at
+<a href="https://github.com/vykozlov/elog-ldap">https://github.com/vykozlov/elog-ldap</a>. The code has been merged into
+this distribution on an as-is basis. Following info has copied from the
+link above:</p>
+<p>To use LDAP authentication, do the following:</p>
+<ul>
+<li>Enable LDAP authentication in the <strong><code>Makefile</code></strong> by setting
+  <strong><code>USE_LDAP = 1</code></strong></li>
+<li>Change elogd.cf to contain LDAP authentication:</li>
+<li><strong><code>Authentication = LDAP</code></strong></li>
+<li><strong><code>LDAP server = ldap://example.org:389</code></strong></li>
+<li><strong><code>LDAP userbase = ou=People;dc=example,dc=org</code></strong></li>
+<li><strong><code>LDAP login attribute = uid</code></strong></li>
+<li><strong><code>LDAP register = 1</code></strong></li>
+</ul>
+<p>The <strong><code>login attribute</code></strong> is from the DN (distinguished name), e.g.
+  uid=user,ou=People,dc=example,dc=org. The <strong><code>register</code></strong> flag
+  determines if LDAP users are automatically stored in the local
+  password file, which is necessary for email notifications.</p>
+<p>Please note that it is not possible to change a password in the LDAP
+database from within ELOG.</p>
+<h2 id="pam-authentication">PAM authentication</h2>
+<p>PAM (Pluggable authentication modules) support has been implemented by
+Jan Christoph Terasa. To use PAM in elogd, do the following:</p>
+<ul>
+<li>Compile <strong><code>elogd</code></strong> with PAM support, by either setting
+  <strong><code>USE_PAM = 1</code></strong> in the <strong><code>Makefile</code></strong>, or by specifying it when
+  invoking <strong><code>make</code></strong>. If you compile via CMake, set USE_PAM via ccmake.</li>
+<li>Enable PAM authentication in <strong><code>elogd.cfg</code></strong>:</li>
+<li><strong><code>Authentication = PAM</code></strong></li>
+<li><strong><code>Password file = elogd.passwd</code></strong></li>
+<li><strong><code>Self register = 3</code></strong></li>
+</ul>
+<p>The <strong><code>Password file</code></strong> is used to store the user names and email
+  addresses of PAM authenticated users, since this information can not
+  be (universally) requested via PAM. For security reasons the password
+  file does <strong>not</strong> store a hash of the user password. Self registration
+  has to be enabled (<strong><code>Self register ≥ 1</code></strong>) to use PAM authentication.
+- To be able to use PAM, the PAM module in <strong><code>elogd</code></strong> needs to be able
+  to access the authentication facilities on the system (e.g. be able to
+  read <code>/etc/shadow</code>). This can be achieved by either running
+  <strong><code>elogd</code></strong> as <code>root</code>, or by specifying the appropriate SUID/GUID
+  values for the binary. [<strong>WARNING:</strong>]{style="color:red"} When running
+  elogd as root, be careful when using the <code>-x</code> option to enable
+  execution of commands via <code>$shell</code>, since the commands will be
+  executed using the access rights of the user running <code>elogd</code>!</p>
+<p>Please note that it is not possible to change the PAM password within
+ELOG. Instead, please use the available methods on the system</p>
+<h2 id="email-notification">EMail notification</h2>
+<ul>
+<li><strong><code>Email &lt;attribute&gt; &lt;value&gt; = &lt;list&gt;</code></strong></li>
+<li><strong><code>Use Email Subject = &lt;string&gt;</code></strong></li>
+<li><strong><code>Use Email Subject Edit = &lt;string&gt;</code></strong></li>
+<li><strong><code>Use Email From = &lt;string&gt;</code></strong></li>
+<li><strong><code>Default Email From = &lt;string&gt;</code></strong></li>
+<li><strong><code>Use Email Heading = &lt;string&gt;</code></strong></li>
+<li><strong><code>Use Email Heading Edit = &lt;string&gt;</code></strong></li>
+<li><strong><code>Omit Email To = 0|1</code></strong></li>
+<li><strong><code>Suppress Email to users = 0|1</code></strong></li>
+<li><strong><code>Email attributes = &lt;list&gt;</code></strong></li>
+<li><strong><code>Use Email URL = &lt;URL&gt;</code></strong></li>
+</ul>
+<p>To send email automatically when new entries are created in a logbook, a
+<strong><code>SMTP host =</code></strong> entry must be present in the <strong><code>[global]</code></strong> section of
+the configuration file. To submit an email based on an attribute value,
+use the statement <strong><code>Email &lt;attribute&gt; &lt;value&gt; = &lt;list&gt;</code></strong>. Whenever an
+entry is submitted where <strong><code>attribute</code></strong> is equal to <strong><code>value</code></strong>, an
+email notification is sent to the email addresses in <strong><code>list</code></strong>. Several
+mail addresses may be supplied, separated by commas. The mail addresses
+can contain attributes via the <strong>"\$"</strong> substitution. If a logbook
+contains for example an attribute <em>name</em> which contains email names,
+then one can put <em>\$name@domain</em> to form a valid email address.</p>
+<p>Multiple <strong><code>Email xxx</code></strong> statements may occur in a configuration file.
+If either the attribute or the value contains one or more blanks the
+string must be enclosed with quotation marks, as in:</p>
+<h3 id="email-type-normal-routine"><code>Email type "Normal routine" = ...</code></h3>
+<p>The statement <strong><code>Email All = &lt;list&gt;</code></strong> sends an email notification
+independent of the type and category. The
+<strong><code>Use Email Subject = &lt;string&gt;</code></strong> statement specifies which text is
+used as the email subject. The text can contain <strong><code>$&lt;attribute&gt;</code></strong>
+statements which are substituted with the current value of that
+attribute. For a full list of possible substitutions, see the "<em>Subst
+&lt;attribute&gt;</em>" option. The <strong><code>Use Email Heading = &lt;string&gt;</code></strong>
+specifies the text for the email heading line. Default is <em>"A new entry
+has been submitted on [host]"</em>. The option
+<strong><code>Use Email Heading Edit = &lt;string&gt;</code></strong> works the same way for updated
+(edited) entries.</p>
+<p>The option <strong><code>Use Email From = &lt;string&gt;</code></strong> is used for the "<em>From:</em>"
+field in the email. Since more and more email servers do not accept
+invalid <em>"From:"</em> addresses in order to reduce spam mail, it might be
+important that a "real" email address is used in the <em>"From:"</em>
+field. If <strong><code>Use Email From</code></strong> is present, it is always used. If not,
+the email address of the currently logged in user is used for the
+<em>"From:"</em> field. If no user is logged in, or the current user has not
+specified a email address in the password database, the setting of the
+option <strong><code>Default Email From</code></strong> is used for the "<em>From:</em>" field. Only
+if this option is not specified, a generic address <em>ELOG@&lt;hostname&gt;</em>
+is used, which might be rejected by the SMTP server however.</p>
+<p>If the flag <strong><code>Omit Email To</code></strong> is set to <strong>1</strong>, the <em>To:</em> field in the
+email is left empty instead set to the real email address of the
+recipients. This can be useful if one recipient should not see the email
+addresses of the other recipients.</p>
+<p>The flag <strong><code>Suppress Email to users</code></strong> can be set to <strong>"1"</strong> if email
+should only be sent to the recipients of the
+<strong><code>Email &lt;attribute&gt; &lt;value&gt; = &lt;list&gt;</code></strong> statements but not to the users
+who have registerd for automatic email notification.</p>
+<p>If one wants to send only some attributes but not all in an email
+notification, one can use the option <strong><code>Email attributes = &lt;list&gt;</code></strong>,
+where a subset of the attributes can be specified as well as their
+order. []{#flags}</p>
+<p>The option <strong><code>Use Email URL = &lt;URL&gt;</code></strong> can be used to set the URL of the
+ELOG logbook used in email notifications. This can be useful if no
+<strong><code>URL = ...</code></strong> statement is used form some reason.</p>
+<h2 id="flags">Flags</h2>
+<h3 id="show-text-01"><code>Show text = 0|1</code></h3>
+<p>This flag controls if logbook entries contain a body text. If an
+  installation only requires attributes, this flag can be set to <strong>0</strong>.
+  Default is <strong>1</strong>.</p>
+<h3 id="enable-attachments-01"><code>Enable attachments = 0|1</code></h3>
+<p>This flag controls the attachment submission at the bottom of a
+  message entry page. If this flag is <strong>0</strong>, the attachment section is
+  not displayed. This might be useful for logbooks where attachments are
+  not used. Default is <strong>1</strong>.</p>
+<h3 id="show-attachments-01"><code>Show attachments = 0|1</code></h3>
+<p>This flag controls the display of attachments such as images on normal
+  logbook pages. For logbooks with large images, this flag can be turned
+  off, so that attachments are only displayed when they are clicked on.
+  Default is <strong>1</strong>.</p>
+<h3 id="preview-attachments-01"><code>Preview attachments = 0|1</code></h3>
+<p>This flag controls the display of attachments in the edit form. If one
+  one uploads an attachment, but has not yet submitted the entry, the
+  uploaded attachments are shown at the bottom if this flag is <strong>1</strong>.
+  Only ASCII files and images are shown of course. Default is <strong>1</strong>.</p>
+<h3 id="summary-lines-x"><code>Summary lines = x</code></h3>
+<p>This specifies the number of text lines displayed in a summary page.
+  Zero displays no text at all. The default is 3.</p>
+<h3 id="summary-line-length-x"><code>Summary line length = x</code></h3>
+<p>This specifies the number of charactes of the summary lines. After
+  this number of charactes, a line break is inserted in long lines to
+  keep the column width not too wide. The default is 40.</p>
+<h3 id="attachment-lines-x"><code>Attachment lines = x</code></h3>
+<p>This specifies the number of text lines displayed for ASCII
+  attachments. For long ASCII attachments, it can be useful to only
+  display the first few lines not to make the HTML page too long. The
+  default is <strong>300</strong>.</p>
+<h3 id="reverse-sort-01"><code>Reverse sort = 0|1</code></h3>
+<p>If this flag is <strong>1</strong>, all listing pages (the default page view, the
+  result of a search query and the result of the <em>"Last day"</em> query)
+  is sorted in reverse order (newest entry down to oldest). The checkbox
+  <em>Sort in reverse order</em> on the search form gets checked by default,
+  too. Sorting in reverse order can make sense if there are many pages
+  of entries, but the ones entered last should be displayed on the first
+  page. Default is <strong>0</strong>.</p>
+<h3 id="search-all-logbooks-012"><code>Search all logbooks = 0|1|2</code></h3>
+<p>If this flag is <strong>1</strong> or <strong>2</strong>, the search form displays the button
+  <em>"Search all logbooks"</em>. If the flag is <strong>2</strong>, the button is checked
+  by default. Setting this flag to <strong>0</strong> hides this button. It might be
+  necessary to do this for public logbooks if there are also protected
+  logbooks. Otherwise the search result would also display entries from
+  the protected logbooks. The default is <strong>1</strong>.</p>
+<h3 id="enable-browsing-01"><code>Enable browsing = 0|1</code></h3>
+<p>If this flag is <strong>1</strong>, browsing (hitting the next/previous button) is
+  enabled. For some rare occasions it might be necessary to disable
+  browsing. Default is <strong>1</strong>.</p>
+<h3 id="filtered-browsing-01"><code>Filtered browsing = 0|1</code></h3>
+<p>If this flag is <strong>1</strong>, browsing (hitting the next/previous button) can
+  be filtered by individual attributes. If the checkbox next to an
+  attribute is checked, only messages with the same attribute value are
+  displayed. Default is <strong>0</strong>.</p>
+<h3 id="default-encoding-012"><code>Default encoding = 0|1|2</code></h3>
+<p>This specifies the default encoding for new entries. For installations
+  where entries are normally submitted as plain text, the default can be
+  set to <strong>1</strong>. Set to <strong>0</strong> for
+  <a href="http://elog.psi.ch/elog/elcode_en.html">ELCode</a> encoding, to <strong>2</strong>
+  for HTML encoding. The default is <strong>2</strong>, which activates the built in
+  FCKeditor automatically for new installations. If this editor is not
+  wanted or people are concerned about cross site scripting, the default
+  encoding should be set to <strong>0</strong> or <strong>1</strong>.</p>
+<h3 id="allowed-encoding-n"><code>Allowed encoding = &lt;n&gt;</code></h3>
+<p>Allowed encoding options. <strong><code>&lt;n&gt;</code></strong> can be the sum of following flags:
+  - 1 : Plain
+  - 2 : ELCode encoding
+  - 4 : HTML encoding</p>
+<p>To allow plain and HTML encoding for example, set <strong><code>&lt;n&gt;</code></strong> to 5.
+  Default is <strong>7</strong>. Note that allowing HTML encoding may cause some
+  security risk, since an elog entry may contain malicious scripting
+  code. It should therefor only be allowed for installations where it is
+  really needed and with no public write access.</p>
+<h3 id="allow-html-01"><code>Allow HTML = 0|1</code></h3>
+<p>This flag allows or denys the usage of HTML in attributes. Note that
+  allowing HTML encoding may cause some security risk, since an elog
+  entry may contain malicious scripting code. It should therefor only be
+  allowed for installations where it is really needed and with no public
+  write access. The default value is <strong>0</strong>.</p>
+<h3 id="suppress-default-0123"><code>Suppress default = 0|1|2|3</code></h3>
+<p>This specifies the default state of the "<em>Suppress Email
+  notification</em>" button on the new message entry form. For
+  installations where normally an email notification is not necessary,
+  the default can be set to <strong>1</strong>. If an important entry is entered,
+  users can then uncheck the suppress box. If this value is set to <strong>2</strong>
+  , the suppress box is not displayed at all, so that an email
+  notification is always produced. If this value is set to <strong>3</strong>, the
+  email notification is always suppressed. The default is <strong>0</strong>.</p>
+<h3 id="suppress-email-on-edit-0123"><code>Suppress Email on edit = 0|1|2|3</code></h3>
+<p>This is the same as <strong><code>Suppress default</code></strong>, but just for edited
+  entries. The default is <strong>0</strong>.</p>
+<h3 id="resubmit-default-012"><code>Resubmit default = 0|1|2</code></h3>
+<p>This specifies the default state of the "<em>Resubmit as new entry</em>"
+  button on the edit message entry from. If this button is checked, the
+  current message is removed from its current position in the database
+  and submitted as a new message. This can for example be useful for
+  applications where users want to see which records have been updated
+  recently. If this value is set to <strong>2</strong>, the resubmit box is not
+  displayed at all. The default is <strong>0</strong>.</p>
+<h3 id="resubmit-replies-01"><code>Resubmit replies = 0|1</code></h3>
+<p>If this flag is set to <strong>1</strong> and an entry is resubmited as a new entry
+  and this entry has replies, all replies of this entry are resubmittes
+  as new entries as well. The default is <strong>0</strong>.</p>
+<h3 id="display-email-recipients-01"><code>Display Email recipients = 0|1</code></h3>
+<p>If this flag is <strong>1</strong>, the email recipients are displayed when a
+  logbook entry is entered which produces an email notification. Setting
+  this flag to 0 suppresses this display, in case users need not see
+  that email is being sent and to whom. The default is <strong>1</strong>.</p>
+<h3 id="email-format-n"><code>Email Format = &lt;n&gt;</code></h3>
+<p>Specifies what is sent in an email notification. &lt;n&gt; is the sum of
+  following flags:\
+  - 1 : Send heading line "A new entry has been submitted..."
+  - 2 : Send attributes
+  - 4 : Send URL of logbook entry
+  - 8 : Send message body
+  - 16: Send optional attachments as email attachments
+  - 32: Send logbook name
+  - 64: Send names of optional attachments</p>
+<p>So to send for example only the attributes and the URL, set &lt;n&gt; to
+  <strong>6</strong>. Default is <strong>63</strong> (send everything).</p>
+<h3 id="email-encoding-n"><code>Email Encoding = &lt;n&gt;</code></h3>
+<p>Specifies in which encoding an email is sent. &lt;n&gt; is the sum of
+  following flags:\
+  - 1 : Plain text
+  - 2 : HTML in the form of the plain text, but with ELCode interpreted
+  - 4 : Full HTML page as shown in elog</p>
+<p>So to send email in plain text and full HTML, set &lt;n&gt; to <strong>5</strong>. Some
+  email clients have the possibility then to switch from one view to the
+  other. Default is <strong>2</strong>.</p>
+<h3 id="max-email-attachment-size-n"><code>Max email attachment size = &lt;n&gt;</code></h3>
+<p>This option specifies the maximum allowed email attachment size for
+  email notifications. Most mail delivery systems have a maximum
+  attachment size and refuse to accept emails with larger sizes. If the
+  size of an attachment exceeds this limit, it is not included in the
+  email notificaiton but rather a link to the attachment on the elog
+  server is used. The default value is <strong>10000000</strong> (ten million bytes).</p>
+<h3 id="back-to-main-01"><code>Back to main = 0|1</code></h3>
+<p>If this flag is <strong>1</strong>, the "<em>List</em>" button takes you back to the
+  logbook selection page instead to the last entry of the current
+  logbook. The default is <strong>0</strong>.</p>
+<h3 id="logout-to-main-01"><code>Logout to main = 0|1</code></h3>
+<p>If this flag is <strong>1</strong>, the "<em>Logout</em>" operation takes you back to
+  the logbook selection page instead to the login page. The default is
+  <strong>0</strong>.</p>
+<h3 id="logout-to-url-url"><code>Logout to URL = &lt;URL&gt;</code></h3>
+<p>If this URL is set, the "<em>Logout</em>" operation takes you to a specific
+  web page specified in the URL.</p>
+<h3 id="list-after-submit-01"><code>List after submit = 0|1</code></h3>
+<p>If this flag is <strong>1</strong>, the list page is shown after the submission of
+  a new entry. If this flag is <strong>0</strong>, the entry just submitted is shown.
+  The default is <strong>0</strong>.</p>
+<h3 id="restrict-edit-01"><code>Restrict edit = 0|1</code></h3>
+<p>If this flag is <strong>1</strong>, users can only edit their own messages. The
+  system checks automatically if the currently logged in user matches
+  the user supplied in an author attribute via the <em>"Preset xxxx"</em>
+  option. The default is <strong>0</strong>.</p>
+<h3 id="expand-default-0123"><code>Expand default = 0|1|2|3</code></h3>
+<p>This setting determines how messages are displayed in threaded mode.
+  Following options are possible:
+  - <strong>0</strong>: Only message heads are displayed, no replies. A "+"
+    indicates which message has one or more replies.
+  - <strong>1</strong>: Messages and replies are displayed, but no message body.
+  - <strong>2</strong>: Messages and replies are displayed together with the first
+    few lines of the message body. The number of lines is controlled by
+    the <strong><code>Summary lines</code></strong> option.
+  - <strong>3</strong>: Messages and replies are displayed together with the full
+    message body.</p>
+<p>The default is <strong>1</strong>.</p>
+<h3 id="hidden-01"><code>Hidden = 0|1</code></h3>
+<p>If this flag is <strong>1</strong>, the logbook is not displayed in the initial
+  logbook selection page and in the logbook tabs. This can be useful for
+  logbooks which are only accessed for backup or archiving and would
+  clutter up the logbook list for the normal user. To access hidden
+  logbooks, one has to enter the logbook URL directly, or from a
+  bookmark list. Default is <strong>0</strong>.</p>
+<h3 id="hide-comments-01"><code>Hide Comments = 0|1</code></h3>
+<p>If this flag is <strong>1</strong>, the logbook "Comment" is not displayed in the
+  logbook selection page. Default is <strong>0</strong>.</p>
+<h3 id="use-lock-01"><code>Use Lock = 0|1</code></h3>
+<p>If this flag is <strong>1</strong>, a logbook entry is <em>locked</em> when someone edits
+  it (clicking the <em>Edit</em> command). A locked message gets displayed with
+  a little red sign indicating that the message is currently edited by
+  someone and should not be touched. This can be helpful in
+  installations where several people can edit messages. Without locking,
+  the second submission of an edited message overwrites the first
+  submission without notice. Although the sign gets displayed, the
+  message can still be edited (the lock can be "stolen"), but it's
+  the user's response to avoid any conflict.</p>
+<p>Since elog cannot determine if someone keeps a message very long for
+  editing or if only the browser got closed, the locking can show up
+  even if the message is not kept for editing any more. In that case,
+  the message has to be edited again and submitted, to remove the
+  origial lock.</p>
+<p>Note that logbooks accessible from the internet usually get scanned by
+  search engines. This can lead to situations where the <em>Edit</em> link of
+  each message is "followed" by a bot, resulting in all messages being
+  locked. In those cases locking has to be turned off.</p>
+<p>Since release 2.5.4, some Javascript code has been added to avoid
+  unwanted locks. If someone edits an entry, but then goes away from
+  that page or closes the browser without submitting the changes, a
+  pop-up window appears asking the user to submit the changed entry.
+  Although this works for most browsers in most cases, it could be that
+  Javascript has been turned off in a browser, in which case the stale
+  locks still might appear.</p>
+<p>Default for "Use Lock" is <strong>0</strong>.</p>
+<h3 id="show-top-groups-01"><code>Show top groups = 0|1</code></h3>
+<p>When using top groups, the root of the elogd server is not accessible
+  any more, to avoid cases where one group can "see" the logbooks of
+  the other groups. If this feature is unwanted, the flag
+  <strong><code>Show top groups</code></strong> can be set to <strong><code>1</code></strong>, in which case a list of
+  available top groups is shown.</p>
+<h3 id="fix-text-01"><code>Fix text = 0|1</code></h3>
+<p>With this options the main text body can be fixed, so that it cannot
+  be changed via the <strong><code>Edit</code></strong> button later. This feature can be useful
+  for set-ups where some attributed must be changed later, but the text
+  body should be preserved. The default is <strong>0</strong>.</p>
+<h3 id="case-sensitive-search-01"><code>Case sensitive search = 0|1</code></h3>
+<p>This switch has two meanings. First, it defines the default state of
+  the <strong><code>Case sensitive</code></strong> check box in the "Find" page. Second, it
+  determines if the quick filters are case sensitive or not. The default
+  is <strong>0</strong>.</p>
+<h3 id="mode-commands-01"><code>Mode commands = 0|1</code></h3>
+<p>If this flag is missing or set to <strong>1</strong>, the links "Full",
+  "Summary" and "Threaded" are shown on the top of the listing page.
+  If this flag is set to <strong>0</strong>, these commands are hidden. This might be
+  useful in logbooks where only one mode makes sense for example.</p>
+<h3 id="suppress-execute-default-01"><code>Suppress execute default = 0|1</code></h3>
+<p>External scripts can be called with the <strong><code>Execute new/edit/delete</code></strong>
+  options. If these options are enabled, a checkbox appears which lets
+  the user suppress execution of the external script. The setting of
+  this flag determines the default state of this checkbox. In logbooks
+  where a script should only be ocasionally executed, it could make
+  sense to set this flag to <strong>1</strong>.</p>
+<h3 id="preserve-ids-01"><code>Preserve IDs = 0|1</code></h3>
+<p>When a logbook entry is copied or moved to another logbook, it obtains
+  a new entry ID in the destination logbook. This can cause problems if
+  the logbook entries reference each other with their IDs. To keep the
+  same ID in the destination logbook, this setting can be set to <strong>1</strong>.
+  If an entry with the same ID in the destination logbook exists
+  already, it gets overwritten. Default for this setting is <strong>0</strong>.</p>
+<h3 id="collapse-to-last-01"><code>Collapse to last = 0|1</code></h3>
+<p>In threaded view, the list of replies can be collapsed into a single
+  entry. If this flag is 1, then the last entry of each thread is shown,
+  otherwise the first thread is displayed. Default for this setting is
+  <strong>1</strong>.</p>
+<h3 id="sort-attribute-options-attribute-01"><code>Sort Attribute Options &lt;attribute&gt; = 0|1</code></h3>
+<p>If this option is 1, the options for this attribute are sorted
+  alphanumerically. This can be handy when locating options from long
+  lists in drop-down boxes in quick filters for example. Default for
+  this setting is <strong>0</strong>.</p>
+<h3 id="allow-branching-01"><code>Allow branching = 0|1</code></h3>
+<p>With this option one can probihit "branching", which is that an
+  entry gets more than one reply. When branching is prohibited, only
+  linear threads are possible, which is one head entry, one reply to it,
+  then one reply to the reply and so on. Default for this setting is
+  <strong>1</strong>.</p>
+<h3 id="enable-smileys-01"><code>Enable Smileys = 0|1</code></h3>
+<p>When encoding an entry with ELCode, certain sequenes such as <strong>:-)</strong>
+  get automatically converted into small "smiley" images. If this
+  behavior is not wanted, it can be turned off with this option. The
+  default for this setting is <strong>1</strong>.</p>
+<h3 id="refresh-seconds"><code>Refresh = &lt;seconds&gt;</code></h3>
+<p>The elog listing page can be refreshed periodically with this option.
+  If it is given, the page automatically reloads after &lt;seconds&gt;. This
+  can be useful for logbooks where other people often post entries or
+  where some entries are posted automatically (via the elog utility) and
+  one wants to keep an eye on what's new. The default for this setting
+  is <strong>0</strong> meaning no refresh.</p>
+<h3 id="show-last-default-days"><code>Show last default = &lt;days&gt;</code></h3>
+<p>In large logbooks, search operations can take quite long, blocking
+  other users from accessing ELOG. On the <em>Find</em> page, one can restrict
+  the search operation to a certain time period, like last day, last
+  week, etc, which makes searching much faster, but restricts it to a
+  certain time in the past. If one forgets however to enter anyting in
+  the <em>Show last</em> drop-down box, then the search again can take quite
+  long. This option pre-selects an option in the <em>Show last</em> drop-down
+  box, so that the user does not have to think about selecting a certain
+  time period. Following options are possible: <strong>0, 1, 3, 7, 31, 92,
+  182, 364</strong>. "0" means an unrestricted search default.</p>
+<h3 id="save-drafts-01"><code>Save drafts = 0|1</code></h3>
+<p>Starting with version 3.1, ELOG supports auto saving. When text for a
+  new entry is entered in the browser, it might get lost if the browser
+  windows is closed before the entry has been submitted. In order to
+  avoid this, entries can be saved as drafts, to be finished and
+  submitted later. This can be achieved by clicking on the <strong><code>Save</code></strong>
+  button or by the <em>autosave</em> feature (see next option). The
+  <strong><code>Save drafts</code></strong> option turns this feature on or off. Default is
+  <strong><code>1</code></strong>.</p>
+<h3 id="autosave-seconds"><code>Autosave = &lt;seconds&gt;</code></h3>
+<p>Drafts can be sent to the server regularly after some editing (see
+  previous option). This option determines the interval this is done.
+  The default is <strong><code>10</code></strong> seconds after the last edit. Setting Autosave
+  to zero disables the autosave functionality.</p>
+<h3 id="list-drafts-01"><code>List drafts = 0|1</code></h3>
+<p>By default, draft entries are shown in the list display in another
+  browser when the entries are currently edited. This can be confusing
+  to other users since the draft entries are frequently updated. To
+  avoid this, this flag can be se to <strong><code>0</code></strong>, which hides all draft
+  entries in the list view. If they are hidden, the only way to come
+  back to them is to hit the <strong><code>New</code></strong> menu item, in which case the
+  system presents to the user a list of open draft messages to be
+  continued.</p>
+<h3 id="hard-wrap-01"><code>Hard wrap = 0|1</code></h3>
+<p>If entries are entered in plain text mode, the browser adds
+  automatically a CRLF at the end of each line where the text wraps.
+  This ensures that the submitted entry has the same line breaks as in
+  the edit box. If this behaviour is not wanted, the adding of hard
+  wraps can be turned off by setting this value to <strong>0</strong>. If the user
+  then enters a very long line without hitting the newline key, the long
+  line is preserved which can make it hard to read.</p>
+<h2 id="themes">Themes</h2>
+<p>Themes are layout and color schemes which determine the look and feel of
+a logbook (sometimes called <em>"skins"</em>). A theme consists of a set of
+images, which are used for the title banner and browse buttons, and a
+Cascading Style Scheet (CSS), which defines the colors, fonts and
+spacing of the ELOG pages.</p>
+<p>Each theme resides in a separate subdirectory and is specified with the
+<strong><code>theme = &lt;dir&gt;</code></strong> option in the configuration file. Each theme can
+contain several CSSs, which can be selected with the
+<strong><code>CSS = &lt;filename&gt;</code></strong> option.</p>
+<p>A default theme is contained in the distribution. If new themes are
+developed by users, they can be sent back to the author, to be included
+in future releases.</p>
+<p>To change colors and fonts, the source of a ELOG page can be examined.
+All elements use CSS classes which are specified in the
+<strong><code>class="&lt;name&gt;"</code></strong> statements. These classes can be found in the
+<strong><code>.../themes/default/default.css</code></strong> file and changed accordingly. For a
+description of all options, please consult for example the
+<a href="http://www.w3.org/TR/REC-CSS1">W3C</a> consortium.</p>
+<p>If the CSS file is edited, most browsers require a "reload" to refresh
+the modified file. The <strong>elogd</strong> daemon does not have to be restarted
+after a change in the CSS file.</p>
+<p>These two images display the same logbook entry using different themes:</p>
+<p><img alt="" src="../img/theme1.jpg" /><img alt="" src="../img/theme2.jpg" /></p>
+<h2 id="mirroring">Mirroring</h2>
+<p>Sometimes it can be useful to have the same ELOG logbook on two
+different computers. This might be the case if you travel with your
+laptop, but want to keep the logbooks from your desktop computer on the
+laptop. The problem is that if you add an entry on your laptop, the
+logbooks on the laptop and the desktop get out of sync. Merging only the
+ELOG database files does not help, since two entries could be made at
+the same day on the laptop and the desktop, which would lead to a
+conflict in that day's database file.</p>
+<p>To solve this problem, <em>mirroring</em> was introduced from Version 2.5.0 on.
+This technology allows to synchronize one ELOG server with a number of
+other servers on a per-entry basis. No additional software is needed,
+only two elogd daemons talking to each other. The synchronization can be
+executed manually or periodically. If entries are changed/added/deleted
+on both sides, they get merged properly during synchronization. In order
+to minimize network traffic, each ELOG server calculates a MD5 checksum
+for each message, which gets exchanged during synchronization. Only when
+the MD5 checksum differs, entries are transferred.</p>
+<p>To set-up mirroring, install two elogd servers on two machines (for
+testing purpose that also works on one machine with two elogd servers
+running on different ports). This can be done in two ways:</p>
+<ol>
+<li>
+<p><strong>Automatic configuration</strong></p>
+<p>A complete elog server can be transferred to a secondary server
+using the <strong><code>clone</code></strong> command. Assume the existing server resides at
+<strong><code>http://master.your.domain/</code></strong>, and you want to mirror this server
+to a new location at <strong><code>http://slave.your.domain/</code></strong>. You do that by
+installing the elog package at the slave machine, and then executing
+on the slave:</p>
+<pre><code>`elogd -C http://master.your.domain`
+</code></pre>
+<p>or</p>
+<pre><code>`elogd -C https://master.your.domain`
+</code></pre>
+<p>for a remote server running under the SSL protocol. Note that you
+have to put "Allow clone = 1" temporarily into the elogd.cfg file
+of your existing server to allow cloning. This opens a password-free
+access to your existing server, so remove it immediately after you
+finished cloning.</p>
+<p>This command tells elogd to retrieve the configuration file, and
+optionally all logbook entries and password files from the master
+machine. Note that both servers must be version 2.5.4 or later. In
+case of trouble, you can turn on verbose messaging:</p>
+<pre><code>`elogd -v -C http://master.your.domain`
+</code></pre>
+<p>which could give some hints. If a logbook on the master server uses
+restricted access, you have to specify the admin user name and
+password. After everything has been transferred, you can start elogd
+in the normal way.</p>
+</li>
+<li>
+<p><strong>Manual configuration</strong></p>
+<p>First, copy the elogd.cfg file from the master to the slave server.
+Make sure that the files are identical (except the port setting if
+you run two servers on the same machine). Then, add the following
+configuration options. They should be put into the [global]
+section of the cofiguration file:</p>
+</li>
+</ol>
+<h3 id="mirror-server-url-list"><code>Mirror server = &lt;URL-list&gt;</code></h3>
+<p>This statement specifies one or more mirror servers. Each URL must
+contain the host, port and possible subdirectory of the remote
+server, as if you would access it through your browser. A typical
+statement looks like:</p>
+<p><code>Mirror server = myhost.mydomain.org:8080, http://another.server.org/elog/, https://yet.another.org</code></p>
+<p>The URL should not contain any logbook name, this gets added
+automatically. The second example contains a subdirectory, which
+is typically used if the elogd daemon runs under an Apache proxy.
+The third example shows a server running under the SSL protocol.</p>
+<h3 id="mirror-config-0-1"><code>Mirror config = 0 | 1</code></h3>
+<p>Normally, only the logbook entries are mirrored. One can also
+mirror the contents of the elogd.cfg configuration file for
+individual logbooks. This can be turned on by setting this option
+to <strong><code>1</code></strong>. Default is <strong><code>0</code></strong>. Only the individual logbook
+section is mirrored, not the [global] section. Settings which
+are specific to one server, for example the <strong><code>URL =</code></strong> statement,
+should then be kept in the [global] section, so that they are
+not mirrored between different servers.</p>
+<h3 id="mirror-cron-minute-hour-day-month-weekday"><code>Mirror cron = Minute Hour Day Month Weekday</code></h3>
+<p>This statement turns on periodic mirroring. The format is similar
+  to the UNIX <strong><code>cron</code></strong> command. Each of the five values can either
+  be an asterisk, which means all possible values, a comma-separated
+  list or a range. It can be explained most easily with examples:</p>
+<table>
+<thead>
+<tr>
+<th>Mirror cron</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 3 * * *</td>
+<td>Every night at 3:00</td>
+</tr>
+<tr>
+<td>30 7 1,15 * *</td>
+<td>At 7:30 every 1st and 15th of a month</td>
+</tr>
+<tr>
+<td>0 12 10 10 *</td>
+<td>Once a year at 12:00 on my birthday</td>
+</tr>
+<tr>
+<td>0 7-18 * * 1-5</td>
+<td>Once every hour from 7:00 to 18:00 from Monday to Friday</td>
+</tr>
+</tbody>
+</table>
+<p>Valid ranges for each value are:</p>
+<table>
+<thead>
+<tr>
+<th>Item.</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Minute</td>
+<td>0-59</td>
+</tr>
+<tr>
+<td>Hour</td>
+<td>0-23</td>
+</tr>
+<tr>
+<td>Day</td>
+<td>1-31</td>
+</tr>
+<tr>
+<td>Month</td>
+<td>1-12</td>
+</tr>
+<tr>
+<td>Weekday</td>
+<td>0-6 with 0=Sunday, 1=Monday, etc.</td>
+</tr>
+</tbody>
+</table>
+<p>If mirroring is turned on, it is advisable to use the
+<strong><code>Logfile =</code></strong> option to turn on logging, so that one can inspect
+the logfile to see if the mirroring works correctly.</p>
+<h3 id="mirror-user-name"><code>Mirror user = &lt;name&gt;</code></h3>
+<p>If periodic mirroring is used via the <strong><code>Mirror cron =</code></strong>
+statement and the remote logbook uses user-level access, this
+statement specifies the user name which is used to log in to the
+remote logbook. The password is taken from the local password file
+and has to match the password in the remote password file,
+otherwise the access is not allowed. The user name is typical the
+login name of the administrator.</p>
+<h3 id="mirror-simulate-0-1"><code>Mirror simulate = 0 | 1</code></h3>
+<p>If one wants to try out mirroring without causing any harm, one
+can turn on this flag. During synchronization, entries are
+compared and necessary transfers are displayed, but not executed.
+Default is <strong><code>0</code></strong>.</p>
+<h3 id="mirror-exclude-0-1"><code>Mirror exclude = 0 | 1</code></h3>
+<p>By default, all logbooks are mirrored. Individual logbooks might
+be excluded from mirroring by putting <strong><code>Mirror exclude = 1</code></strong> in
+their individual logbook section of the configuration file
+(<strong>Not</strong> the [global] section). Default is <strong><code>0</code></strong>.</p>
+<p>If the statement <strong><code>Mirror server</code></strong> is present in the configuration
+file, a new menu option <strong><code>"Synchronize"</code></strong> appears on the elog page.
+Clicking on this menu options starts the synchronization:</p>
+<p><img alt="" src="../img/sync.gif" /></p>
+<p>On the left side one sees the entry ID's. Entries which are equal
+locally and remotely are not displayed. Here are the rules for
+synchronization:</p>
+<ul>
+<li>If an entry has been modified locally but not remotely, it is
+  submitted to the remote server.</li>
+<li>If an entry has been modified remotely but not locally, it is
+  retrieved from the remote server and saved locally.</li>
+<li>If an entry has been modified remotely and locally since the last
+  synchronization, an error is shown that the entries are conflicting.
+  In that case one has to merge the entries manually and delete it on
+  one side.</li>
+<li>If an entry has been deleted locally, it is deleted remotely.</li>
+<li>If an entry has been deleted remotely, it is deleted locally.</li>
+<li>If a new entry exists locally, it is submitted.</li>
+<li>If a new entry exists remotely, it is retrieved from the remote server
+  and saved locally.</li>
+<li>If new entries exist locally and remotely having the same entry ID,
+  the local entries are changed to have higher entry IDs, then the
+  remote ones are retrieved. Care should be taken if external links
+  (such as <strong><code>elog:123</code></strong>) to the local entries are used, since they
+  will point afterwards to the wrong entry.</li>
+</ul>
+<p>By starting the synchronization on one elogd server, this server becomes
+the client and the other one becomes the server. This means that the
+local server actively compares the local and the remote messages, and
+updates one or the other if necessary. The other (remote) server does
+not need to have any mirror option in its configuration file, since the
+local server simulates a web browser to send and retrieve messages to
+the remote server. It is however allowed that the remote server also
+contains some mirror settings in the configuration file, this way the
+synchronization can be started from both servers.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../adminguide/" class="btn btn-neutral float-left" title="Admin guide"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../faq/" class="btn btn-neutral float-right" title="FAQ">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../adminguide/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../faq/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
