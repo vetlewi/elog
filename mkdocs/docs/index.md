@@ -3,7 +3,7 @@
 Home of the *Electronic Logbook* package by [Stefan
 Ritt](mailto:Stefan.Ritt@psi.ch)
 
-*Current version: 3.1.4*
+*Current version: 3.1.5*
 
 [PDF version](https://elog.psi.ch/elog/pdf/document.pdf)
 
