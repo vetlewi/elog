@@ -1,550 +1,4357 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Config file - ELOG Electronic Logbook</title>
-    <link rel="stylesheet" href="../css/theme.css" />
-    <link rel="stylesheet" href="../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-      <script>
-        // Current page data
-        var mkdocs_page_name = "Config file";
-        var mkdocs_page_input_path = "config.md";
-        var mkdocs_page_url = null;
-      </script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../adminguide/">
+      
+      
+        <link rel="next" href="../faq/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
     
-    <!--[if lt IE 9]>
-      <script src="../js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-      <script>hljs.highlightAll();</script> 
-</head>
+    
+      
+        <title>Config file - ELOG Electronic Logbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+      
 
-<body class="wy-body-for-nav" role="document">
 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> ELOG Electronic Logbook
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
-      </div>
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../userguide/">User guide</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../adminguide/">Admin guide</a>
-                </li>
-              </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">Config file</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#global-options">Global options</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#port-port">Port = &lt;port&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#ssl-0-1">SSL = &lt;0 | 1&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#interface-interface">Interface = &lt;interface&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#resource-dir-directory">Resource dir = &lt;directory&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#logbook-dir-directory">Logbook dir = &lt;directory&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#language-name">Language = &lt;name&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#charset-name">charset = &lt;name&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#logbook-tabs-01">Logbook Tabs = [0|1]</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#main-tab-string">Main Tab = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#main-tab-url-string">Main Tab URL = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#welcome-title-html-code">Welcome Title = &lt;html code&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#page-title-string">Page title = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#list-page-title-string">List page title = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#selection-page-file">Selection page = &lt;file&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#guest-selection-page-file">Guest Selection page = &lt;file&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#protect-selection-page-0-1">Protect Selection page = 0 | 1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#expand-selection-page-0-1">Expand Selection page = 0 | 1'</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#smtp-host-hostdomain">SMTP host = &lt;host.domain&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#smtp-username-username">SMTP username = &lt;username&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#smtp-port-port">SMTP port = &lt;port&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#logfile-file">Logfile = &lt;file&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#logging-level-1-2-3">Logging level = 1 | 2 | 3</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#url-httpshostdomainportsubdir">URL = &lt;http[s]://host.domain[:port]/[subdir/]&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#relative-redirection-01">Relative redirection = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#resolve-host-names-01">Resolve host names = 0|1</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#groups-of-logbooks">Groups of logbooks</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#top-groups">Top groups</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#individual-logbook-options">Individual logbook options</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#general-options">General options</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#data-dir-directory">Data dir = &lt;directory&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#subdir-directory">Subdir = &lt;directory&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#comment-comment">Comment = &lt;comment&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#theme-theme">Theme = &lt;theme&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#css-filename">CSS = &lt;filename&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#title-image-string">Title image = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#title-image-url-url">Title image URL = &lt;URL&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#time-format-string">Time format = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#time-format-attribute-string">Time format &lt;attribute&gt; = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#date-format-string">Date format = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#date-format-attribute-string">Date format &lt;attribute&gt; = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#welcome-page-file">Welcome Page = &lt;file&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#start-page-command">Start page = &lt;command&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#submit-page-file">Submit Page = &lt;file&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#message-comment-comment">Message comment = &lt;comment&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#reply-comment-comment">Reply comment = &lt;comment&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#attachment-comment-comment">Attachment comment = &lt;comment&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#menu-commands-list">Menu commands = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#copy-to-logbook-list">Copy to = &lt;logbook list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#move-to-logbook-list">Move to = &lt;logbook list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#list-menu-commands-list">List Menu commands = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#guest-menu-commands-list">Guest Menu commands = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#guest-list-menu-commands-list">Guest List Menu commands = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#menu-text-file">Menu text = &lt;file&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#list-menu-text-file">List Menu text = &lt;file&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#filter-menu-text-file">Filter Menu text = &lt;file&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#guest-display-list">Guest Display = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#top-text-file-string">Top text = &lt;file&gt; | &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#bottom-text-file-string">Bottom text = &lt;file&gt; | &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#bottom-text-login-file-string">Bottom text login = &lt;file&gt; | &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#help-url-url">Help URL = &lt;URL&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#message-width-number">Message Width = &lt;number&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#message-height-number">Message Height = &lt;number&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#admin-textarea-colsrows">Admin textarea = &lt;cols&gt;,&lt;rows&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#display-mode-fullsummarythreaded">Display mode = [full|summary|threaded]</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#entries-per-page-number">Entries per page = &lt;number&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#restrict-edit-time-hours">Restrict edit time = &lt;hours&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#admin-restrict-edit-time-hours">Admin restrict edit time = &lt;hours&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#max-content-length-bytes">Max content length = &lt;bytes&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#fonts-list">Fonts = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#all-display-limit-n">All display limit = &lt;n&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#thumbnail-size-size">Thumbnail size = &lt;size&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#thumbnail-options-options">Thumbnail options = &lt;options&gt;</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#attributes">Attributes</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#attributes-list">Attributes = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#options-attribute-list">Options &lt;attribute&gt; = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#extendable-options-list">Extendable options = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#roptions-attribute-list">ROptions &lt;attribute&gt; = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#moptions-attribute-list">MOptions &lt;attribute&gt; = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#ioptions-attribute-list">IOptions &lt;attribute&gt; = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#comment-attribute-comment">Comment &lt;attribute&gt; = &lt;comment&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tooltip-attribute-comment">Tooltip &lt;attribute&gt; = &lt;comment&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tooltip-attribute-attribute-option-comment">Tooltip &lt;attribute&gt; &lt;attribute option&gt; = &lt;comment&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#icon-comment-icon-comment">Icon comment &lt;icon&gt; = &lt;comment&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#options-attribute-boolean">Options &lt;attribute&gt; = boolean</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#preset-attribute-string">Preset &lt;attribute&gt; = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#preset-text-string-or-file">Preset text = &lt;string&gt; or &lt;file&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#preset-on-edit-attribute-string">Preset on edit &lt;attribute&gt; = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#preset-on-reply-attribute-string">Preset on reply &lt;attribute&gt; = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#preset-on-first-reply-attribute-string">Preset on first reply &lt;attribute&gt; = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#preset-on-duplicate-attribute-string">Preset on duplicate &lt;attribute&gt; = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#locked-attributes-list">Locked Attributes = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#fixed-attributes-edit-list">Fixed Attributes Edit = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#fixed-attributes-reply-list">Fixed Attributes Reply = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#required-attributes-list">Required Attributes = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#show-attributes-list">Show Attributes = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#show-attributes-edit-list">Show Attributes Edit = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#propagate-attributes-list">Propagate Attributes = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#page-title-string_1">Page title = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#edit-page-title-string">Edit Page title = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#list-display-list">List display = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#guest-list-display-list">Guest List display = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#link-display-list">Link display = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#thread-display-string">Thread display = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#thread-icon-attribute">Thread icon = &lt;attribute&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#rss-title-string">RSS Title = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#rss-entries-n">RSS Entries = &lt;n&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#subst-attribute-string">Subst &lt;attribute&gt; = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#remove-on-reply-list">Remove on reply = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#quote-on-reply-0-1">Quote on reply = 0 | 1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#reply-string-string">Reply string = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#subst-on-reply-attribute-string">Subst on reply &lt;attribute &gt; = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#subst-on-edit-attribute-string">Subst on edit &lt;attribute &gt; = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#quick-filter-list">Quick filter = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#last-default-n">Last default = &lt;n&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#format-attribute-flagscss_class_namecss_class_valuewidthsize">Format &lt;attribute&gt; = &lt;flags&gt;,&lt;css_class_name&gt;,&lt;css_class_value&gt;,&lt;width&gt;,&lt;size&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#type-attribute-date-datetime-numeric-userlist-useremail-muserlist-museremail">Type &lt;attribute&gt; = date | datetime | numeric | userlist | useremail | muserlist | museremail</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#style-attribute-value-style">Style &lt;attribute&gt; &lt;value&gt; = &lt;style&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#cell-style-attribute-value-style">Cell Style &lt;attribute&gt; &lt;value&gt; = &lt;style&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#change-attribute-string">Change &lt;attribute&gt; = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#list-change-attribute-string">List Change &lt;attribute&gt; = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#execute-new-edit-delete-command">Execute new | edit | delete = &lt;command&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#last-submission-string">Last submission = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#id-display-string">ID display = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#prepend-on-reply-string">Prepend on reply = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#append-on-reply-string">Append on reply = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#prepend-on-edit-string">Prepend on edit = &lt;string&gt;**</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#append-on-edit-string">Append on edit = &lt;string&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#sort-attributes-list">Sort Attributes = &lt;list&gt;</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#conditional-attributes">Conditional attributes</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#show-attributes-edit-list_1">Show Attributes Edit = &lt;list&gt;</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#multiple-conditions">Multiple conditions</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#conditions-in-the-list-display">Conditions in the list display</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#list-conditions-1">List conditions = 1</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#access-control">Access control</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#password-file">Password file</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#password-file-file">Password file = &lt;file&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#login-expiration-hours">Login expiration = &lt;hours&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#admin-user-user-list">Admin user = &lt;user list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#login-user-user-list">Login user = &lt;user list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#self-register-01234">Self register = 0|1|2|3|4</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#allow-password-change-01">Allow password change = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#allow-command-user-list">Allow &lt;command&gt; = &lt;user list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#deny-command-user-list">Deny &lt;command&gt; = &lt;user list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hosts-allow-list">Hosts allow = &lt;list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hosts-deny-list">Hosts deny = &lt;list&gt;</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#kerberos-authentication">Kerberos authentication</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#authentication-methods">Authentication = &lt;method(s)&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#kerberos-realm-realm">Kerberos Realm = &lt;realm&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#authentication-webserver">Authentication = Webserver</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#ldap-authentication">LDAP authentication</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#pam-authentication">PAM authentication</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#email-notification">EMail notification</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#email-type-normal-routine">Email type "Normal routine" = ...</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#flags">Flags</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#show-text-01">Show text = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#enable-attachments-01">Enable attachments = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#show-attachments-01">Show attachments = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#preview-attachments-01">Preview attachments = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#summary-lines-x">Summary lines = x</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#summary-line-length-x">Summary line length = x</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#attachment-lines-x">Attachment lines = x</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#reverse-sort-01">Reverse sort = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#search-all-logbooks-012">Search all logbooks = 0|1|2</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#enable-browsing-01">Enable browsing = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#filtered-browsing-01">Filtered browsing = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#default-encoding-012">Default encoding = 0|1|2</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#allowed-encoding-n">Allowed encoding = &lt;n&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#allow-html-01">Allow HTML = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#suppress-default-0123">Suppress default = 0|1|2|3</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#suppress-email-on-edit-0123">Suppress Email on edit = 0|1|2|3</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#resubmit-default-012">Resubmit default = 0|1|2</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#resubmit-replies-01">Resubmit replies = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#display-email-recipients-01">Display Email recipients = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#email-format-n">Email Format = &lt;n&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#email-encoding-n">Email Encoding = &lt;n&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#max-email-attachment-size-n">Max email attachment size = &lt;n&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#back-to-main-01">Back to main = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#logout-to-main-01">Logout to main = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#logout-to-url-url">Logout to URL = &lt;URL&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#list-after-submit-01">List after submit = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#restrict-edit-01">Restrict edit = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#expand-default-0123">Expand default = 0|1|2|3</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hidden-01">Hidden = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hide-comments-01">Hide Comments = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#use-lock-01">Use Lock = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#show-top-groups-01">Show top groups = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#fix-text-01">Fix text = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#case-sensitive-search-01">Case sensitive search = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#mode-commands-01">Mode commands = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#suppress-execute-default-01">Suppress execute default = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#preserve-ids-01">Preserve IDs = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#collapse-to-last-01">Collapse to last = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#sort-attribute-options-attribute-01">Sort Attribute Options &lt;attribute&gt; = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#allow-branching-01">Allow branching = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#enable-smileys-01">Enable Smileys = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#refresh-seconds">Refresh = &lt;seconds&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#show-last-default-days">Show last default = &lt;days&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#save-drafts-01">Save drafts = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#autosave-seconds">Autosave = &lt;seconds&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#list-drafts-01">List drafts = 0|1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hard-wrap-01">Hard wrap = 0|1</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#themes">Themes</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#mirroring">Mirroring</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#mirror-server-url-list">Mirror server = &lt;URL-list&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#mirror-config-0-1">Mirror config = 0 | 1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#mirror-cron-minute-hour-day-month-weekday">Mirror cron = Minute Hour Day Month Weekday</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#mirror-user-name">Mirror user = &lt;name&gt;</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#mirror-simulate-0-1">Mirror simulate = 0 | 1</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#mirror-exclude-0-1">Mirror exclude = 0 | 1</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../faq/">FAQ</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../forum/">Forum</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../wishlist/">Wishlist</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../contrib/">Contributions</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../demo/">Demo</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../download/">Download</a>
-                </li>
-              </ul>
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#elog-syntax-of-elogdcfg" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ELOG Electronic Logbook" class="md-header__button md-logo" aria-label="ELOG Electronic Logbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ELOG Electronic Logbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Config file
+            
+          </span>
+        </div>
       </div>
     </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">ELOG Electronic Logbook</a>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
         
-      </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Config file</li>
-    <li class="wy-breadcrumbs-aside">
-    </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
               
-                <h1 id="elog-syntax-of-elogdcfg">ELOG - Syntax of elogd.cfg</h1>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ELOG Electronic Logbook" class="md-nav__button md-logo" aria-label="ELOG Electronic Logbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ELOG Electronic Logbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../userguide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adminguide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Admin guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Config file
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Config file
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#global-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#port-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port = &lt;port&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssl-0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSL = &lt;0 | 1&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interface = &lt;interface&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-dir-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resource dir = &lt;directory&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logbook-dir-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logbook dir = &lt;directory&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language = &lt;name&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#charset-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      charset = &lt;name&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logbook-tabs-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logbook Tabs = [0|1]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-tab-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main Tab = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-tab-url-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main Tab URL = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#welcome-title-html-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Welcome Title = &lt;html code&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page-title-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Page title = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-page-title-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      List page title = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-page-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selection page = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guest-selection-page-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guest Selection page = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protect-selection-page-0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Protect Selection page = 0 | 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expand-selection-page-0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expand Selection page = 0 | 1'
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smtp-host-hostdomain" class="md-nav__link">
+    <span class="md-ellipsis">
+      SMTP host = &lt;host.domain&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smtp-username-username" class="md-nav__link">
+    <span class="md-ellipsis">
+      SMTP username = &lt;username&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smtp-port-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      SMTP port = &lt;port&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logfile-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logfile = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging-level-1-2-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging level = 1 | 2 | 3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#url-httpshostdomainportsubdir" class="md-nav__link">
+    <span class="md-ellipsis">
+      URL = &lt;http[s]://host.domain[:port]/[subdir/]&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relative-redirection-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relative redirection = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resolve-host-names-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resolve host names = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#groups-of-logbooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Groups of logbooks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#top-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Top groups
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#individual-logbook-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Individual logbook options
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      General options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="General options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-dir-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data dir = &lt;directory&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subdir-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subdir = &lt;directory&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comment-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comment = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theme-theme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Theme = &lt;theme&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#css-filename" class="md-nav__link">
+    <span class="md-ellipsis">
+      CSS = &lt;filename&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#title-image-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Title image = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#title-image-url-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      Title image URL = &lt;URL&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-format-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Time format = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-format-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Time format &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date-format-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Date format = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date-format-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Date format &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#welcome-page-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Welcome Page = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-page-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start page = &lt;command&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#submit-page-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Submit Page = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-comment-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message comment = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reply-comment-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reply comment = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attachment-comment-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attachment comment = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#menu-commands-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Menu commands = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy-to-logbook-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copy to = &lt;logbook list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-to-logbook-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Move to = &lt;logbook list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-menu-commands-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Menu commands = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guest-menu-commands-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guest Menu commands = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guest-list-menu-commands-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guest List Menu commands = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#menu-text-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Menu text = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-menu-text-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Menu text = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-menu-text-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filter Menu text = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guest-display-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guest Display = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top-text-file-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Top text = &lt;file&gt; | &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bottom-text-file-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bottom text = &lt;file&gt; | &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bottom-text-login-file-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bottom text login = &lt;file&gt; | &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#help-url-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      Help URL = &lt;URL&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-width-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Width = &lt;number&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-height-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Height = &lt;number&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-textarea-colsrows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Admin textarea = &lt;cols&gt;,&lt;rows&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-mode-fullsummarythreaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      Display mode = [full|summary|threaded]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entries-per-page-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entries per page = &lt;number&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restrict-edit-time-hours" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restrict edit time = &lt;hours&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-restrict-edit-time-hours" class="md-nav__link">
+    <span class="md-ellipsis">
+      Admin restrict edit time = &lt;hours&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max-content-length-bytes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Max content length = &lt;bytes&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fonts-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fonts = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#all-display-limit-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      All display limit = &lt;n&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thumbnail-size-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thumbnail size = &lt;size&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thumbnail-options-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thumbnail options = &lt;options&gt;
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attributes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attributes-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attributes = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options-attribute-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Options &lt;attribute&gt; = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extendable-options-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extendable options = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roptions-attribute-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROptions &lt;attribute&gt; = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moptions-attribute-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      MOptions &lt;attribute&gt; = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ioptions-attribute-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      IOptions &lt;attribute&gt; = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comment-attribute-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comment &lt;attribute&gt; = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tooltip-attribute-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tooltip &lt;attribute&gt; = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tooltip-attribute-attribute-option-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tooltip &lt;attribute&gt; &lt;attribute option&gt; = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icon-comment-icon-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Icon comment &lt;icon&gt; = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options-attribute-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      Options &lt;attribute&gt; = boolean
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preset &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-text-string-or-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preset text = &lt;string&gt; or &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-on-edit-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preset on edit &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-on-reply-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preset on reply &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-on-first-reply-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preset on first reply &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-on-duplicate-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preset on duplicate &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locked-attributes-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Locked Attributes = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed-attributes-edit-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed Attributes Edit = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed-attributes-reply-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed Attributes Reply = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-attributes-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Attributes = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show-attributes-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show Attributes = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show-attributes-edit-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show Attributes Edit = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#propagate-attributes-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Propagate Attributes = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page-title-string_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Page title = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-page-title-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edit Page title = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-display-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      List display = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guest-list-display-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guest List display = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#link-display-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Link display = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-display-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread display = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-icon-attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread icon = &lt;attribute&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rss-title-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      RSS Title = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rss-entries-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      RSS Entries = &lt;n&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subst-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subst &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-on-reply-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove on reply = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quote-on-reply-0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quote on reply = 0 | 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reply-string-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reply string = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subst-on-reply-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subst on reply &lt;attribute &gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subst-on-edit-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subst on edit &lt;attribute &gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-filter-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick filter = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#last-default-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      Last default = &lt;n&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#format-attribute-flagscss_class_namecss_class_valuewidthsize" class="md-nav__link">
+    <span class="md-ellipsis">
+      Format &lt;attribute&gt; = &lt;flags&gt;,&lt;css_class_name&gt;,&lt;css_class_value&gt;,&lt;width&gt;,&lt;size&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type-attribute-date-datetime-numeric-userlist-useremail-muserlist-museremail" class="md-nav__link">
+    <span class="md-ellipsis">
+      Type &lt;attribute&gt; = date | datetime | numeric | userlist | useremail | muserlist | museremail
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#style-attribute-value-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Style &lt;attribute&gt; &lt;value&gt; = &lt;style&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cell-style-attribute-value-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cell Style &lt;attribute&gt; &lt;value&gt; = &lt;style&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-change-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Change &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execute-new-edit-delete-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      Execute new | edit | delete = &lt;command&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#last-submission-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Last submission = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-display-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      ID display = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prepend-on-reply-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prepend on reply = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#append-on-reply-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Append on reply = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prepend-on-edit-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prepend on edit = &lt;string&gt;**
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#append-on-edit-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Append on edit = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort-attributes-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sort Attributes = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conditional-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditional attributes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conditional attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#show-attributes-edit-list_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show Attributes Edit = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple conditions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conditions-in-the-list-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditions in the list display
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conditions in the list display">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-conditions-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      List conditions = 1
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#access-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Access control
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#password-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Password file
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Password file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#password-file-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Password file = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#login-expiration-hours" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login expiration = &lt;hours&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-user-user-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Admin user = &lt;user list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#login-user-user-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login user = &lt;user list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#self-register-01234" class="md-nav__link">
+    <span class="md-ellipsis">
+      Self register = 0|1|2|3|4
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-password-change-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allow password change = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-command-user-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allow &lt;command&gt; = &lt;user list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deny-command-user-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deny &lt;command&gt; = &lt;user list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hosts-allow-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hosts allow = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hosts-deny-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hosts deny = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kerberos-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kerberos authentication
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kerberos authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication = &lt;method(s)&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kerberos-realm-realm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kerberos Realm = &lt;realm&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication-webserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication = Webserver
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ldap-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      LDAP authentication
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pam-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      PAM authentication
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#email-notification" class="md-nav__link">
+    <span class="md-ellipsis">
+      EMail notification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="EMail notification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#email-type-normal-routine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Email type "Normal routine" = ...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flags
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flags">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#show-text-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show text = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-attachments-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable attachments = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show-attachments-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show attachments = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preview-attachments-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preview attachments = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-lines-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary lines = x
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-line-length-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary line length = x
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attachment-lines-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attachment lines = x
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reverse-sort-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reverse sort = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search-all-logbooks-012" class="md-nav__link">
+    <span class="md-ellipsis">
+      Search all logbooks = 0|1|2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-browsing-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable browsing = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtered-browsing-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filtered browsing = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-encoding-012" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default encoding = 0|1|2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allowed-encoding-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allowed encoding = &lt;n&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-html-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allow HTML = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suppress-default-0123" class="md-nav__link">
+    <span class="md-ellipsis">
+      Suppress default = 0|1|2|3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suppress-email-on-edit-0123" class="md-nav__link">
+    <span class="md-ellipsis">
+      Suppress Email on edit = 0|1|2|3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resubmit-default-012" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resubmit default = 0|1|2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resubmit-replies-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resubmit replies = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-email-recipients-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Display Email recipients = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#email-format-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      Email Format = &lt;n&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#email-encoding-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      Email Encoding = &lt;n&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max-email-attachment-size-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      Max email attachment size = &lt;n&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#back-to-main-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Back to main = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logout-to-main-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logout to main = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logout-to-url-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logout to URL = &lt;URL&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-after-submit-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      List after submit = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restrict-edit-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restrict edit = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expand-default-0123" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expand default = 0|1|2|3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hidden-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hidden = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hide-comments-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hide Comments = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-lock-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Lock = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show-top-groups-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show top groups = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fix-text-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix text = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-sensitive-search-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Case sensitive search = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-commands-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mode commands = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suppress-execute-default-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Suppress execute default = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preserve-ids-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preserve IDs = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collapse-to-last-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Collapse to last = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort-attribute-options-attribute-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sort Attribute Options &lt;attribute&gt; = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-branching-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allow branching = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-smileys-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Smileys = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh-seconds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refresh = &lt;seconds&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show-last-default-days" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show last default = &lt;days&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-drafts-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Save drafts = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autosave-seconds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autosave = &lt;seconds&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-drafts-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      List drafts = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hard-wrap-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hard wrap = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#themes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Themes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mirroring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirroring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mirroring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mirror-server-url-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirror server = &lt;URL-list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mirror-config-0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirror config = 0 | 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mirror-cron-minute-hour-day-month-weekday" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirror cron = Minute Hour Day Month Weekday
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mirror-user-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirror user = &lt;name&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mirror-simulate-0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirror simulate = 0 | 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mirror-exclude-0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirror exclude = 0 | 1
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../forum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Forum
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wishlist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Wishlist
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contrib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Demo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../download_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Download info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#global-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#port-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port = &lt;port&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssl-0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSL = &lt;0 | 1&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interface = &lt;interface&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-dir-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resource dir = &lt;directory&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logbook-dir-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logbook dir = &lt;directory&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language = &lt;name&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#charset-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      charset = &lt;name&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logbook-tabs-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logbook Tabs = [0|1]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-tab-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main Tab = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-tab-url-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main Tab URL = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#welcome-title-html-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Welcome Title = &lt;html code&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page-title-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Page title = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-page-title-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      List page title = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-page-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selection page = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guest-selection-page-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guest Selection page = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protect-selection-page-0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Protect Selection page = 0 | 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expand-selection-page-0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expand Selection page = 0 | 1'
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smtp-host-hostdomain" class="md-nav__link">
+    <span class="md-ellipsis">
+      SMTP host = &lt;host.domain&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smtp-username-username" class="md-nav__link">
+    <span class="md-ellipsis">
+      SMTP username = &lt;username&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smtp-port-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      SMTP port = &lt;port&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logfile-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logfile = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging-level-1-2-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging level = 1 | 2 | 3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#url-httpshostdomainportsubdir" class="md-nav__link">
+    <span class="md-ellipsis">
+      URL = &lt;http[s]://host.domain[:port]/[subdir/]&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relative-redirection-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relative redirection = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resolve-host-names-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resolve host names = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#groups-of-logbooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Groups of logbooks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#top-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Top groups
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#individual-logbook-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Individual logbook options
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      General options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="General options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-dir-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data dir = &lt;directory&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subdir-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subdir = &lt;directory&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comment-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comment = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theme-theme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Theme = &lt;theme&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#css-filename" class="md-nav__link">
+    <span class="md-ellipsis">
+      CSS = &lt;filename&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#title-image-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Title image = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#title-image-url-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      Title image URL = &lt;URL&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-format-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Time format = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-format-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Time format &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date-format-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Date format = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date-format-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Date format &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#welcome-page-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Welcome Page = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-page-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start page = &lt;command&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#submit-page-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Submit Page = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-comment-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message comment = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reply-comment-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reply comment = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attachment-comment-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attachment comment = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#menu-commands-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Menu commands = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy-to-logbook-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copy to = &lt;logbook list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-to-logbook-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Move to = &lt;logbook list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-menu-commands-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Menu commands = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guest-menu-commands-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guest Menu commands = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guest-list-menu-commands-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guest List Menu commands = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#menu-text-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Menu text = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-menu-text-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Menu text = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-menu-text-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filter Menu text = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guest-display-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guest Display = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top-text-file-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Top text = &lt;file&gt; | &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bottom-text-file-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bottom text = &lt;file&gt; | &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bottom-text-login-file-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bottom text login = &lt;file&gt; | &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#help-url-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      Help URL = &lt;URL&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-width-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Width = &lt;number&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-height-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Height = &lt;number&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-textarea-colsrows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Admin textarea = &lt;cols&gt;,&lt;rows&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-mode-fullsummarythreaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      Display mode = [full|summary|threaded]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entries-per-page-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entries per page = &lt;number&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restrict-edit-time-hours" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restrict edit time = &lt;hours&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-restrict-edit-time-hours" class="md-nav__link">
+    <span class="md-ellipsis">
+      Admin restrict edit time = &lt;hours&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max-content-length-bytes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Max content length = &lt;bytes&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fonts-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fonts = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#all-display-limit-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      All display limit = &lt;n&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thumbnail-size-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thumbnail size = &lt;size&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thumbnail-options-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thumbnail options = &lt;options&gt;
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attributes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attributes-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attributes = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options-attribute-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Options &lt;attribute&gt; = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extendable-options-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extendable options = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roptions-attribute-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROptions &lt;attribute&gt; = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moptions-attribute-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      MOptions &lt;attribute&gt; = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ioptions-attribute-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      IOptions &lt;attribute&gt; = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comment-attribute-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comment &lt;attribute&gt; = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tooltip-attribute-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tooltip &lt;attribute&gt; = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tooltip-attribute-attribute-option-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tooltip &lt;attribute&gt; &lt;attribute option&gt; = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icon-comment-icon-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Icon comment &lt;icon&gt; = &lt;comment&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options-attribute-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      Options &lt;attribute&gt; = boolean
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preset &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-text-string-or-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preset text = &lt;string&gt; or &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-on-edit-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preset on edit &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-on-reply-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preset on reply &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-on-first-reply-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preset on first reply &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-on-duplicate-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preset on duplicate &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locked-attributes-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Locked Attributes = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed-attributes-edit-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed Attributes Edit = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed-attributes-reply-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed Attributes Reply = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-attributes-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Attributes = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show-attributes-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show Attributes = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show-attributes-edit-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show Attributes Edit = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#propagate-attributes-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Propagate Attributes = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page-title-string_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Page title = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-page-title-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edit Page title = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-display-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      List display = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guest-list-display-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guest List display = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#link-display-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Link display = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-display-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread display = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-icon-attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      Thread icon = &lt;attribute&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rss-title-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      RSS Title = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rss-entries-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      RSS Entries = &lt;n&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subst-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subst &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-on-reply-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove on reply = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quote-on-reply-0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quote on reply = 0 | 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reply-string-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reply string = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subst-on-reply-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subst on reply &lt;attribute &gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subst-on-edit-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subst on edit &lt;attribute &gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-filter-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick filter = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#last-default-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      Last default = &lt;n&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#format-attribute-flagscss_class_namecss_class_valuewidthsize" class="md-nav__link">
+    <span class="md-ellipsis">
+      Format &lt;attribute&gt; = &lt;flags&gt;,&lt;css_class_name&gt;,&lt;css_class_value&gt;,&lt;width&gt;,&lt;size&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type-attribute-date-datetime-numeric-userlist-useremail-muserlist-museremail" class="md-nav__link">
+    <span class="md-ellipsis">
+      Type &lt;attribute&gt; = date | datetime | numeric | userlist | useremail | muserlist | museremail
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#style-attribute-value-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Style &lt;attribute&gt; &lt;value&gt; = &lt;style&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cell-style-attribute-value-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cell Style &lt;attribute&gt; &lt;value&gt; = &lt;style&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Change &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-change-attribute-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Change &lt;attribute&gt; = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execute-new-edit-delete-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      Execute new | edit | delete = &lt;command&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#last-submission-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Last submission = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-display-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      ID display = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prepend-on-reply-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prepend on reply = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#append-on-reply-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Append on reply = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prepend-on-edit-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prepend on edit = &lt;string&gt;**
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#append-on-edit-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Append on edit = &lt;string&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort-attributes-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sort Attributes = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conditional-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditional attributes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conditional attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#show-attributes-edit-list_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show Attributes Edit = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple conditions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conditions-in-the-list-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditions in the list display
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conditions in the list display">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-conditions-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      List conditions = 1
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#access-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      Access control
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#password-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Password file
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Password file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#password-file-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Password file = &lt;file&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#login-expiration-hours" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login expiration = &lt;hours&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-user-user-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Admin user = &lt;user list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#login-user-user-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login user = &lt;user list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#self-register-01234" class="md-nav__link">
+    <span class="md-ellipsis">
+      Self register = 0|1|2|3|4
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-password-change-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allow password change = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-command-user-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allow &lt;command&gt; = &lt;user list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deny-command-user-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deny &lt;command&gt; = &lt;user list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hosts-allow-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hosts allow = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hosts-deny-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hosts deny = &lt;list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kerberos-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kerberos authentication
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kerberos authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication = &lt;method(s)&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kerberos-realm-realm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kerberos Realm = &lt;realm&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication-webserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication = Webserver
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ldap-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      LDAP authentication
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pam-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      PAM authentication
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#email-notification" class="md-nav__link">
+    <span class="md-ellipsis">
+      EMail notification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="EMail notification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#email-type-normal-routine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Email type "Normal routine" = ...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flags
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flags">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#show-text-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show text = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-attachments-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable attachments = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show-attachments-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show attachments = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preview-attachments-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preview attachments = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-lines-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary lines = x
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-line-length-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary line length = x
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attachment-lines-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attachment lines = x
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reverse-sort-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reverse sort = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search-all-logbooks-012" class="md-nav__link">
+    <span class="md-ellipsis">
+      Search all logbooks = 0|1|2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-browsing-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable browsing = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtered-browsing-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filtered browsing = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-encoding-012" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default encoding = 0|1|2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allowed-encoding-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allowed encoding = &lt;n&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-html-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allow HTML = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suppress-default-0123" class="md-nav__link">
+    <span class="md-ellipsis">
+      Suppress default = 0|1|2|3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suppress-email-on-edit-0123" class="md-nav__link">
+    <span class="md-ellipsis">
+      Suppress Email on edit = 0|1|2|3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resubmit-default-012" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resubmit default = 0|1|2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resubmit-replies-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resubmit replies = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-email-recipients-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Display Email recipients = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#email-format-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      Email Format = &lt;n&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#email-encoding-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      Email Encoding = &lt;n&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max-email-attachment-size-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      Max email attachment size = &lt;n&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#back-to-main-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Back to main = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logout-to-main-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logout to main = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logout-to-url-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logout to URL = &lt;URL&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-after-submit-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      List after submit = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restrict-edit-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restrict edit = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expand-default-0123" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expand default = 0|1|2|3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hidden-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hidden = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hide-comments-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hide Comments = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-lock-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Lock = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show-top-groups-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show top groups = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fix-text-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fix text = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-sensitive-search-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Case sensitive search = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-commands-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mode commands = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suppress-execute-default-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Suppress execute default = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preserve-ids-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preserve IDs = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collapse-to-last-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Collapse to last = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort-attribute-options-attribute-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sort Attribute Options &lt;attribute&gt; = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-branching-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allow branching = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-smileys-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Smileys = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh-seconds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refresh = &lt;seconds&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show-last-default-days" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show last default = &lt;days&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-drafts-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Save drafts = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autosave-seconds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autosave = &lt;seconds&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-drafts-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      List drafts = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hard-wrap-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hard wrap = 0|1
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#themes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Themes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mirroring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirroring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mirroring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mirror-server-url-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirror server = &lt;URL-list&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mirror-config-0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirror config = 0 | 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mirror-cron-minute-hour-day-month-weekday" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirror cron = Minute Hour Day Month Weekday
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mirror-user-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirror user = &lt;name&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mirror-simulate-0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirror simulate = 0 | 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mirror-exclude-0-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mirror exclude = 0 | 1
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="elog-syntax-of-elogdcfg">ELOG - Syntax of elogd.cfg</h1>
 <p><em>Global and individual logbook options for an ELOG server</em></p>
 <hr />
 <p>The configuration file <strong><code>elogd.cfg</code></strong> contains entries which define the
@@ -2616,51 +6423,59 @@ local server simulates a web browser to send and retrieve messages to
 the remote server. It is however allowed that the remote server also
 contains some mirror settings in the configuration file, this way the
 synchronization can be started from both servers.</p>
-              
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../adminguide/" class="btn btn-neutral float-left" title="Admin guide"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../faq/" class="btn btn-neutral float-right" title="FAQ">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
           
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-    
-      <span><a href="../adminguide/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../faq/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
 </div>
-    <script src="../js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = "..";</script>
-    <script src="../js/theme_extra.js"></script>
-    <script src="../js/theme.js"></script>
-      <script src="../search/main.js"></script>
-    <script>
-        jQuery(function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        });
-    </script>
-
-</body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
 </html>

@@ -5,6 +5,8 @@ Ritt](mailto:Stefan.Ritt@psi.ch)
 
 *Current version: 3.1.4*
 
+[PDF version](https://elog.psi.ch/elog/pdf/document.pdf)
+
 ---
 
 ## What is ELOG ?  

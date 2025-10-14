@@ -12,6 +12,10 @@ nav:
   - Wishlist: wishlist.md
   - Contributions: contrib.md
   - Demo: demo.md
-  - Download: download.md
+  - Download info: download_info.md
 
-theme: readthedocs
+theme: material 
+
+plugins:
+  - to-pdf
+
