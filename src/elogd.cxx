@@ -8347,7 +8347,7 @@ int exist_file(char *file_name) {
 
 /*------------------------------------------------------------------*/
 
-void send_file_direct(char *file_name) {
+void send_file_direct(char *file_name, bool allow_html) {
    int fh, i, length, delta;
    char str[MAX_PATH_LENGTH], dir[MAX_PATH_LENGTH], charset[80];
 
@@ -8388,20 +8388,24 @@ void send_file_direct(char *file_name) {
          strcpy(charset, DEFAULT_HTTP_CHARSET);
 
       if (filetype[i].ext[0]) {
-         if (strncmp(filetype[i].type, "text", 4) == 0)
-            rsprintf("Content-Type: %s;charset=%s\r\n", filetype[i].type, charset);
-         else if (strcmp(filetype[i].ext, ".SVG") == 0) {
-            rsprintf("Content-Type: %s\r\n", filetype[i].type);
-            if (strrchr(file_name, '/'))
-               strlcpy(str, strrchr(file_name, '/')+1, sizeof(str));
-            else
-               strlcpy(str, file_name, sizeof(str));
-            if (str[6] == '_' && str[13] == '_')
-               rsprintf("Content-Disposition: attachment; filename=\"%s\"\r\n", str+14);
-            else
-               rsprintf("Content-Disposition: attachment; filename=\"%s\"\r\n", str);
-         } else
-            rsprintf("Content-Type: %s\r\n", filetype[i].type);
+         if (!allow_html && strcmp(filetype[i].type, "text/html") == 0) {
+            rsprintf("Content-Type: text/plain;charset=%s\r\n", charset);
+         } else {
+            if (strncmp(filetype[i].type, "text", 4) == 0)
+               rsprintf("Content-Type: %s;charset=%s\r\n", filetype[i].type, charset);
+            else if (strcmp(filetype[i].ext, ".SVG") == 0) {
+               rsprintf("Content-Type: %s\r\n", filetype[i].type);
+               if (strrchr(file_name, '/'))
+                  strlcpy(str, strrchr(file_name, '/') + 1, sizeof(str));
+               else
+                  strlcpy(str, file_name, sizeof(str));
+               if (str[6] == '_' && str[13] == '_')
+                  rsprintf("Content-Disposition: attachment; filename=\"%s\"\r\n", str + 14);
+               else
+                  rsprintf("Content-Disposition: attachment; filename=\"%s\"\r\n", str);
+            } else
+               rsprintf("Content-Type: %s\r\n", filetype[i].type);
+         }
       } else if (is_ascii(file_name))
          rsprintf("Content-Type: text/plain;charset=%s\r\n", charset);
       else
@@ -9525,7 +9529,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
          strlcpy(file_name, logbook_dir, sizeof(file_name));
          strlcat(file_name, str, sizeof(file_name));
       }
-      send_file_direct(str);
+      send_file_direct(str, true);
       return;
    }
 
@@ -9538,7 +9542,7 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
          strlcpy(file_name, logbook_dir, sizeof(file_name));
          strlcat(file_name, str, sizeof(file_name));
       }
-      send_file_direct(str);
+      send_file_direct(str, true);
       return;
    }
 
@@ -23679,7 +23683,7 @@ void submit_elog(LOGBOOK *lbs) {
          strlcpy(file_name, logbook_dir, sizeof(file_name));
          strlcat(file_name, str, sizeof(file_name));
       }
-      send_file_direct(file_name);
+      send_file_direct(file_name, true);
       return;
    }
 
@@ -24318,7 +24322,7 @@ void show_elog_entry(LOGBOOK *lbs, char *dec_path, char *command) {
          strlcpy(file_name, logbook_dir, sizeof(file_name));
          strlcat(file_name, str, sizeof(file_name));
       }
-      send_file_direct(str);
+      send_file_direct(str, true);
       return;
    }
 
@@ -26643,7 +26647,7 @@ void show_selection_page(void) {
          strlcpy(file_name, logbook_dir, sizeof(file_name));
          strlcat(file_name, str, sizeof(file_name));
       }
-      send_file_direct(file_name);
+      send_file_direct(file_name, true);
       return;
    }
 
@@ -27358,7 +27362,7 @@ void interprete(char *lbook, const char *path)
             strlcpy(file_name, logbook_dir, sizeof(file_name));
             strlcat(file_name, str, sizeof(file_name));
          }
-         send_file_direct(file_name);
+         send_file_direct(file_name, true);
          return;
       }
 
@@ -27513,7 +27517,7 @@ void interprete(char *lbook, const char *path)
       strlcpy(str, resource_dir, sizeof(str));
       strlcat(str, path, sizeof(str));
       if (exist_file(str)) {
-         send_file_direct(str);
+         send_file_direct(str, true);
          return;
       } else {
          /* else search file in themes directory */
@@ -27524,7 +27528,7 @@ void interprete(char *lbook, const char *path)
          strlcat(str, DIR_SEPARATOR_STR, sizeof(str));
          strlcat(str, path, sizeof(str));
          if (exist_file(str)) {
-            send_file_direct(str);
+            send_file_direct(str, true);
             return;
          }
       }
@@ -27778,6 +27782,8 @@ void interprete(char *lbook, const char *path)
    if (strchr(pfile, '/') && pfile[13] != '/' && isdigit(pfile[0]))
       pfile = strchr(pfile, '/') + 1;
 
+   bool allow_html = false;
+
    if ((strlen(pfile) > 13 && pfile[6] == '_' && pfile[13] == '_') || (strlen(pfile) > 13 && pfile[6] == '_'
                                                                        && pfile[13] == '/')
        || chkext(pfile, ".gif") || chkext(pfile, ".ico") || chkext(pfile, ".jpg")
@@ -27795,6 +27801,7 @@ void interprete(char *lbook, const char *path)
          strlcat(file_name, pfile, sizeof(file_name));
       } else {
          /* file from theme directory requested */
+         allow_html = true;
          strlcpy(file_name, resource_dir, sizeof(file_name));
          if (file_name[0] && file_name[strlen(file_name)
                                        - 1] != DIR_SEPARATOR)
@@ -27811,11 +27818,11 @@ void interprete(char *lbook, const char *path)
       if (isparam("thumb")) {
          get_thumb_name(file_name, thumb_name, sizeof(thumb_name), 0);
          if (thumb_name[0])
-            send_file_direct(thumb_name);
+            send_file_direct(thumb_name, allow_html);
          else
-            send_file_direct(file_name);
+            send_file_direct(file_name, allow_html);
       } else
-         send_file_direct(file_name);
+         send_file_direct(file_name, allow_html);
       return;
    }
 
@@ -27908,7 +27915,7 @@ void interprete(char *lbook, const char *path)
             show_error(str);
          } else {
             fclose(f);
-            send_file_direct(file_name);
+            send_file_direct(file_name, true);
          }
          return;
       }
@@ -27930,7 +27937,7 @@ void interprete(char *lbook, const char *path)
          redirect(lbs, "https://elog.psi.ch/elog/eloghelp_english.html");
       else {
          fclose(f);
-         send_file_direct(file_name);
+         send_file_direct(file_name, true);
       }
       return;
    }
@@ -27953,7 +27960,7 @@ void interprete(char *lbook, const char *path)
          redirect(lbs, "https://elog.psi.ch/elog/elcode_english.html");
       else {
          fclose(f);
-         send_file_direct(file_name);
+         send_file_direct(file_name, true);
       }
       return;
    }
@@ -28151,7 +28158,7 @@ void interprete(char *lbook, const char *path)
       getcfg("global", "Allow clone", allow, sizeof(allow));
       if (atoi(allow) == 1) {
          if (get_password_file(lbs, file_name, sizeof(file_name)))
-            send_file_direct(file_name);
+            send_file_direct(file_name, false);
       } else {
          show_http_header(NULL, FALSE, NULL, 200);
          rsputs(loc("Cloning not allowed. Set \"Allow clone = 1\" to enable cloning."));
@@ -28350,7 +28357,7 @@ void interprete(char *lbook, const char *path)
          strlcpy(file_name, resource_dir, sizeof(file_name));
          strlcat(file_name, str, sizeof(file_name));
       }
-      send_file_direct(file_name);
+      send_file_direct(file_name, true);
       return;
    }
 
@@ -29000,7 +29007,7 @@ int process_http_request(const char *crequest, int i_conn) {
       strlcat(str, DIR_SEPARATOR_STR, strsize);
       strlcat(str, url, strsize);
       if (exist_file(str)) {
-         send_file_direct(str);
+         send_file_direct(str, true);
          xfree(str);
          xfree(request);
          return 1;
@@ -29104,7 +29111,7 @@ int process_http_request(const char *crequest, int i_conn) {
       strlcpy(str, resource_dir, strsize);
       strlcat(str, logbook, strsize);
       if (exist_file(str))
-         send_file_direct(str);
+         send_file_direct(str, true);
       else {
          /* else search file in themes directory */
          strlcpy(str, resource_dir, strsize);
@@ -29116,7 +29123,7 @@ int process_http_request(const char *crequest, int i_conn) {
             strlcat(str, "default", strsize);
          strlcat(str, DIR_SEPARATOR_STR, strsize);
          strlcat(str, logbook, strsize);
-         send_file_direct(str);
+         send_file_direct(str, true);
       }
       xfree(str);
       xfree(request);
