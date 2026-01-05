@@ -1,25 +1,99 @@
-# Build ELOG with GCC 6.5 and latest
-image: gcc:6.5
+# ELOG Application
+
+# This template allows you to validate your C++ application.
+# The workflow allows running tests and code linting on the default branch.
+
+image: gcc:latest
+
 
 pipelines:
   default:
-    - step:
-        name: Build on GCC 6.5
-        image: gcc:6.5
-        script:
-          - apt-get -qq update && apt-get -y --force-yes -qq install cmake
-          - git submodule update --init
-          - mkdir build; cd build
-          - cmake ..
-          - make
+      - step:
+          name: Build run and test
+          image: gcc:latest
+          deployment: test
+          script:
+            # Execute your C++ application after compilation to check success
+            - apt-get -qq update && apt-get -y --force-yes -qq install cmake wget lsof
+            - git submodule update --init
+            # Add elog user
+            - groupadd -r elog
+            - useradd -d / -s /bin/false -g elog -M -r elog
+            # Build elog
+            - mkdir build; cd build
+            - cmake ..
+            - make
+            # Install in default /usr/local/elog
+            - echo "install in test environment"
+            - make install
+            # Start elogd
+            - echo "Start ELOG"
+            - /usr/local/sbin/elogd -v 3 -c /usr/local/elog/elogd.cfg 2>&1 &
+            - sleep 5
+            - if [ -f /var/run/elogd.pid ]; then cat /var/run/elogd.pid ; fi
+            # Check open files
+            - lsof -p $(cat /var/run/elogd.pid)
+            # Test Web page
+            - echo "test web"
+            - sleep 3
+            - wget http://localhost:8080 && true || false
+      - parallel:
+          steps:
+            - step:
+                name: Build on EL7
+                image: mydumper/mydumper-builder-el7
+                # trigger: manual  # Uncomment to make this a manual deployment.
+                script:
+                  - echo "Deploying to test environment"
+                  - yum -y update && yum -y install rpm-build gcc gcc-c++ git openssl-devel krb5-devel pam-devel openldap-devel csh which
+                  - git submodule update --init
+                  # git clone https://bitbucket.org/ritt/elog --recursive
+                  - ./buildrpm 3.1.5 $(date +%Y%m%d) -krb5 -ldap -pam -ssl
+                  - mkdir RPMS
+                  - find ~/rpmbuild/RPMS/ -name "*.rpm" -exec mv {} RPMS \;
+                  - ls -l RPMS
+                artifacts: # defining the artifacts to be passed to each future step.
+                  download: false # do not download artifacts in this step
+                  paths:
+                    - RPMS/*.rpm
+            - step:
+                name: Build on EL8
+                image: lj020326/centos8-systemd
+                # trigger: manual  # Uncomment to make this a manual deployment.
+                script:
+                  - echo "Deploying to test environment"
+                  - yum -y update && yum -y install rpm-build gcc gcc-c++ git openssl-devel krb5-devel pam-devel openldap-devel csh make cmake
+                  - git submodule update --init
+                  # git clone https://bitbucket.org/ritt/elog --recursive
+                  - ./buildrpm 3.1.5 $(date +%Y%m%d) -krb5 -ldap -pam -ssl
+                  - mkdir RPMS
+                  - find ~/rpmbuild/RPMS/ -name "*.rpm" -exec mv {} RPMS \;
+                  - ls -l RPMS
+                artifacts: # defining the artifacts to be passed to each future step.
+                  download: false # do not download artifacts in this step
+                  paths:
+                    - RPMS/*.rpm
+            - step:
+                name: Build on EL9
+                image: dokken/centos-stream-9
+                # trigger: manual  # Uncomment to make this a manual deployment.
+                script:
+                  - echo "Deploying to test environment"
+                  - yum -y update && yum -y install rpm-build gcc gcc-c++ git openssl-devel krb5-devel pam-devel openldap-devel csh
+                  - git submodule update --init
+                  # git clone https://bitbucket.org/ritt/elog --recursive
+                  - ./buildrpm 3.1.5 $(date +%Y%m%d) -krb5 -ldap -pam -ssl
+                  - mkdir RPMS
+                  - find ~/rpmbuild/RPMS/ -name "*.rpm" -exec mv {} RPMS \;
+                  - ls -l RPMS
+                artifacts: # defining the artifacts to be passed to each future step.
+                  download: false # do not download artifacts in this step
+                  paths:
+                    - RPMS/*.rpm
+      - step: # non-parallel step
+          name: Deployement
+          deployment: staging
+          script:
+            - echo "Deliver results"
+            - ls -l RPMS
 
-    - step:
-        name: Build on GCC latest
-        image: gcc:latest
-        script:
-          - gcc --version
-          - apt-get -qq update && apt-get -y --force-yes -qq install cmake
-          - git submodule update --init
-          - mkdir build; cd build
-          - cmake ..
-          - make

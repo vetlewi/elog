@@ -1,3 +1,8 @@
+Version 3.1.6, released October 14th, 2025
+==========================================
+
+- Fixed XSS vulnerability
+
 Version 3.1.5, released January 31st, 2023
 ==========================================
 

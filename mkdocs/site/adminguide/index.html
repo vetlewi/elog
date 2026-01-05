@@ -1,0 +1,1201 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../userguide/">
+      
+      
+        <link rel="next" href="../config/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Admin guide - ELOG Electronic Logbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#elog-administrators-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ELOG Electronic Logbook" class="md-header__button md-logo" aria-label="ELOG Electronic Logbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ELOG Electronic Logbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Admin guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ELOG Electronic Logbook" class="md-nav__button md-logo" aria-label="ELOG Electronic Logbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ELOG Electronic Logbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../userguide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Admin guide
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Admin guide
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-and-running-on-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing and running on Linux
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing and running on Linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation-from-the-rpm-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation from the RPM file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-from-the-tarball" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation from the tarball
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes-for-various-platforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes for various platforms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notes for various platforms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mac-os-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mac OS X
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debian" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solaris" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solaris
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#freebsd" class="md-nav__link">
+    <span class="md-ellipsis">
+      FreeBSD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-elogd-under-apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running elogd under Apache
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-apache-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using apache authentication
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-imagemagick" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing ImageMagick
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-and-running-in-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing and running in Windows
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secure-connections-howto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secure Connections HOWTO
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Secure Connections HOWTO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-elogd-itself" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using elogd itself
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Apache
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using ssh
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-all-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How It All Works
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Config file
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../forum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Forum
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wishlist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Wishlist
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contrib/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../demo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Demo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../download_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Download info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-and-running-on-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing and running on Linux
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing and running on Linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation-from-the-rpm-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation from the RPM file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-from-the-tarball" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation from the tarball
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes-for-various-platforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes for various platforms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notes for various platforms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mac-os-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mac OS X
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debian" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debian
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solaris" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solaris
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#freebsd" class="md-nav__link">
+    <span class="md-ellipsis">
+      FreeBSD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-elogd-under-apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running elogd under Apache
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-apache-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using apache authentication
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-imagemagick" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing ImageMagick
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-and-running-in-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing and running in Windows
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secure-connections-howto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secure Connections HOWTO
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Secure Connections HOWTO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-elogd-itself" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using elogd itself
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Apache
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using ssh
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-all-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How It All Works
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="elog-administrators-guide">ELOG Administrator's Guide</h1>
+<p><em>How to set up and run your very own ELOG server</em></p>
+<hr />
+<h2 id="installing-and-running-on-linux">Installing and running on Linux</h2>
+<h3 id="installation-from-the-rpm-file">Installation from the RPM file</h3>
+<p>Since version 2.0, ELOG contains a RPM file which eases the
+installation. Get the file
+<strong><code>elog-x.x.x-x.i386.rpm</code></strong> from the <code>[download](http://elog.psi.ch/elog/download/RPMS/)</code> section and execute as root <strong><code>"rpm -i elog-x.x.x-x.i386.rpm"</code></strong>. This will install the <code>**elogd**</code> daemon in <strong><code>/usr/local/sbin</code></strong> and the <strong><code>elog</code></strong> and <strong><code>elconv</code></strong> programs in <strong><code>/usr/local/bin</code></strong>. The sample configuration file <strong><code>elogd.cfg</code></strong> together with the sample logbook will be installed under <strong><code>/usr/local/elog</code></strong> and the documentation goes to <strong><code>/usr/share/doc</code></strong>. The elogd startup script will be installed at <strong><code>/etc/rc.d/init.d/elogd</code></strong>. To start the daemon, enter `</p>
+<ul>
+<li><code>/etc/rc.d/init.d/elogd start</code></li>
+</ul>
+<p>It will listen under the port specified in
+<strong><code>/usr/local/elog/elogd.cfg</code></strong> which is 8080 by default. So one can
+connect using any browser with the URL:</p>
+<ul>
+<li><code>http://localhost:8080</code></li>
+</ul>
+<p>To start the daemon automatically, enter:</p>
+<ul>
+<li><code>chkconfig --add elogd</code>
+  <code>chkconfig --level 345 elogd on</code></li>
+</ul>
+<p>which will start the daemon on run levels 3,4 and 5 after the next
+reboot.</p>
+<p>Note that the RPM installation creates a user and group <strong><code>elog</code></strong>,
+under which the daemon runs.</p>
+<p>To start the daemon on non-RedHat systems, like SuSE or Solaris, a more
+generic startup scrips has been provided by Steve Jones in the
+<a href="http://elog.psi.ch/elogs/Contributions/9">Contributions</a> section.</p>
+<h3 id="installation-from-the-tarball">Installation from the tarball</h3>
+<p><a href="http://elog.psi.ch/elog/download/">Download</a> the latest
+<strong><code>elog-x.x.x.tar.gz</code></strong> package.`</p>
+<p>Make sure you have the <strong>libssl-dev</strong> package installed. Consult your
+distribution for details.</p>
+<p>Expand the compressed TAR file with
+<strong><code>tar -xzvf elog-x.x.x.tar.gz</code></strong>. This creates a subdirectory <strong><code>elog-x.x.x</code></strong> where x.x.x is the version number. In that directory execute <strong><code>make</code></strong>, which creates the executables <strong><code>elogd</code></strong>, <strong><code>elog</code></strong> and <strong><code>elconv</code></strong>. On some systems like OpenBSD you have to execut <strong><code>gmake</code></strong>. These executables can then be copied to a convenient place like <strong><code>/usr/local/bin</code></strong> or <strong><code>~/bin</code></strong>. Alternatively, a <strong><code>"make install"</code></strong> will copy the daemon <strong><code>elogd</code></strong> to <strong><code>SDESTDIR</code></strong> (by default <strong><code>/usr/local/sbin</code></strong>) and the other files to <strong><code>DESTDIR</code></strong> (by default <strong><code>/usr/local/bin</code></strong>). These directories can be changed in the Makefile. The <strong><code>elogd</code></strong> executable can be started manually for testing with : `</p>
+<p><code>elogd -p 8080</code></p>
+<p>where the <strong>-p</strong> flag specifies the port. Without the <strong>-p</strong> flag, the
+server uses the standard WWW port 80. Note that ports below 1024 can
+only be used if <strong><code>elogd</code></strong> is started under root, or the "<em>sticky
+bit</em>" is set on the executable.</p>
+<p>When <strong><code>elogd</code></strong> is started under root, it attaches to the specified
+port and tries to fall-back to a non-root account. This is necessary to
+avoid security problems. It looks in the configuration file for the
+statements <strong><code>Usr</code></strong> and <strong><code>Grp.</code></strong>. If found, <strong><code>elogd</code></strong> uses that
+user and goupe name to run under. The names must of course be present on
+the system (usually <strong><code>/etc/passwd</code> and </strong><code>/etc/group</code>). If the
+statements <strong><code>Usr</code></strong> and <strong><code>Grp.</code></strong> are not present, <strong><code>elogd</code></strong> tries
+user and group <strong><code>elog</code></strong>, then the default user and group (normally
+<strong><code>nogroup</code></strong> and <strong><code>nobody</code></strong>). Care has to be taken that <strong><code>elogd</code></strong>,
+when running under the specific user and group account, has read and
+write access to the configuration file and logbook directories. Note
+that the RPM installation automatically creates a user and group
+<strong><code>elog</code></strong>.</p>
+<p>If the program complains with something like "<em>cannot bind to
+port</em>...", it could be that the network is not started on the Linux
+box. This can be checked with the <strong><code>/sbin/ifconfig</code></strong> program, which
+must show that <strong><code>eth0</code></strong> is up and running.</p>
+<p>The distribution contains a sample configuration file <strong><code>elogd.cfg</code></strong>
+and a demo logbook in the <em>demo</em> subdirectory. If the <strong><code>elogd</code></strong> server
+is started in the <em>elogd-x.x.x</em> directory, the demo logbook can be
+directly accessed with a browser by specifying the URL
+<strong>http://localhost:8080</strong> (or whatever port you started the elog daemon
+on). If the <strong><code>elogd</code></strong> server is started in some other directory, you
+must specify the full path of the <strong><code>elogd</code></strong> file with the <strong>"-c"</strong>
+flag and change the <strong>Data dir =</strong> option in the configuration file to a
+full path like <strong>/usr/local/elog</strong>.</p>
+<p>Once testing is complete, <strong><code>elogd</code></strong> will typically be started with the
+<strong><code>-D</code></strong> flag to run as a <em>daemon</em> in the background, like this :</p>
+<p><code>elogd -p 8080 -c /usr/local/elog/elogd.cfg -D</code></p>
+<p><em>Note that it is mandatory to specify the full path for the </em><em><code>elogd</code></em><em>
+file when started as a daemon.</em></p>
+<p>To test the daemon, connect to your host via :</p>
+<p><code>http://your.host:8080/</code></p>
+<p>If port 80 is used, the port can be omitted in the URL. If several
+logbooks are defined on a host, they can be specified in the URL :</p>
+<p><code>http://your.host/&lt;logbook&gt;</code></p>
+<p>where <code>&lt;logbook&gt;</code> is the name of the logbook.</p>
+<p>The contents of the all-important configuration file <strong><code>elogd.cfg</code></strong> are
+described in <a href="../config/">Config</a>.</p>
+<h2 id="notes-for-various-platforms">Notes for various platforms</h2>
+<p>This section contains notes for installing and running elog under various operating systems.</p>
+<h3 id="mac-os-x">Mac OS X</h3>
+<p>Under Mac OSX, <strong>ELOG</strong> must be compiled from the source code. The OSX
+command line tools (compiler &amp; Co) must be available, which can be done
+thought he free Xcode package which can be obtained though the App
+Store. Once Xcode is installed, you can do a <code>xcode-select --install</code> to
+install the command line tools. After that, a simple <code>make</code> in in the
+elog directory does the job of compiling ELOG. If SSL support is needed
+(access via https://...), you have to install OpenSSL and turn on SSL
+support in the Makefile by setting <code>USE_SSL = 1</code>. You can install
+OpenSSL for example through the <a href="https://www.macports.org">MacPorts</a>
+project. After having installed MacPorts, you do a
+<code>sudo port install openssl</code>.</p>
+<p>After successful compilation, you do a <code>sudo make install</code> to install
+all required files under the installation directory, which is by default
+<code>/usr/local/</code>. A subdirectory <code>/usr/local/elog</code> is created which
+contains a simple example logbook. The ELOG server can now be started
+either manually with</p>
+<p><code>/usr/local/sbin/elogd</code></p>
+<p>or through the daemon servics with</p>
+<pre><code class="language-text">sudo launchctl enable system/ch.psi.elogd
+sudo launchctl bootstrap system /Library/LaunchDaemons/ch.psi.elogd.plist
+</code></pre>
+<p>To stop the service, use</p>
+<pre><code class="language-text">sudo launchctl bootout system /Library/LauchDaemons/ch.psi.elogd.plist
+sudo launchctl disable system/ch.psi.elogd
+</code></pre>
+<h3 id="debian">Debian</h3>
+<p>A Debian package is available under <a href="https://tracker.debian.org/pkg/elog">https://tracker.debian.org/pkg/elog</a>.</p>
+<h3 id="solaris">Solaris</h3>
+<p><a href="mailto:huber@secaron.de">Martin Huber</a> reports that under Solaris 7 the
+following command line is needed to compile elog:</p>
+<p><code>gcc -L/usr/lib/ -ldl -lresolv -lm -ldl -lnsl -lsocket elogd.c -o elogd</code></p>
+<p>With some combinations of Solaris servers and client-side browsers there
+have also been problems with <strong>ELOG</strong>'s <em>keep-alive</em> feature. In such a
+case you need to add the "<strong>-k</strong>" flag to the <strong><code>elogd</code></strong> command line
+to turn keep-alives off.</p>
+<h3 id="freebsd">FreeBSD</h3>
+<p><a href="mailto:ottodavid@gmx.net">David Otto</a> maintains the <a href="http://www.freshports.org/www/elog">ELOG port for
+FreeBSD</a>. To install ELOG on a
+FreeBSD system, you can simply type</p>
+<pre><code class="language-text">cd /usr/ports/www/elog
+make install clean
+</code></pre>
+<h2 id="running-elogd-under-apache">Running elogd under Apache</h2>
+<p>For cases where <strong><code>elogd</code></strong> should run under port 80 in parallel to an
+Apache server, Apache can be configured to run Elog in a subdirectory of
+Apache. Start <strong><code>elogd</code></strong> normally under port 8080 (or similarly) as
+noted above and make sure it's working there. Then put following
+redirection into the Apache configuration file:</p>
+<pre><code class="language-text">Redirect permanent /elog http://your.host.domain/elog/
+ProxyPass /elog/ http://your.host.domain:8080/
+</code></pre>
+<p>Make sure that the Apache modules mod_proxy.c and mod_alias.c are
+activated. Justin Dieters \&lt;enderak@yahoo.com&gt; reports that
+mod_proxy_http.c is also required. The <em>Redirect</em> statement is necessary
+to automatically append a "/" to a request like
+<strong><code>http://your.host.domain/elog</code></strong>. Apache then works as a proxy and forwards all requests staring with <strong><code>/elog</code></strong> to the elogd daemon.</p>
+<p><strong>Note</strong>: Do not put <code>"ProxyRequests On"</code> into your configuration file.
+This option is not necessary and can be misused for spamming and proxy
+forwarding of otherwise blocked sites.</p>
+<p>Because <strong><code>elogd</code></strong> uses links to itself (for example in the email
+notification and the redirection after a submit), it has to know under
+which URL it is running. If you run it under a proxy, you have to add
+the line:</p>
+<p><code>URL = http://your.proxy.host/subdir/</code></p>
+<p>into elogd.cfg.</p>
+<h2 id="using-apache-authentication">Using apache authentication</h2>
+<p>It is also possible to login via an apache-auth module.
+In elogd.cfg you should use the keyword "Webserver" for
+Authentication:</p>
+<p><code>Authentication = Webserver</code></p>
+<p>This triggers elogd to use the environment variable "X-Forwarded-User"
+as the logged in user.
+A simple example of a apache configuration (including the proxy) is :</p>
+<pre><code class="language-text"># this required to pass on the generated env-variable X-Forwarded-User to the proxy 
+ProxyPassInterpolateEnv On
+
+ProxyPass /elog/ http://your.host.domain:8080/
+
+&lt;Location  &quot;/elog&quot;&gt;
+    Order allow,deny
+    Allow from all     
+    AuthType Basic
+    AuthName &quot;elog-server&quot;
+    AuthUserFile &quot;/opt/elog/htpasswd&quot;
+    require valid-user
+    RequestHeader unset Authorization
+    RequestHeader add X-Forwarded-User %{REMOTE_USER}s
+    # elog doesn't like the '@', so we need to cut it
+    RequestHeader edit X-Forwarded-User &quot;@(.*)$&quot; &quot;&quot;
+&lt;/Location&gt;
+</code></pre>
+<h2 id="installing-imagemagick">Installing ImageMagick</h2>
+<p>When images are attached to ELOG entries, thumbnails can be created for
+quick preview. This works also for PDF and PostScript files. ELOG
+forwards any image operation to the ImageMagic and GhostScript packages,
+which must be installed for this to work. While these packages are
+installed on most Linux systems, windows users have to download and
+install these pagages manually. ImageMagick can be obtained from
+<a href="http://www.imagemagick.org/">www.imagemagick.org</a> and GhostScript can
+be obtained from <a href="http://pages.cs.wisc.edu/~ghost/">http://pages.cs.wisc.edu/~ghost/</a>. After the
+installation, it has to be made sure that both packages are in the path.
+This can be checked to open a command prompt and typing
+<strong><code>identify -version</code></strong>. This command should return someting like:</p>
+<pre><code class="language-text">C:\&gt;identify -version
+Version: ImageMagick 6.3.8 01/25/08 Q16 http://www.imagemagick.org
+Copyright: Copyright (C) 1999-2008 ImageMagick Studio LLC
+</code></pre>
+<p>When ELOG is started interactively, it checks for the ImageMagick
+installation and shows a note if it is found:</p>
+<pre><code class="language-text">C:\Program Files\ELOG&gt;elogd
+elogd 2.7.2 built Feb 21 2008, 20:00:42 revision 2051
+ImageMagick detected
+Indexing logbooks ... done
+Server listening on port 8080 ...
+</code></pre>
+<p>If ImageMagick is not installed, the thumbnail functions are simply
+disabled, but ELOG can otherwise run normally.</p>
+<h2 id="installing-and-running-in-windows">Installing and running in Windows</h2>
+<p><strong>ELOG</strong> is distributed in binary (executable) form for Windows
+platforms. It will run happily in <em>console mode</em> (or "<em>DOS box</em>")
+under Windows 9x and ME. Under Windows NT and 2000 it is also possible
+to run it as a <em>service</em> (the Windows equivalent of a UNIX <em>daemon</em>).</p>
+<p><a href="http://elog.psi.ch/elog/download/windows">Download</a> the latest
+<strong><code>elogxxx.exe</code></strong> file and execute it. The installer puts the <strong>ELOG</strong>
+system into a directory you specify and adds some menu shortcuts. With
+these shortcuts, the daemon <code>elogd.exe</code> can be started directly and the
+demo logbook can be accessed with the browser. Alternatively, the
+<code>elogd.exe</code> daemon can be registered as a service under Windows
+NT/2000/XP, so it gets started automatically when windows boots. This
+can be selected during installation or be done manually with the start
+menu shortcuts.</p>
+<p>While the pre-2.5.3 methods of installing elogd.exe as a daemon (namely
+FireDaemon and srvany.exe) are still possible, they are not recommended
+any more.</p>
+<p>Under Windows, the ports below 1024 can be used without restriction. So
+if no web server is running on the same PC the <strong>ELOG</strong> daemon can be
+started under the standard Web port 80. This is achieved by changing the
+<strong><code>port=8080</code></strong> option in <code>elogd.cfg</code> to
+<strong><code>port=80</code></strong><code>and restarting elogd.</code></p>
+<h2 id="server-configuration">Server Configuration</h2>
+<p>[The <strong>ELOG</strong> daemon <strong><code>elogd</code></strong> can be executed with the following
+options :]{#config}</p>
+<pre><code class="language-text">elogd [-p port] [-n hostname/IP] [-C] [-m] [-M] [-D] [-c file] [-s dir] [-d dir] [-v] [-k] [-f file] [-x]
+
+with :
+
+`-p &lt;port&gt;`  TCP port number to use for the http server (if other than 80)
+`-n &lt;hostname or IP address&gt;` in the case of a &quot;multihomed&quot; server, host name or IP address of the interface ELOG should run on
+`-C &lt;url&gt;`  clone remote elogd configuration 
+`-m`  synchronize logbook(s) with remote server
+`-M`  synchronize with removing deleted entries
+`-l &lt;logbook&gt;`  optionally specify logbook for -m and -M commands
+`-D`   become a daemon (Unix only)
+`-c &lt;file&gt;`  specify the configuration file (full path mandatory if -D is used)
+`-s &lt;dir&gt;` specify resource directory (themes, icons, \...)
+`-d &lt;dir&gt;` specify logbook root directory
+`-v  ` verbose output for debugging
+`-k  ` do not use TCP keep-alive
+`-f &lt;file&gt;` specify PID file where elogd process ID is written when server is started
+`-x  `enables execution of shell commands
+</code></pre>
+<p>The appearance, functionality and behaviour of the various logbooks on
+an <strong>ELOG</strong> server are determined by the single <strong><code>elogd.cfg</code></strong> file in
+the <strong>ELOG</strong> installation directory.</p>
+<p>This file may be edited directly from the file system, or from a form in
+the <strong>ELOG</strong> Web interface (when the <em>Config</em> menu item is available).
+In this case, changes are applied dynamically without having to restart
+the server. Instead of restarting the server, under Unix one can send a
+HUP signal like <strong><code>"killall -HUP elogd"</code></strong> to tell the server to re-read
+its configuration.</p>
+<p>The many options of this unique but very important file are documented
+on the separate <strong><a href="../config/">elogd.cfg syntax page</a></strong>.</p>
+<p>To better control appearance and layout of the logbooks, <strong><code>elogd.cfg</code></strong>
+may optionally specify the use of additional files containing HTML code,
+and/or custom "<em>themes</em>" configurations. These need to be edited
+directly from the file system right now.</p>
+<p>The meaning of the directory flags <strong><code>-s</code> and </strong><code>-d</code> is explained in the
+section covering the configuration options <strong><code>Resource dir</code> and
+</strong><code>Logbook dir</code> in the <strong><a href="../config/">elogd.cfg
+description</a></strong>.<strong><em>*</em></strong>*</p>
+<h2 id="secure-connections-howto">Secure Connections HOWTO</h2>
+<h3 id="using-elogd-itself">Using elogd itself</h3>
+<p>Starting from version 2.7.3 on, the <strong><code>elogd</code></strong> program supports secure
+connections over the Secure Socker Layer (SSL) directly. <strong>It is
+recommented to run elog only through secure HTTPS connections if
+passwords are used. Otherwise the passwords are send over the network in
+clear text and exposed to sniffing attacks</strong>. To use SSL, put
+<strong><code>SSL = 1</code></strong> into the config file. If the <strong><code>URL =</code></strong> directive is
+used, make sure to use
+<strong><code>https://...</code></strong> instead of <strong><code>http://...</code></strong> there. The ELOG distribution contains a simple self-signed certificate in the <code>**ssl**</code> subdirectory. One can replace this certificate and key with a real ceritficate to avoid browser pop-up windows warning about the self-signed certificate. `</p>
+<h3 id="using-apache">Using Apache</h3>
+<p>Another possibility is to use the <a href="http://httpd.apache.org">Apache</a> web
+server as a proxy server allowing secure connections. To do so, Apache
+has to be configured accordingly and a certificate has to be generated.
+See some <a href="http://slacksite.com/apache/certificate.html">instructions</a> on
+how to create a certificate, and see <em>Running elogd under Apache</em> before
+on this page on how to run elogd under Apache. Once configured
+correctly, elogd can be accessed via <em>http://your.host</em> and via
+<em>https://your.host</em> simultaneously.</p>
+<p>The redirection statement has to be changed to</p>
+<pre><code class="language-text">Redirect permanent /elog https://your.host.domain/elog/
+ProxyPass /elog/ http://your.host.domain:8080/
+</code></pre>
+<p>and following has to be added to the section <em>"VirtualHOst ...:443</em> in
+/etc/httpd/conf.d/ssl.conf:</p>
+<pre><code class="language-text"># Proxy setup for Elog
+&lt;Proxy *&gt;
+Order deny,allow
+Allow from all
+&lt;/Proxy&gt;
+ProxyPass /elog/ http://host.where.elogd.is.running:8080/
+ProxyPassReverse /elog/ http://host.where.elogd.is.running:8080/
+</code></pre>
+<p>Then, following URL statement has to be written to elogd.cfg:</p>
+<p><code>URL = https://your.host.domain/elog</code></p>
+<p>There is a more detailed step-by-step instructions at the <a href="http://elog.psi.ch/elogs/contributions/11">contributions
+section</a>.</p>
+<h3 id="using-ssh">Using ssh</h3>
+<p><strong><code>elogd</code></strong> can be accessed through a a SSH tunnel. To do so, open an
+SSH tunnel like:</p>
+<p><code>ssh -L 1234:your.server.name:8080 your.server.name</code></p>
+<p>This opens a secure tunnel from your local host, port 1234, to the
+server host where the <strong><code>elogd</code></strong> daemon is running on port 8080. Now
+you can access <strong><code>http://localhost:1234</code></strong> from your browser and reach
+<strong><code>elogd</code></strong> in a secure way.</p>
+<h2 id="how-it-all-works">How It All Works</h2>
+<p>For the technically curious:</p>
+<p>The concept of <strong>ELOG</strong> is very simple. The logbook functionality is
+implemented by a single daemon program, <strong><code>elogd</code></strong>, which is written in
+C. It contains an integrated Web server, which does not serve files like
+standard Web servers, but reads logbook entries from its database and
+formats them into HTML. Since only forms and tables are used, no Java or
+Javascript is necessary, which makes the logbook display very fast. The
+system does not use any images on purpose to reduce the amount of data
+to be transferred. Since the <strong>ELOG</strong> daemon contains its own <em>http</em>
+server, no additional server like Apache is required.</p>
+<p>The "<em>database</em>" in which <strong>ELOG</strong> saves its entries is in plain ASCII
+format. One file is created for each day in the form <strong><code>YYMMDDa.log</code></strong>
+(where YY is the year, MM the month and DD the day). For ELOG versions
+1.x.x, the format was <strong><code>YYMMDD.log</code></strong>. Messages are separated
+internally by the string <strong><code>$@MID@$</code></strong>. If this string is entered in a
+message (main body text or attribute), it gets converted automatically
+in order not to invalidate the database structure.</p>
+<p>If attachments are submitted, they are saved as separate files named
+<strong><code>YYMMDD_HHMMSS_name</code></strong> - where in addition to the date the time is
+specified and <strong><code>name</code></strong> is the original file name of the attachment. To
+copy the database to another computer, only the *.log files and the
+attachment files need to be copied. To copy for example all files from
+March 2001, just select them with <strong><code>0103??a.log</code></strong> and <strong><code>0103??_*</code></strong>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

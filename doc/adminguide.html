@@ -178,11 +178,13 @@ is created which contains a simple example logbook. The ELOG server can now be s
 <p>
  or through the daemon servics with 
 <p>
-<code>sudo launchctl load /Library/LaunchDaemons/ch.psi.elogd.plist</code>
+<code>sudo launchctl enable system/ch.psi.elogd</code><br />
+<code>sudo launchctl bootstrap system /Library/LaunchDaemons/ch.psi.elogd.plist</code>
 <p>
 To stop the service, use
 <p>
-<code>sudo launchctl unload /Library/LaunchDaemons/ch.psi.elogd.plist</code>
+<code>sudo launchctl bootout system /Library/LauchDaemons/ch.psi.elogd.plist</code><br />
+<code>sudo launchctl disable system/ch.psi.elogd</code>
 <p>
 <hr>
 <h3><i>Debian</i>:</h3>

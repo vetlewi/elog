@@ -630,10 +630,12 @@ int auth_change_password(LOGBOOK * lbs, const char *user, const char *old_pwd, c
 
    if (old_pwd) {} // avoid compiler warning
 
+   /* Disable Kerberos password change to behave the same as for LDAP
 #ifdef HAVE_KRB5
    if (stristr(str, "Kerberos"))
       status = auth_change_password_krb5(lbs, user, old_pwd, new_pwd, error_str, error_size);
 #endif
+   */
 
    return status;
 }
