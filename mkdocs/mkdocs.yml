@@ -14,7 +14,10 @@ nav:
   - Demo: demo.md
   - Download info: download_info.md
 
-theme: material 
+theme:
+  name: material
+  logo: img/elog.png
+  favicon: img/favicon.png
 
 plugins:
   - to-pdf
