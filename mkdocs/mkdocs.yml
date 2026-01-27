@@ -18,7 +18,11 @@ theme:
   name: material
   logo: img/elog.png
   favicon: img/favicon.png
+  features:
+    - search.suggest
+    - search.highlight
+    - search.share
 
 plugins:
   - to-pdf
-
+  - search
