@@ -11826,7 +11826,8 @@ void show_edit_form(LOGBOOK *lbs, int message_id, BOOL breply, BOOL bedit, BOOL 
                   strlcpy(file_name, lbs->data_dir, sizeof(file_name));
                   generate_subdir_name(att[index], subdir, sizeof(subdir));
                   strlcat(file_name, subdir, sizeof(file_name));
-                  strlcat(file_name, att[index], sizeof(file_name));
+                  strencode2(str2, att[index], sizeof(str2));
+                  strlcat(file_name, str2, sizeof(file_name));
 
                   display_inline = is_image(file_name) || is_ascii(file_name);
                   if (chkext(file_name, ".ps") || chkext(file_name, ".pdf") || chkext(file_name, ".eps")
@@ -17559,7 +17560,7 @@ void display_line(LOGBOOK *lbs, int message_id, int number, const char *mode, in
                   char attachment[MAX_ATTACHMENTS][MAX_PATH_LENGTH], char *encoding, BOOL select,
                   int *n_display, char *locked_by, int highlight, regex_t *re_buf, int highlight_mid,
                   int absolute_link, char *draft) {
-   char str[NAME_LENGTH+100], ref[2000], rowstyle[80], tdstyle[80], format[256],
+   char str[NAME_LENGTH+100], ref[2000], rowstyle[80], tdstyle[80], format[256], str2[256],
            file_name[MAX_PATH_LENGTH], *slist, *svalue, comment[256], param[80], subdir[256], attr[NAME_LENGTH];
    const char *nowrap;
    char display[NAME_LENGTH], attr_icon[80];
@@ -18245,7 +18246,8 @@ void display_line(LOGBOOK *lbs, int message_id, int number, const char *mode, in
             strlcpy(file_name, lbs->data_dir, sizeof(file_name));
             generate_subdir_name(attachment[index], subdir, sizeof(subdir));
             strlcat(file_name, subdir, sizeof(file_name));
-            strlcat(file_name, attachment[index], sizeof(file_name));
+            strencode2(str2, attachment[index], sizeof(str2));
+            strlcat(file_name, str2, sizeof(file_name));
             thumb_status = create_thumbnail(lbs, file_name);
 
             if (!show_attachments) {
@@ -25132,7 +25134,8 @@ void show_elog_entry(LOGBOOK *lbs, char *dec_path, char *command) {
                strlcpy(file_name, lbs->data_dir, sizeof(file_name));
                generate_subdir_name(attachment[index], subdir, sizeof(subdir));
                strlcat(file_name, subdir, sizeof(file_name));
-               strlcat(file_name, attachment[index], sizeof(file_name));
+               strencode2(str2, attachment[index], sizeof(file_name));
+               strlcat(file_name, str2, sizeof(file_name));
                thumb_status = create_thumbnail(lbs, file_name);
 
                length = 0;
@@ -27054,7 +27057,7 @@ void show_uploader_finished(LOGBOOK *lbs) {
 /*------------------------------------------------------------------*/
 
 void show_uploader_json(LOGBOOK *lbs) {
-   char charset[256];
+   char charset[256], str2[256];
    char filename[256], thumbname[256], attchname[256], subdir[256];
    int i, j, attch_count;
 
@@ -27098,8 +27101,8 @@ void show_uploader_json(LOGBOOK *lbs) {
       strlcpy(filename, lbs->data_dir, sizeof(filename));
       generate_subdir_name(getparam(attchname), subdir, sizeof(subdir));
       strlcat(filename, subdir, sizeof(filename));
-      strlcat(filename, getparam(attchname), sizeof(filename));
-
+      strencode2(str2, getparam(attchname), sizeof(str2));
+      strlcat(filename, str2, sizeof(filename));
 
       if (create_thumbnail(lbs, filename)) {
          get_thumb_name(filename, thumbname, sizeof(thumbname), 0);
@@ -27208,7 +27211,8 @@ void interprete(char *lbook, const char *path)
             break;
       }
       if (!strieq(logbook, str)) {
-         sprintf(str, "Error: logbook \"%s\" not defined in %s", logbook_enc, CFGFILE);
+         strencode2(str2, logbook_enc, sizeof(str2));
+         sprintf(str, "Error: logbook \"%s\" not defined in %s", str2, CFGFILE);
          show_error(str);
          return;
       }
@@ -28378,7 +28382,7 @@ void interprete(char *lbook, const char *path)
 /*------------------------------------------------------------------*/
 
 void decode_get(char *logbook, char *string) {
-   char path[256];
+   char path[256], str2[256];
    char *p, *pitem;
 
    setparam("cmdline", string);
@@ -28400,7 +28404,8 @@ void decode_get(char *logbook, char *string) {
             *p++ = 0;
             url_decode(pitem);
             url_decode(p);
-            if (!setparam(pitem, p))
+            strencode2(str2, p, sizeof(str2));
+            if (!setparam(pitem, str2))
                return;
 
             p = strtok(NULL, "&");
@@ -28494,7 +28499,7 @@ void decode_post(char *logbook, LOGBOOK *lbs, char *string, const char *boundary
                if (strchr(p, '\"'))
                   *strchr(p, '\"') = 0;
                /* set attachment filename */
-               strlcpy(file_name, p, sizeof(file_name));
+               strencode2(file_name, p, sizeof(file_name));
                if (file_name[0]) {
                   if (get_verbose() >= VERBOSE_INFO)
                      eprintf("decode_post: Found CSV/XML import file\n");
@@ -29136,7 +29141,8 @@ int process_http_request(const char *crequest, int i_conn) {
          sprintf(str, "Top group %s", logbook);
          if (!getcfg("global", str, list, sizeof(list))) {
 
-            sprintf(str, "Error: logbook \"%s\" not defined in %s", logbook_enc, CFGFILE);
+            strencode2(str2, logbook_enc, sizeof(str2));
+            sprintf(str, "Error: logbook \"%s\" not defined in %s", str2, CFGFILE);
             show_error(str);
             xfree(str);
             xfree(request);
