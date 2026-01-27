@@ -8598,6 +8598,15 @@ void strencode2(char *b, const char *text, int size) {
 
 /*------------------------------------------------------------------*/
 
+void strencode3(char *text) {
+   for (int i = 0; i < (int) strlen(text); i++)
+      if (text[i] == '$' || text[i] == '(' || text[i] == ')' || text[i] == '{' || text[i] == '}' ||
+         text[i] == ',' || text[i] == '`')
+         text[i] = '_';
+}
+
+/*------------------------------------------------------------------*/
+
 int build_subst_list(LOGBOOK *lbs, char list[][NAME_LENGTH], char value[][NAME_LENGTH],
                      char attrib[][NAME_LENGTH], BOOL format_date) {
    int i;
@@ -15076,7 +15085,7 @@ void csv_import(LOGBOOK *lbs, const char *csv, const char *csvfile) {
             }
       }
 
-      /* interprete date entries correctly */
+      /* interpret date entries correctly */
       if (!(first && isparam("head"))) {
          for (i = attr_offset; i < n; i++) {
             if (attr_flags[i - attr_offset] & AF_DATE) {
@@ -15511,9 +15520,10 @@ void xml_import(LOGBOOK *lbs, const char *xml, const char *xmlfile) {
             else
                p = strtok(NULL, ",");
 
-            if (p != NULL)
+            if (p != NULL) {
                strlcpy(attachment[i], p, MAX_PATH_LENGTH);
-            else
+               strencode3(attachment[i]);
+            } else
                break;
          }
 
@@ -24089,6 +24099,7 @@ int create_thumbnail(LOGBOOK *lbs, char *file_name) {
    } else
       thumb_size[0] = 0;
 
+   strencode3(file_name);
    getcfg(lbs->name, "Thumbnail options", thumb_options, sizeof(thumb_options));
 
    if (!chkext(file_name, ".ps") && !chkext(file_name, ".pdf") && !chkext(file_name, ".eps")
