@@ -2,7 +2,6 @@
 
    Name:         strlcpy.c
    Created by:   Stefan Ritt
-   Copyright 2000 + Stefan Ritt
 
    Contents:     Contains strlcpy and strlcat which are versions of
                  strcpy and strcat, but which avoid buffer overflows
