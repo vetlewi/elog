@@ -26366,8 +26366,10 @@ BOOL check_login(LOGBOOK *lbs, const char *sid) {
    if (!skip_sid_check && !sid_check(sid, user_name)) {
       if (isparam("redir"))
          strlcpy(str, getparam("redir"), sizeof(str));
-      else
+      else {
          strlcpy(str, isparam("cmdline") ? getparam("cmdline") : _cmdline, sizeof(str));
+         url_decode(str);
+      }
       /* avoid recursive loops with ?cmd=Login */
       if (stristr(str, loc("Login")))
          str[0] = 0;
