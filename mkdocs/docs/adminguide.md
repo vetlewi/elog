@@ -131,19 +131,22 @@ either manually with
 
 `/usr/local/sbin/elogd`
 
-or through the daemon servics with
+or through the daemon service with
 
 ``` text
 sudo launchctl enable system/ch.psi.elogd
-sudo launchctl bootstrap system /Library/LaunchDaemons/ch.psi.elogd.plist
+sudo launchctl bootstrap system /Library/LaunchDaemons/ch.psi.elogd.plist/elogd.plist
 ```
 
 To stop the service, use
 
 ``` text
-sudo launchctl bootout system /Library/LauchDaemons/ch.psi.elogd.plist
+sudo launchctl bootout system /Library/LaunchDaemons/ch.psi.elogd.plist/elogd.plist
 sudo launchctl disable system/ch.psi.elogd
 ```
+
+Some users reported that on some systems the daemon requires 
+Full Disk Access to be granted under `Settings / Privacy & Security`.
 
 ### Debian
 
