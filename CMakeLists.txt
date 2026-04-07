@@ -1,5 +1,5 @@
 # CMakeLists.txt for ELOG project
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 project(ELOG)
 
 # C++ version
@@ -162,8 +162,8 @@ if (${CMAKE_SYSTEM_NAME} MATCHES Darwin)
 install(FILES ${CMAKE_SOURCE_DIR}/elogd.plist
         DESTINATION /Library/LaunchDaemons/ch.psi.elogd.plist)
 
-install(CODE "message(\"\nThe elogd servie can be started with:\")")
-install(CODE "message(\"$ sudo launchctl load /Library/LaunchDaemons/ch.psi.elogd.plist\n\")")
+install(CODE "message(\"\nThe elogd service can be started with:\")")
+install(CODE "message(\"$ sudo launchctl bootstrap system /Library/LaunchDaemons/ch.psi.elogd.plist/elogd.plist\n\")")
 
 #install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --cyan 
 #  \"$ sudo launchctl load /Library/LaunchDaemons/ch.psi.elogd.plist\")")
