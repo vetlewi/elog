@@ -482,13 +482,9 @@ This is a draft message, edit and submit it to make it permanent = Ceci est un b
 Restrict search to last = Restreindre la recherche au dernier
 Do you want to restore your original text? = Voulez-vous restaurer votre texte original ?
 This will overwrite your current modifications. = Cela va écraser vos modifications en cours.
-
-#
-#---- please translate following items and then remove this comment ----#
-#
 Are you sure to delete the attachment? = Etes-vous sûr de vouloir supprimer cette pièce jointe ?
 Error sending Email via "%s" = Erreur d'envoi de mail via "%s"
-Please wait = 
-is too long = 
-Email address = 
-A password recovery email has been sent if the user exists in the database = 
+Please wait =  Veuillez patienter
+is too long = est trop long
+Email address = adresse e-mail
+A password recovery email has been sent if the user exists in the database = Un e-mail de récupération du mot de passe a été envoyé si l'utilisateur existe dans la base de données
